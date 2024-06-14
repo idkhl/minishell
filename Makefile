@@ -6,15 +6,15 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/11 09:10:49 by idakhlao          #+#    #+#              #
-#    Updated: 2024/06/04 18:00:09 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/06/14 17:50:06 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = src/
+SRCS = src/prout.c
 OBJS = ${SRCS:.c=.o}
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 
 PRINTF = ./printf/libftprintf.a
 LIBFT = ./libft/libft.a
 CC = cc
@@ -26,7 +26,7 @@ all : $(NAME)
 	cc $(CFLAGS) -c -o $@ $< 
 
 $(NAME): start $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(PRINTF) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(PRINTF) $(LIBFT)
 
 start :
 	make -C printf all
