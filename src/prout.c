@@ -6,11 +6,28 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/14 18:27:47 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:51:25 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	check_echo(char *str)
+{
+	int	i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+		{
+			printf("%s ", str);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
 void	build_echo(char **tab)
 {
@@ -21,10 +38,10 @@ void	build_echo(char **tab)
 	nl = 0;
 	if (ft_strcmp(tab[i], "echo") == 0)
 		i++;
-	if (tab[i] && ft_strcmp(tab[i], "-n") == 0)
+	while (tab[i] && ft_strncmp(tab[i], "-n", 2) == 0)
 	{
+		nl = check_echo(tab[i]);
 		i++;
-		nl++;
 	}
 	if (tab[i])
 	{
@@ -60,7 +77,19 @@ void	build_cd(char **tab)
 		return (perror(s));
 }
 
-void	parse_line(char *line)
+void	build_env(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+}
+
+void	parse_line(char *line, char **envp)
 {
 	char	**tab;
 
@@ -73,19 +102,23 @@ void	parse_line(char *line)
 		build_pwd();
 	if (ft_strcmp(*tab, "cd") == 0)
 		build_cd(tab);
+	if (ft_strcmp(*tab, "env") == 0)
+		build_env(envp);
 }
 
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 
 	line = readline("minishell $> ");
 	while (line)
 	{
-		parse_line(line);
+		parse_line(line, envp);
 		if (ft_strcmp(line, "exit") == 0)
 			exit(0);
 		free(line);
 		line = readline("minishell $> ");
 	}
+	(void)av;
+	(void)ac;
 }
