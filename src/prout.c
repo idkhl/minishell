@@ -6,15 +6,47 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/18 20:02:21 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:06:40 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	init_struct(t_data *data)
+int	ft_tablen(char **tab)
 {
-	// data->env = NULL;
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+char	**ft_tabdup(char **tab)
+{
+	char	**tmp;
+	int		i;
+
+	tmp = (char **)malloc(sizeof(char *) * (ft_tablen(tab) + 1));
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (tab[i])
+	{
+		tmp[i] = ft_strdup(tab[i]);
+		if (!tmp[i])
+			return (NULL);
+		i++;
+	}
+	tmp[i] = NULL;
+	return (tmp);
+}
+
+void	init_struct(t_data *data, char **envp)
+{
+	data->env = ft_tabdup(envp);
+	if (!data->env)
+		return ;
 	data->input = NULL;
 	data->exp = NULL;
 }
@@ -86,26 +118,16 @@ void	build_cd(t_data *data)
 		return (perror(s));
 }
 
-void	build_env(char **envp)
+void	build_env(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (data->env[i])
 	{
-		printf("%s\n", envp[i]);
+		printf("%s\n", data->env[i]);
 		i++;
 	}
-}
-
-int	tab_len(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
 }
 
 void	print_export(t_data *data)
@@ -137,37 +159,59 @@ void	print_export(t_data *data)
 
 void	add_export(t_data *data)
 {
-	printf("[%s]\n", data->input[1]);
+	char	**newenv;
+	int		newsize;
+	int		i;
+	int		j;
+
+	newsize = ft_tablen(data->env) + ft_tablen(data->input);
+	newenv = (char **)malloc(sizeof(char *) * (newsize));
+	i = 0;
+	while (data->env[i])
+	{
+		newenv[i] = ft_strdup(data->env[i]);
+		if (!newenv[i])
+			return ;
+		i++;
+	}
+	j = 1;
+	while (data->input[j])
+	{
+		newenv[i] = ft_strdup(data->input[j]);
+		if (!newenv[i])
+			return ;
+		i++;
+		j++;
+	}
+	newenv[i] = NULL;
+	malloc_free(data->env);
+	data->env = ft_tabdup(newenv);
+	if (!data->env)
+		return ;
+	malloc_free(newenv);
 }
 
-void	build_export(t_data *data, char **envp)
+void	build_export(t_data *data)
 {
 	int		i;
 
 	i = 0;
 
-	data->exp = (char **)malloc(sizeof(char *) * (tab_len(envp) + 1));
-	if (!data->exp)
-		return ;
-	while (envp[i])
-	{
-		data->exp[i] = ft_strdup(envp[i]);
-		if (!data->exp[i])
-			return ;
-		i++;
-	}
-	data->exp[i] = NULL;
-	if (tab_len(data->input) > 1)
+	if (ft_tablen(data->input) > 1)
 		add_export(data);
-	else
+	if (ft_tablen(data->input) == 1)
 	{
+		data->exp = ft_tabdup(data->env);
+		if (!data->exp)
+			return ;
 		print_export(data);
+		malloc_free(data->exp);
 	}
 }
 
-void	parse_line(t_data *data, char *line, char **envp)
+void	parse_line(t_data *data, char *line)
 {
-	init_struct(data);
+	// init_struct(data);
 	data->input = ft_split(line, ' ');
 	if (!data->input)
 		return ;
@@ -178,27 +222,41 @@ void	parse_line(t_data *data, char *line, char **envp)
 	if (ft_strcmp(*data->input, "cd") == 0)
 		build_cd(data);
 	if (ft_strcmp(*data->input, "env") == 0)
-		build_env(envp);
+		build_env(data);
 	if (ft_strcmp(*data->input, "export") == 0)
-		build_export(data, envp);
-	// malloc_free(tab);
+		build_export(data);
+	malloc_free(data->input);
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
-	t_data	*data;
+	t_data	data;
 
-	data = NULL;
+	init_struct(&data, envp);
 	line = readline("minishell $> ");
 	while (line)
 	{
-		parse_line(data, line, envp);
+		parse_line(&data, line);
 		if (ft_strcmp(line, "exit") == 0)
-			exit(0);
+		{
+			// if (data.input)
+			// 	malloc_free(data.input);
+			// if (data.exp)
+			// 	malloc_free(data.exp);
+			if (data.env)
+				malloc_free(data.env);
+			return (0);
+		}
 		free(line);
 		line = readline("minishell $> ");
 	}
 	(void)av;
 	(void)ac;
+	if (data.input)
+		malloc_free(data.input);
+	if (data.exp)
+		malloc_free(data.exp);
+	if (data.env)
+		malloc_free(data.env);
 }
