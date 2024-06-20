@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/18 16:40:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:37:32 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,18 @@ typedef struct s_data
 	char	**exp;
 }	t_data;
 
+/*	BUILT-INS	*/
+
+void	build_echo(t_data *data);
+void	build_pwd(void);
+void	build_cd(t_data *data);
+void	build_env(t_data *data);
+void	build_export(t_data *data);
+void	build_unset(t_data *data);
+
+/*	UTILS	*/
+
+int		ft_tablen(char **tab);
+char	**ft_tabdup(char **tab);
 
 #endif
