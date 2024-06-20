@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/20 17:37:32 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:33:08 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_data
 	char	**input;
 	char	**env;
 	char	**exp;
+	char	**path;
 }	t_data;
 
 /*	BUILT-INS	*/

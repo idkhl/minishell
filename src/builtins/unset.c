@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:46 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/20 17:37:15 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:25:04 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ void	build_unset(t_data *data)
 		while (data->env[i])
 		{
 			if (ft_strncmp(data->input[j], data->env[i], \
-				ft_strlen(data->input[j])) == 0
-				&& data->env[i][ft_strlen(data->input[j])] == '=')
+				ft_strlen(data->input[j])) == 0)
 			{
 				free(data->env[i]);
 				while (data->env[i + 1])
 				{
-					data->env[i] = data->env[i + 1];
+					data->env[i] = ft_strdup(data->env[i + 1]);
 					i++;
 				}
 				data->env[i] = NULL;
