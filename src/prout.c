@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/19 12:06:40 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:42:40 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,40 @@ void	print_export(t_data *data)
 		printf("export %s\n", data->exp[i]);
 }
 
+void	unset_env(t_data *data, char *var)
+{
+	char	**newenv;
+	int		newsize;
+	int		i;
+	int		j;
+
+	newsize = ft_tablen(data->env) - ft_tablen(data->input) + 1;
+	newenv = (char **)malloc(sizeof(char *) * (newsize));
+	if (!newenv)
+		return ;
+	i = 0;
+	j = 0;
+	while (data->env[j])
+	{
+		if (ft_strncmp(var, data->env[j], ft_strlen(var)) == 0
+			&& data->env[i][ft_strlen(var)] == '=')
+		{
+			free(data->env[i]);
+			i++;
+			continue ;
+		}
+		newenv[j] = ft_strdup(data->env[i]);
+		i++;
+		j++;
+	}
+	newenv[j] = NULL;
+	malloc_free(data->env);
+	data->env = ft_tabdup(newenv);
+	if (!data->env)
+		return ;
+	malloc_free(newenv);
+}
+
 void	add_export(t_data *data)
 {
 	char	**newenv;
@@ -166,6 +200,8 @@ void	add_export(t_data *data)
 
 	newsize = ft_tablen(data->env) + ft_tablen(data->input);
 	newenv = (char **)malloc(sizeof(char *) * (newsize));
+	if (!newenv)
+		return ;
 	i = 0;
 	while (data->env[i])
 	{
@@ -177,6 +213,7 @@ void	add_export(t_data *data)
 	j = 1;
 	while (data->input[j])
 	{
+		// unset_env(data, data->input[j]);
 		newenv[i] = ft_strdup(data->input[j]);
 		if (!newenv[i])
 			return ;
@@ -209,6 +246,36 @@ void	build_export(t_data *data)
 	}
 }
 
+void	build_unset(t_data *data)
+{
+	int	i;
+	int	j;
+
+	j = 1;
+	while (j < ft_tablen(data->input))
+	{
+		i = 0;
+		while (data->env[i])
+		{
+			if (ft_strncmp(data->input[j], data->env[i], \
+				ft_strlen(data->input[j])) == 0
+				&& data->env[i][ft_tablen(data->input)] == '=')
+			{
+				printf("{%s}\n", data->env[i]);
+				free(data->env[i]);
+				while (data->env[i + 1])
+				{
+					data->env[i] = data->env[i + 1];
+					i++;
+				}
+				data->env[i] = NULL;
+			}
+			i++;
+		}
+		j++;
+	}
+}
+
 void	parse_line(t_data *data, char *line)
 {
 	// init_struct(data);
@@ -225,6 +292,8 @@ void	parse_line(t_data *data, char *line)
 		build_env(data);
 	if (ft_strcmp(*data->input, "export") == 0)
 		build_export(data);
+	if (ft_strcmp(*data->input, "unset") == 0)
+		build_unset(data);
 	malloc_free(data->input);
 }
 
@@ -240,10 +309,6 @@ int	main(int ac, char **av, char **envp)
 		parse_line(&data, line);
 		if (ft_strcmp(line, "exit") == 0)
 		{
-			// if (data.input)
-			// 	malloc_free(data.input);
-			// if (data.exp)
-			// 	malloc_free(data.exp);
 			if (data.env)
 				malloc_free(data.env);
 			return (0);
@@ -260,3 +325,6 @@ int	main(int ac, char **av, char **envp)
 	if (data.env)
 		malloc_free(data.env);
 }
+
+//plusieurs export
+//unset avnat d'export
