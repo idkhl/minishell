@@ -1,0 +1,7 @@
+includes
+libft
+Makefile
+minishell
+src
+test
+valgrind-readline.supp

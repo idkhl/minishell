@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:30:24 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/05/24 11:42:18 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:14:17 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	**malloc_free(char	**tab)
 		return (NULL);
 	while (tab[i])
 	{
+		// printf("%s\n\n\n\n\n", tab[i]);
 		free(tab[i]);
 		i++;
 	}

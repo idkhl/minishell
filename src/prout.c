@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/20 23:48:32 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:15:43 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,16 @@ char	*access_cmd(t_data *data)
 	return (NULL);
 }
 
+void	output_redir(t_data *data)
+{
+	int	outfile;
+
+	outfile = open(data->input[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (dup2(outfile, STDOUT_FILENO) == -1)
+		return ;
+	close(outfile);
+}
+
 void	execute_cmd(t_data *data)
 {
 	int		i;
@@ -138,6 +148,8 @@ void	execute_cmd(t_data *data)
 		return ;
 	if (pid == 0)
 	{
+		if (*data->input[1] == '>')
+			output_redir(data);
 		if (execve(cmd, data->input, data->env) == -1)
 		{
 			malloc_free(data->path);
@@ -160,17 +172,20 @@ void	parse_line(t_data *data, char *line)
 	check_expand(data);
 	if (ft_strcmp(*data->input, "echo") == 0)
 		build_echo(data);
-	if (ft_strcmp(*data->input, "pwd") == 0)
+	else if (ft_strcmp(*data->input, "pwd") == 0)
 		build_pwd();
-	if (ft_strcmp(*data->input, "cd") == 0)
+	else if (ft_strcmp(*data->input, "cd") == 0)
 		build_cd(data);
-	if (ft_strcmp(*data->input, "env") == 0)
+	else if (ft_strcmp(*data->input, "env") == 0)
 		build_env(data);
-	if (ft_strcmp(*data->input, "export") == 0)
+	else if (ft_strcmp(*data->input, "export") == 0)
 		build_export(data);
-	if (ft_strcmp(*data->input, "unset") == 0)
+	else if (ft_strcmp(*data->input, "unset") == 0)
 		build_unset(data);
-	execute_cmd(data);
+	// if (*data->input[1] == '>')
+	// 	output_redir(data);
+	else
+		execute_cmd(data);
 	malloc_free(data->input);
 }
 
@@ -184,7 +199,6 @@ int	main(int ac, char **av, char **envp)
 	while (line)
 	{
 		add_history(line);
-		parse_line(&data, line);
 		if (ft_strcmp(line, "exit") == 0)
 		{
 			if (data.env)
@@ -193,17 +207,17 @@ int	main(int ac, char **av, char **envp)
 				malloc_free(data.path);
 			return (0);
 		}
+		parse_line(&data, line);
 		free(line);
 		line = readline("minishell $> ");
 	}
 	(void)av;
 	(void)ac;
-	// if (data.input)
-	// 	malloc_free(data.input);
-	if (data.exp)
-		malloc_free(data.exp);
 	if (data.env)
 		malloc_free(data.env);
-	// if (data.path)
-	// 	malloc_free(data.path);
 }
+
+// export a b -> export X env
+
+
+// line = /n || isspace
