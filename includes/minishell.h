@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/20 20:33:08 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/22 22:19:46 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_data
 	char	**exp;
 	char	**path;
 }	t_data;
+
+void	expand(t_data *data);
 
 /*	BUILT-INS	*/
 

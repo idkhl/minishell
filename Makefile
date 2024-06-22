@@ -6,13 +6,13 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/11 09:10:49 by idakhlao          #+#    #+#              #
-#    Updated: 2024/06/20 18:00:09 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/06/22 22:15:37 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = src/prout.c \
+SRCS = src/prout.c src/expand.c \
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/export.c src/builtins/unset.c \
 		src/utils/ft_tabdup.c src/utils/ft_tablen.c
 OBJS = ${SRCS:.c=.o}
