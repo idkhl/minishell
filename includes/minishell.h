@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/22 22:19:46 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/23 02:22:03 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	build_cd(t_data *data);
 void	build_env(t_data *data);
 void	build_export(t_data *data);
 void	build_unset(t_data *data);
+void	build_exit(t_data *data);
 
 /*	UTILS	*/
 

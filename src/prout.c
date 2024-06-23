@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/23 02:18:29 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/23 02:22:03 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,21 +161,6 @@ void	execute_cmd2(t_data *data)
 	}
 }
 
-void	exit_shell(t_data *data)
-{
-	if (data->input[1] && ft_isalpha(data->input[1][0]) == 1)
-		return(perror("error"));
-	if (ft_tablen(data->input) > 2)
-		return (perror("error"));
-	printf("exit\n");
-	if (data->env)
-		malloc_free(data->env);
-	if (data->input)
-		malloc_free(data->input);
-	exit(0);
-	return ;
-}
-
 void	parse_line(t_data *data, char *line)
 {
 	data->input = ft_split(line, ' ');
@@ -183,7 +168,7 @@ void	parse_line(t_data *data, char *line)
 		return ;
 	expand(data);
 	if (ft_strcmp(*data->input, "exit") == 0)
-		exit_shell(data);
+		build_exit(data);
 	else if (ft_strcmp(*data->input, "echo") == 0)
 		build_echo(data);
 	else if (ft_strcmp(*data->input, "pwd") == 0)
@@ -196,7 +181,6 @@ void	parse_line(t_data *data, char *line)
 		build_export(data);
 	else if (ft_strcmp(*data->input, "unset") == 0)
 		build_unset(data);
-
 	else if (ft_tablen(data->input) > 1 && *data->input[1] == '>')
 	{
 		execute_cmd2(data);
