@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/23 02:22:03 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/23 04:57:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,61 +22,6 @@ void	init_struct(t_data *data, char **envp)
 	data->path = NULL;
 }
 
-char	*get_pathline(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->env[i])
-	{
-		if (ft_strncmp(data->env[i], "PATH=", 5) == 0)
-			return (data->env[i]);
-		i++;
-	}
-	return (NULL);
-}
-
-char	**get_path(t_data *data)
-{
-	char	*tmp;
-	char	**path;
-
-	tmp = get_pathline(data);
-	if (!tmp)
-		return (NULL);
-	tmp += 5;
-	path = ft_split(tmp, ':');
-	if (!path)
-		return (NULL);
-	return (path);
-}
-
-char	*access_cmd(t_data *data)
-{
-	char	*bin;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	if (data->input[0] && access(data->input[0], F_OK | X_OK) == 0)
-		return (ft_strdup(data->input[0]));
-	while (data->path && data->path[i])
-	{
-		tmp = ft_strjoin(data->path[i], "/");
-		if (!tmp)
-			return (NULL);
-		bin = ft_strjoin(tmp, data->input[0]);
-		if (!bin)
-			return (free(tmp), NULL);
-		free(tmp);
-		if (access(bin, F_OK | X_OK) == 0)
-			return (bin);
-		free(bin);
-		i++;
-	}
-	return (NULL);
-}
-
 void	output_redir(t_data *data)
 {
 	int	outfile;
@@ -88,11 +33,11 @@ void	output_redir(t_data *data)
 	if (outfile < 0)
 		return (perror("Open"));
 	if (dup2(outfile, STDOUT_FILENO) == -1)
-		return (perror("dup2"));
+		return (close(outfile), perror("dup2"));
 	close(outfile);
 }
 
-void	execute_cmd1(t_data *data)
+void	execute_cmd(t_data *data)
 {
 	int		i;
 	char	*cmd;
@@ -126,21 +71,67 @@ void	execute_cmd1(t_data *data)
 	}
 }
 
-void	execute_cmd2(t_data *data)
+void	input_redir(t_data *data)
 {
-	int		i;
+	int	infile;
+
+	// if (data->input[1] && ft_strcmp(data->input[1], "<") == 0)
+	infile = open(data->input[2], O_RDONLY, 0644);
+	// if (data->input[1] && ft_strcmp(data->input[1], ">>") == 0)
+	// 	outfile = open(data->input[2], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (infile < 0)
+		return (perror("Open"));
+	if (dup2(infile, STDIN_FILENO) == -1)
+		return (close(infile), perror("dup2"));
+	close(infile);
+}
+
+void	execute_cmd_in(t_data *data)
+{
 	char	*cmd;
 	char	**tmp;
 	pid_t	pid;
 
-	i = 0;
 	data->path = get_path(data);
 	cmd = access_cmd(data);
+	if (!cmd)
+		return (perror("access_cmd"));
 	tmp = ft_split(data->input[0], ' ');
 	if (!tmp)
-		return ;
+		return (free(cmd));
+	pid = fork();
+	if (pid < 0)
+		return (malloc_free(tmp), free(cmd), perror("fork"));
+	if (pid == 0)
+	{
+		input_redir(data);
+		if (execve(cmd, tmp, data->env) == -1)
+		{
+			malloc_free(data->path);
+			return (free(cmd), malloc_free(tmp), exit(EXIT_FAILURE));
+		}
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		free(cmd);
+		malloc_free(tmp);
+	}
+}
+
+void	execute_cmd_out(t_data *data)
+{
+	char	*cmd;
+	char	**tmp;
+	pid_t	pid;
+
+	data->path = get_path(data);
+	cmd = access_cmd(data);
 	if (!cmd)
-		return (malloc_free(tmp), perror("access_cmd"));
+		return (perror("access_cmd"));
+	tmp = ft_split(data->input[0], ' ');
+	if (!tmp)
+		return (free(cmd));
 	pid = fork();
 	if (pid < 0)
 		return (malloc_free(tmp), free(cmd), perror("fork"));
@@ -183,12 +174,17 @@ void	parse_line(t_data *data, char *line)
 		build_unset(data);
 	else if (ft_tablen(data->input) > 1 && *data->input[1] == '>')
 	{
-		execute_cmd2(data);
+		execute_cmd_out(data);
+		malloc_free(data->path);
+	}
+	else if (ft_tablen(data->input) > 1 && *data->input[1] == '<')
+	{
+		execute_cmd_in(data);
 		malloc_free(data->path);
 	}
 	else
 	{
-		execute_cmd1(data);
+		execute_cmd(data);
 		malloc_free(data->path);
 	}
 	malloc_free(data->input);
