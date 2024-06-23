@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/23 00:46:37 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/23 02:18:29 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,53 +81,92 @@ void	output_redir(t_data *data)
 {
 	int	outfile;
 
-	outfile = open(data->input[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (data->input[1] && ft_strcmp(data->input[1], ">") == 0)
+		outfile = open(data->input[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (data->input[1] && ft_strcmp(data->input[1], ">>") == 0)
+		outfile = open(data->input[2], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (outfile < 0)
-		return(perror("Open"));
+		return (perror("Open"));
 	if (dup2(outfile, STDOUT_FILENO) == -1)
 		return (perror("dup2"));
 	close(outfile);
 }
 
-void	execute_cmd(t_data *data)
+void	execute_cmd1(t_data *data)
 {
 	int		i;
 	char	*cmd;
+	char	**tmp;
 	pid_t	pid;
-	// int		fd[2];
 
 	i = 0;
 	data->path = get_path(data);
 	cmd = access_cmd(data);
-	printf("test\n");
+	tmp = ft_split(data->input[0], ' ');
+	if (!tmp)
+		return ;
 	if (!cmd)
-		return (perror("access_cmd")) ;
+		return (malloc_free(tmp), perror("access_cmd"));
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork"));
+		return (malloc_free(tmp), free(cmd), perror("fork"));
 	if (pid == 0)
 	{
-		// if (data->input[1] && ft_strcmp(data->input[1], ">") == 0)
-		// 	output_redir(data);
 		if (execve(cmd, data->input, data->env) == -1)
 		{
 			malloc_free(data->path);
-			return (free(cmd), exit(EXIT_FAILURE));
+			return (free(cmd), malloc_free(tmp), exit(EXIT_FAILURE));
 		}
 	}
 	else
 	{
 		waitpid(pid, NULL, 0);
 		free(cmd);
+		malloc_free(tmp);
+	}
+}
+
+void	execute_cmd2(t_data *data)
+{
+	int		i;
+	char	*cmd;
+	char	**tmp;
+	pid_t	pid;
+
+	i = 0;
+	data->path = get_path(data);
+	cmd = access_cmd(data);
+	tmp = ft_split(data->input[0], ' ');
+	if (!tmp)
+		return ;
+	if (!cmd)
+		return (malloc_free(tmp), perror("access_cmd"));
+	pid = fork();
+	if (pid < 0)
+		return (malloc_free(tmp), free(cmd), perror("fork"));
+	if (pid == 0)
+	{
+		output_redir(data);
+		if (execve(cmd, tmp, data->env) == -1)
+		{
+			malloc_free(data->path);
+			return (free(cmd), malloc_free(tmp), exit(EXIT_FAILURE));
+		}
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		free(cmd);
+		malloc_free(tmp);
 	}
 }
 
 void	exit_shell(t_data *data)
 {
-	// if (ft_isalpha(data->input[1][0]) == 1)
-	// 	return(perror("error"));
-	if (ft_tablen(data->input) > 2)
+	if (data->input[1] && ft_isalpha(data->input[1][0]) == 1)
 		return(perror("error"));
+	if (ft_tablen(data->input) > 2)
+		return (perror("error"));
 	printf("exit\n");
 	if (data->env)
 		malloc_free(data->env);
@@ -143,9 +182,9 @@ void	parse_line(t_data *data, char *line)
 	if (!data->input)
 		return ;
 	expand(data);
-	// if (ft_strcmp(*data->input, "exit") == 0)
-	// 	exit_shell(data);
-	if (ft_strcmp(*data->input, "echo") == 0)
+	if (ft_strcmp(*data->input, "exit") == 0)
+		exit_shell(data);
+	else if (ft_strcmp(*data->input, "echo") == 0)
 		build_echo(data);
 	else if (ft_strcmp(*data->input, "pwd") == 0)
 		build_pwd();
@@ -157,13 +196,17 @@ void	parse_line(t_data *data, char *line)
 		build_export(data);
 	else if (ft_strcmp(*data->input, "unset") == 0)
 		build_unset(data);
-	// if (*data->input[1] == '>')
-	// 	output_redir(data);
-	// else
-	// {
-	// 	execute_cmd(data);
-	// 	malloc_free(data->path);
-	// }
+
+	else if (ft_tablen(data->input) > 1 && *data->input[1] == '>')
+	{
+		execute_cmd2(data);
+		malloc_free(data->path);
+	}
+	else
+	{
+		execute_cmd1(data);
+		malloc_free(data->path);
+	}
 	malloc_free(data->input);
 }
 
