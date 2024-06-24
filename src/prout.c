@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/23 04:57:47 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:46:50 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,39 @@ void	execute_cmd(t_data *data)
 	}
 }
 
+void	here_doc(t_data *data)
+{
+	char	*line;
+	char	*lim;
+
+	lim = ft_strjoin(data->input[2], "\n");
+	if (!lim)
+		return ;
+	line = readline("> ");
+	while (line)
+	{
+		if (ft_strcmp(line, lim) == 0)
+			return (exit(0), free(line), free(lim));
+		free(line);
+		line = readline("> ");
+	}
+}
+
 void	input_redir(t_data *data)
 {
 	int	infile;
 
-	// if (data->input[1] && ft_strcmp(data->input[1], "<") == 0)
-	infile = open(data->input[2], O_RDONLY, 0644);
-	// if (data->input[1] && ft_strcmp(data->input[1], ">>") == 0)
-	// 	outfile = open(data->input[2], O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (infile < 0)
-		return (perror("Open"));
-	if (dup2(infile, STDIN_FILENO) == -1)
-		return (close(infile), perror("dup2"));
-	close(infile);
+	if (data->input[1] && ft_strcmp(data->input[1], "<") == 0)
+	{
+		infile = open(data->input[2], O_RDONLY, 0644);
+		if (infile < 0)
+			return (perror("Open"));
+		if (dup2(infile, STDIN_FILENO) == -1)
+			return (close(infile), perror("dup2"));
+		close(infile);
+	}
+	if (data->input[1] && ft_strcmp(data->input[1], "<<") == 0)
+		here_doc(data);
 }
 
 void	execute_cmd_in(t_data *data)
