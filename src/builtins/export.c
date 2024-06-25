@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/24 15:09:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:20:27 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**new_env(t_data *data, char **newenv)
 	return (newenv);
 }
 
-void	add_export(t_data *data)
+void	add_to_env(t_data *data)
 {
 	char	**newenv;
 	int		newsize;
@@ -102,6 +102,49 @@ int	check_export(t_data *data)
 	return (0);
 }
 
+char	**new_exp(t_data *data, char **newexp)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->exp[i])
+	{
+		newexp[i] = ft_strdup(data->exp[i]);
+		if (!newexp[i])
+			return (NULL);
+		i++;
+	}
+	j = 1;
+	while (data->input[j])
+	{
+		newexp[i] = ft_strdup(data->input[j]);
+		if (!newexp[i])
+			return (NULL);
+		i++;
+		j++;
+	}
+	newexp[i] = NULL;
+	return (newexp);
+}
+
+void	add_to_exp(t_data *data)
+{
+	char	**newexp;
+	int		newsize;
+
+	newsize = ft_tablen(data->exp) + ft_tablen(data->input);
+	newexp = (char **)malloc(sizeof(char *) * (newsize));
+	if (!newexp)
+		return ;
+	newexp = new_exp(data, newexp);
+	malloc_free(data->exp);
+	data->exp = ft_tabdup(newexp);
+	if (!data->exp)
+		return ;
+	malloc_free(newexp);
+}
+
 void	build_export(t_data *data)
 {
 	int		i;
@@ -111,14 +154,17 @@ void	build_export(t_data *data)
 	{
 		if (check_export(data) == 1)
 			return ;
-		add_export(data);
+		if (ft_strchr(data->input[1], '=') == 0)
+			add_to_exp(data);
+		else
+			add_to_env(data);
 	}
+	data->exp = ft_tabdup(data->env);
+	if (!data->exp)
+		return ;
 	if (ft_tablen(data->input) == 1)
 	{
-		data->exp = ft_tabdup(data->env);
-		if (!data->exp)
-			return ;
 		print_export(data);
-		malloc_free(data->exp);
+		// malloc_free(data->exp);
 	}
 }
