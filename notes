@@ -1,0 +1,20 @@
+cd
+	1 arg
+	revenir au dir de depart avec cd -> segfault
+pwd
+echo
+	echo $var qui n existe pas -> \n
+env
+exit
+	++++ --- en arg
+	long long min/max
+export
+	symboles
+	remplacer une var qui existe deja
+unset
+	unset var pas $var
+commandes
+redirections
+	here_doc
+pipes
+signaux

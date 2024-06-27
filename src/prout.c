@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/24 10:46:50 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:33:25 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,9 @@ void	execute_cmd_out(t_data *data)
 
 void	parse_line(t_data *data, char *line)
 {
+	if (ft_strlen(line) == 0)
+		return ;
+	// printf("\n\n[%s]\n\n",  line);
 	data->input = ft_split(line, ' ');
 	if (!data->input)
 		return ;

@@ -6,7 +6,7 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/11 09:10:49 by idakhlao          #+#    #+#              #
-#    Updated: 2024/06/23 02:24:44 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/06/27 13:01:36 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,10 @@ clean :
 fclean : clean
 	${RM} ${NAME}
 	make -C libft fclean
+
+ac : all clean
+	make clean
+	make -C libft clean
 
 re : fclean all
 

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:26:34 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/20 17:27:11 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:33:46 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	build_cd(t_data *data)
 	char	*s;
 
 	s = "error";
-	if (!data->input[1])
-		return ;
+	if (ft_tablen(data->input) != 2)
+		return (perror(s));
 	if (chdir(data->input[1]) != 0)
 		return (perror(s));
 }
