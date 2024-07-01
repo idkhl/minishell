@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/27 15:33:25 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:57:45 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,6 @@ void	parse_line(t_data *data, char *line)
 {
 	if (ft_strlen(line) == 0)
 		return ;
-	// printf("\n\n[%s]\n\n",  line);
 	data->input = ft_split(line, ' ');
 	if (!data->input)
 		return ;
@@ -213,12 +212,25 @@ void	parse_line(t_data *data, char *line)
 	malloc_free(data->input);
 }
 
+void	handle_sigint(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 	t_data	data;
 
 	init_struct(&data, envp);
+	rl_catch_signals = 0;
+	signal(SIGINT, handle_sigint);
 	line = readline("minishell $> ");
 	while (line)
 	{
