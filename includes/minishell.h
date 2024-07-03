@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/01 13:00:37 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:22:28 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_data
 	char	**env;
 	char	**exp;
 	char	**path;
+	int		heredoc;
 }	t_data;
 
 void	expand(t_data *data);

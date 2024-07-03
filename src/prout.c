@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/03 12:41:49 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:39:22 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,19 @@ void	here_doc(t_data *data)
 	if (!lim)
 		return ;
 	line = readline("> ");
+	data->heredoc = open(".tmp_doc", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (data->heredoc == -1)
+		return (free(lim));
 	while (line)
 	{
 		if (ft_strcmp(line, data->input[2]) == 0)
 			return (exit(0), free(line), free(lim));
+		write(data->heredoc, line, ft_strlen(line));
 		free(line);
 		line = readline("> ");
 	}
+	unlink(".tmp_doc");
+	free(lim);
 }
 
 void	input_redir(t_data *data)
@@ -103,7 +109,12 @@ void	input_redir(t_data *data)
 		close(infile);
 	}
 	if (data->input[1] && ft_strcmp(data->input[1], "<<") == 0)
+	{
 		here_doc(data);
+		if (dup2(data->heredoc, STDIN_FILENO) == -1)
+			return (close(data->heredoc), perror("dup2"));
+		close(data->heredoc);
+	}
 }
 
 void	execute_cmd_in(t_data *data)
