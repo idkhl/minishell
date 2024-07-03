@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/01 14:57:45 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:41:49 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	here_doc(t_data *data)
 	line = readline("> ");
 	while (line)
 	{
-		if (ft_strcmp(line, lim) == 0)
+		if (ft_strcmp(line, data->input[2]) == 0)
 			return (exit(0), free(line), free(lim));
 		free(line);
 		line = readline("> ");
@@ -216,7 +216,7 @@ void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		printf("^C\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -247,7 +247,9 @@ int	main(int ac, char **av, char **envp)
 
 // export a b -> export X env
 //			pas de chiffres  symboles avant =
+//			export les autres var si la 1ere existe deja
 // echo var qui n'existe pas -> \n 
 // var sans commandes
 
 // line = /n || isspace
+// sigignore dans le parent

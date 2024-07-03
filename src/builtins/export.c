@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/27 17:05:59 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:14:57 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	check_export(t_data *data)
 		j = 1;
 		while (data->input[j])
 		{
+			// if (ft_strncmp(var, data->input[j]), ft_strlen(var) == 0)
+			// 	unset;
 			if (ft_strcmp(data->env[i], data->input[j]) == 0
 				|| ft_strchr(data->input[1], '=') == 0)
 				return (1);

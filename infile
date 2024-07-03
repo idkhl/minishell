@@ -1,7 +1,10 @@
+cat
 includes
 infile
 libft
+ls
 Makefile
 minishell
+notes
 src
 valgrind-readline.supp
