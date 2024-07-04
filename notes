@@ -15,6 +15,8 @@ unset
 	unset var pas $var
 commandes
 redirections
-	here_doc
+	here_doc X
 pipes
 signaux
+	^D dans enfant ou here_doc
+	^C dans here_doc (cmprt de ^d)

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/03 16:39:22 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:30:25 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,23 @@ void	here_doc(t_data *data)
 	while (line)
 	{
 		if (ft_strcmp(line, data->input[2]) == 0)
-			return (exit(0), free(line), free(lim));
+		{
+			free(line);
+			break ;
+		}
 		write(data->heredoc, line, ft_strlen(line));
+		write(data->heredoc, "\n", 1);
 		free(line);
 		line = readline("> ");
 	}
-	unlink(".tmp_doc");
 	free(lim);
+	close(data->heredoc);
 }
 
 void	input_redir(t_data *data)
 {
 	int	infile;
+	int	heredoc_infile;
 
 	if (data->input[1] && ft_strcmp(data->input[1], "<") == 0)
 	{
@@ -111,9 +116,13 @@ void	input_redir(t_data *data)
 	if (data->input[1] && ft_strcmp(data->input[1], "<<") == 0)
 	{
 		here_doc(data);
-		if (dup2(data->heredoc, STDIN_FILENO) == -1)
-			return (close(data->heredoc), perror("dup2"));
-		close(data->heredoc);
+		heredoc_infile = open(".tmp_doc", O_RDONLY);
+		if (heredoc_infile < 0)
+			return (perror("heredoc read open"));
+		if (dup2(heredoc_infile, STDIN_FILENO) == -1)
+			return (close(heredoc_infile), perror("dup2"));
+		close(heredoc_infile);
+		unlink(".tmp_doc");
 	}
 }
 
@@ -138,8 +147,9 @@ void	execute_cmd_in(t_data *data)
 		input_redir(data);
 		if (execve(cmd, tmp, data->env) == -1)
 		{
+			// printf("\n\ntest\n\n");
 			malloc_free(data->path);
-			return (free(cmd), malloc_free(tmp), exit(EXIT_FAILURE));
+			return (free(cmd), malloc_free(tmp), perror("exec"));
 		}
 	}
 	else
@@ -234,14 +244,20 @@ void	handle_sigint(int sig)
 	}
 }
 
+void	handle_signals()
+{
+	rl_catch_signals = 0;
+	signal(SIGINT, handle_sigint);
+	// signal(SIGINT, handle_sigint);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 	t_data	data;
 
 	init_struct(&data, envp);
-	rl_catch_signals = 0;
-	signal(SIGINT, handle_sigint);
+	handle_signals();
 	line = readline("minishell $> ");
 	while (line)
 	{
