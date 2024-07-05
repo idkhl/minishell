@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/03 15:22:28 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:38:10 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,16 @@ typedef struct s_data
 	int		heredoc;
 }	t_data;
 
+void	handle_signals(void);
 void	expand(t_data *data);
 char	*access_cmd(t_data *data);
 char	**get_path(t_data *data);
+
+/*	EXEC & REDIRECTIONS	*/
+
+void	execute_cmd(t_data *data);
+void	execute_cmd_out(t_data *data);
+void	execute_cmd_in(t_data *data);
 
 /*	BUILT-INS	*/
 

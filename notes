@@ -18,5 +18,20 @@ redirections
 	here_doc X
 pipes
 signaux
-	^D dans enfant ou here_doc
 	^C dans here_doc (cmprt de ^d)
+
+
+
+parsing(line)
+{
+	if 1 -> builtin
+		echo? 
+			builtin = echo, opt?
+				arg -> ft_echo(builtin, arg)
+				opt -> -n 
+					ft_echo(builtin, opt, arg)
+					erreur -> quitter
+		exit?
+	if 1 cmd 
+		exec_cmd(cmd, opt, arg)
+}

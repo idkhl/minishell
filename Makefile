@@ -5,16 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/11 09:10:49 by idakhlao          #+#    #+#              #
-#    Updated: 2024/06/27 13:01:36 by idakhlao         ###   ########.fr        #
+#    Created: 2024/07/05 14:53:25 by idakhlao          #+#    #+#              #
+#    Updated: 2024/07/05 16:46:22 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRCS = src/prout.c src/expand.c src/path_access.c \
+		src/exec_redir_out.c src/exec_redir_in.c src/exec_cmd.c \
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/export.c src/builtins/unset.c src/builtins/exit.c\
-		src/utils/ft_tabdup.c src/utils/ft_tablen.c
+		src/utils/ft_tabdup.c src/utils/ft_tablen.c \
+		src/signals.c
 OBJS = ${SRCS:.c=.o}
 CFLAGS = -Wall -Wextra -Werror -g3 
 LIBFT = ./libft/libft.a

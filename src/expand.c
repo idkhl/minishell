@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 22:09:40 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/04 17:16:34 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:41:42 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,4 @@ void	expand(t_data *data)
 	}
 }
 
-//expand var qui n'existe pas
-//var = 
+//expand var qui n'existe pas -> = null
