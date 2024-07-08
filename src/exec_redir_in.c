@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:34:44 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/05 16:47:31 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:46:37 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	here_doc(t_data *data)
 		return ;
 	while (line)
 	{
+		// heredoc_signals();
 		if (ft_strcmp(line, data->input[2]) == 0)
 		{
 			free(line);
@@ -80,6 +81,7 @@ void	execute_cmd_in(t_data *data)
 		return (malloc_free(tmp), free(cmd), perror("fork"));
 	if (pid == 0)
 	{
+		heredoc_signals();
 		input_redir(data);
 		if (execve(cmd, tmp, data->env) == -1)
 		{
