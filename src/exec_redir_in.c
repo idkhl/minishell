@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:34:44 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/08 13:46:37 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:17:42 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	here_doc(t_data *data)
 			break ;
 		}
 		write(data->heredoc, line, ft_strlen(line));
-		write(data->heredoc, "\n", 1);
+		write(data->heredoc, "\n", 1); 
 		free(line);
 		line = readline("> ");
 	}
