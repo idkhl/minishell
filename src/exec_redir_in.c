@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:34:44 by idakhlao          #+#    #+#             */
 /*   Updated: 2024/07/08 16:17:42 by idakhlao         ###   ########.fr       */
