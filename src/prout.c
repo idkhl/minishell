@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/08 13:21:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:24:35 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,22 @@ void	init_struct(t_data *data, char **envp)
 	data->path = NULL;
 }
 
+void	pipex(t_data *data)
+{
+	int	infile;
+
+	execute_cmd(data);
+	infile = open(data->input[4], O_RDONLY, 0644);
+	if (dup2(infile, STDIN_FILENO) == -1)
+		return (close(infile), perror("dup2"));
+}
+
 void	parse_line(t_data *data, char *line)
 {
 	if (ft_strlen(line) == 0)
 		return ;
+	split_quotes(line, ' ');
+	return ;
 	data->input = ft_split(line, ' ');
 	if (!data->input)
 		return ;
@@ -58,6 +70,10 @@ void	parse_line(t_data *data, char *line)
 	{
 		execute_cmd(data);
 		malloc_free(data->path);
+	}
+	if (ft_tablen(data->input) > 3 && *data->input[2] == '|')
+	{
+		pipex(data);
 	}
 	malloc_free(data->input);
 }
