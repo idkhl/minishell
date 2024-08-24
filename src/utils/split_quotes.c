@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:20:03 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/24 19:54:01 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:48:29 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	count_words(char *line, char c)
 
 	size = 0;
 	i = 0;
+	in_quote = 0;
 	while (line[i])
 	{
 		while (line[i] == c && line[i])
@@ -31,7 +32,8 @@ int	count_words(char *line, char c)
 			quote = line[i];
 			i++;
 		}
-		size++;
+		if (line[i])
+			size++;
 		while ((line[i] != c || in_quote) && line[i])
 		{
 			if (in_quote && line[i] == quote)
@@ -55,6 +57,7 @@ char	*malloc_quote(char *line, char quote, int i)
 
 	start = i;
 	len = 0;
+	j = 0;
 	while (line[i] != quote && line[i])
 	{
 		len++;
@@ -118,28 +121,42 @@ char	**insert_words(char **word, char *line, char c)
 			quote = line[i];
 			i++;
 			word[j] = malloc_quote(line, quote, i);
+			if (!word[j])
+				return (malloc_free(word));
 			j++;
+			while (line[i] && line[i] != quote)
+				i++;
+			if (line[i] == quote)
+				i++;
 		}
-		// printf("test\n");
 		else if (line[i])
 		{
 			word[j] = malloc_word(line, c, i);
+			if (!word[j])
+				return (malloc_free(word));
 			j++;
+			while (line[i] && line[i] != c)
+				i++;
 		}
 	}
-	word[i] = NULL;
+	word[j] = NULL;
 	return (word);
 }
 
-char	**split_quotes(char *line, char c)
+char	**split_quotes(t_data *data, char *line, char c)
 {
 	int		size;
 	char	**split;
 
+	if (!line)
+		return (NULL);
 	size = count_words(line, c);
 	split = (char **)malloc((size + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
 	split = insert_words(split, line, c);
+	while (*split)
+		printf("[%s]\n", *split++);
+	data->input = split;
 	return (split);
 }

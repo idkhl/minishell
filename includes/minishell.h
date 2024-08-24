@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/22 12:38:55 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:40:49 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	build_exit(t_data *data);
 
 int		ft_tablen(char **tab);
 char	**ft_tabdup(char **tab);
-char	**split_quotes(char *line, char c);
+char	**split_quotes(t_data *data, char *line, char c);
 
 #endif

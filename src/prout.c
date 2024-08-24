@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/22 19:24:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:49:06 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	parse_line(t_data *data, char *line)
 {
 	if (ft_strlen(line) == 0)
 		return ;
-	split_quotes(line, ' ');
-	return ;
-	data->input = ft_split(line, ' ');
+	split_quotes(data, line, ' ');
 	if (!data->input)
 		return ;
 	expand(data);
@@ -75,7 +73,7 @@ void	parse_line(t_data *data, char *line)
 	{
 		pipex(data);
 	}
-	malloc_free(data->input);
+	// free(data->input);
 }
 
 int	main(int ac, char **av, char **envp)
