@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:20:03 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/24 19:49:02 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:54:01 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,17 @@ char	**insert_words(char **word, char *line, char c)
 			in_quote = 1;
 			quote = line[i];
 			i++;
+			word[j] = malloc_quote(line, quote, i);
+			j++;
 		}
-		word[j] = malloc_quote(line, quote, i);
-		printf("test\n");
-		i++;
+		// printf("test\n");
+		else if (line[i])
+		{
+			word[j] = malloc_word(line, c, i);
+			j++;
+		}
 	}
-	printf("[%s]\n", word[j]);
+	word[i] = NULL;
 	return (word);
 }
 
