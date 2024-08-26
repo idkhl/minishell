@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/23 02:22:03 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:11:07 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	build_exit(t_data *data)
 		malloc_free(data->env);
 	if (data->input)
 		malloc_free(data->input);
+	// printf("test\n");
 	exit(0);
 	return ;
 }
