@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/27 18:09:07 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:03:32 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	parse_line(t_data *data, char *line)
 {
 	if (ft_strlen(line) == 0)
 		return ;
-	data->input = split_quotes(data, line, ' ');
+	data->input = split_pipes(line);
 	if (!data->input)
 		return ;
 	// while (*data->input)
