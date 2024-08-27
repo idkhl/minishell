@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:20:03 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/26 16:33:54 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:08:19 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,21 @@ int	count_words(char *line, char c)
 		if (line[i] == 34 || line[i] == 39)
 		{
 			in_quote = 1;
-			quote = line[i];
-			i++;
+			quote = line[i++];
 		}
 		if (line[i])
 			size++;
-		while ((line[i] != c || in_quote) && line[i])
+		while (line[i] && (in_quote || line[i] != c))
 		{
 			if (in_quote && line[i] == quote)
-			{
 				in_quote = 0;
-				i++;
-				break ;
-			}
 			i++;
 		}
 	}
 	return (size);
 }
 
-char	*doublequote(char *line, char quote, int i)
+char	*double_quote(char *line, char quote, int i)
 {
 	char	*word;
 	int		start;
@@ -75,7 +70,7 @@ char	*doublequote(char *line, char quote, int i)
 	return (word);
 }
 
-char	*malloc_quote(char *line, char quote, int i)
+char	*single_quote(char *line, char quote, int i)
 {
 	char	*word;
 	int		start;
@@ -85,17 +80,13 @@ char	*malloc_quote(char *line, char quote, int i)
 	start = i;
 	len = 0;
 	j = 0;
-	if (quote == 34)
-	{
-		word = double_quote(line, quote, i);
-	}
-	else
-		word = single_quote(line, quote, i);
 	while (line[i] != quote && line[i])
 	{
 		len++;
 		i++;
 	}
+	len = len + 2;
+	start--;
 	word = (char *)malloc((len + 1) * sizeof(char));
 	if (!word)
 		return (NULL);
@@ -105,6 +96,17 @@ char	*malloc_quote(char *line, char quote, int i)
 		j++;
 	}
 	word[len] = '\0';
+	return (word);
+}
+
+char	*malloc_quote(char *line, char quote, int i)
+{
+	char	*word;
+
+	if (quote == 34)
+		word = double_quote(line, quote, i);
+	else
+		word = single_quote(line, quote, i);
 	return (word);
 }
 
