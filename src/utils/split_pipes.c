@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*                                                                          */
 /*                                                        :::      ::::::::   */
 /*   split_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -20,48 +20,54 @@ int	count_blocks(char *line)
 	size = 0;
 	i = 0;
 	while (line[i])
-    {
-        if (line[i] == 34 || line[i] == 39)
-        {
-            i++;
-            while ((line[i] != 34 && line[i] != 39) && line[i])
-                i++;
-        }
-        else if (line[i] == '|')
-        {
-            size++;
-            i++;
-        }
-        else
-        {
-            i++;
-        }
-    }
-
-    return (size);
+	{
+        size++;
+        while (line[i] && line[i] != '|')
+		{
+			if (line[i] == 34 || line[i] == 39)
+			{
+				char (quote) = line[i++];
+				while (line[i] && line[i] != quote)
+					i++;
+				if (line[i])
+					i++;
+			}
+			else
+				i++;
+		}
+		while (line[i] == '|')
+			i++;
+	}
+	return (size);
 }
 
+char	**add_blocks(char **bloc, char *line)
+{
+	int	i;
+	int	j;
 
-// char	**add_blocks(char **bloc, char *line)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (line[i])
-// 	{
-// 		if (line[i] == 34 || line[i] == 39)
-// 		{
-// 			i++;
-// 			while ((line[i] != 34 && line[i] != 39) && line[i])
-// 				i++;
-// 		}
-// 		while (line[i] != '|' && line[i])
-// 			i++;
-		
-// 	}
-// }
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+        while (line[i] && line[i] != '|')
+		{
+			if (line[i] == 34 || line[i] == 39)
+			{
+				char (quote) = line[i++];
+				while (line[i] && line[i] != quote)
+					i++;
+				if (line[i])
+					i++;
+			}
+			else
+				i++;
+		}
+		while (line[i] == '|')
+			i++;
+	}
+	return (bloc);
+}
 
 char	**split_pipes(char *line)
 {
@@ -75,6 +81,6 @@ char	**split_pipes(char *line)
 	split = (char **)malloc((size + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
-	// split = add_blocks(split, line);
+	split = add_blocks(split, line);
 	return (ft_split(line, ' '));
 }

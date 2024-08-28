@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/27 20:03:32 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:17:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	parse_line(t_data *data, char *line)
 	data->input = split_pipes(line);
 	if (!data->input)
 		return ;
+	return ;
 	// while (*data->input)
 	// 	printf("[%s]\n", *data->input++);
 	expand(data);
