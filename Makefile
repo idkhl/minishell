@@ -15,7 +15,7 @@ NAME = minishell
 SRCS = src/prout.c src/expand.c src/path_access.c \
 		src/exec_redir_out.c src/exec_redir_in.c src/exec_cmd.c \
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/export.c src/builtins/unset.c src/builtins/exit.c\
-		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c\
+		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c src/utils/split_quotes.c\
 		src/signals.c
 OBJS = ${SRCS:.c=.o}
 CFLAGS = -Wall -Wextra -Werror -g3 
