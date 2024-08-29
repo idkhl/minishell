@@ -41,6 +41,43 @@ int	count_blocks(char *line)
 	return (size);
 }
 
+char	*malloc_block(char *line, int *i)
+{
+	int		len;
+	int 	start;
+	char	*bloc;
+	int		j;
+
+	start = *i;
+	j = 0;
+	while (line[*i] && line[*i] != '|')
+	{
+		if (line[*i] == 34 || line[*i] == 39)
+		{
+			char quote = line[(*i)++];
+			while (line[*i] && line[*i] != quote)
+				(*i)++;
+			if (line[*i])
+				(*i)++;
+		}
+		else
+			(*i)++;
+	}
+	len = *i - start;
+	bloc = (char *)malloc(sizeof(char) * (len + 1));
+	if (!bloc)
+		return (NULL);
+	while (j < len)
+	{
+		bloc[j] = line[start + j];
+		j++;
+	}
+	bloc[len] = '\0';
+	while (line[*i] == '|')
+		(*i)++;
+	return (bloc);
+}
+
 char	**add_blocks(char **bloc, char *line)
 {
 	int	i;
@@ -50,22 +87,12 @@ char	**add_blocks(char **bloc, char *line)
 	j = 0;
 	while (line[i])
 	{
-        while (line[i] && line[i] != '|')
-		{
-			if (line[i] == 34 || line[i] == 39)
-			{
-				char (quote) = line[i++];
-				while (line[i] && line[i] != quote)
-					i++;
-				if (line[i])
-					i++;
-			}
-			else
-				i++;
-		}
-		while (line[i] == '|')
-			i++;
+		bloc[j] = malloc_block(line, &i);
+		if (!bloc[j])
+			return (NULL);
+		j++;
 	}
+	bloc[j] = NULL;
 	return (bloc);
 }
 
@@ -82,5 +109,7 @@ char	**split_pipes(char *line)
 	if (!split)
 		return (NULL);
 	split = add_blocks(split, line);
-	return (ft_split(line, ' '));
+	for (int i = 0; split[i]; i++)
+		printf("[%s]\n", split[i]);
+	return (split);
 }
