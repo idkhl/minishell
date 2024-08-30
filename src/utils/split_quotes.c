@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:20:03 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/27 18:08:19 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:12:16 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	count_words(char *line, char c)
 {
-	int		size;
 	int		i;
-	int		in_quote;
 	char	quote;
 
-	size = 0;
+	int (size) = 0;
 	i = 0;
-	in_quote = 0;
+	int (in_quote) = 0;
 	while (line[i])
 	{
 		while (line[i] == c && line[i])
@@ -176,7 +174,7 @@ char	**insert_words(char **word, char *line, char c)
 	return (word);
 }
 
-char	**split_quotes(t_data *data, char *line, char c)
+char	**split_quotes(char *line, char c)
 {
 	int		size;
 	char	**split;
@@ -188,6 +186,5 @@ char	**split_quotes(t_data *data, char *line, char c)
 	if (!split)
 		return (NULL);
 	split = insert_words(split, line, c);
-	(void)data;
 	return (split);
 }

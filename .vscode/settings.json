@@ -5,6 +5,7 @@
 		"history.h": "c",
 		"rltypedefs.h": "c",
 		"wait.h": "c",
-		"errno.h": "c"
+		"errno.h": "c",
+		"libft.h": "c"
 	}
 }

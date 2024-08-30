@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/03 11:14:57 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:36:50 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_export(t_data *data)
 		printf("export %s\n", data->exp[i]);
 }
 
-char	**new_env(t_data *data, char **newenv)
+char	**new_env(t_data *data, char **tab, char **newenv)
 {
 	int	i;
 	int	j;
@@ -53,9 +53,9 @@ char	**new_env(t_data *data, char **newenv)
 		i++;
 	}
 	j = 1;
-	while (data->input[j])
+	while (tab[j])
 	{
-		newenv[i] = ft_strdup(data->input[j]);
+		newenv[i] = ft_strdup(tab[j]);
 		if (!newenv[i])
 			return (NULL);
 		i++;
@@ -65,16 +65,16 @@ char	**new_env(t_data *data, char **newenv)
 	return (newenv);
 }
 
-void	add_export(t_data *data)
+void	add_export(t_data *data, char **tab)
 {
 	char	**newenv;
 	int		newsize;
 
-	newsize = ft_tablen(data->env) + ft_tablen(data->input);
+	newsize = ft_tablen(data->env) + ft_tablen(tab);
 	newenv = (char **)malloc(sizeof(char *) * (newsize));
 	if (!newenv)
 		return ;
-	newenv = new_env(data, newenv);
+	newenv = new_env(data, tab, newenv);
 	malloc_free(data->env);
 	data->env = ft_tabdup(newenv);
 	if (!data->env)
@@ -87,7 +87,7 @@ void	add_export(t_data *data)
 // 	char	*newvar;
 // }
 
-int	check_export(t_data *data)
+int	check_export(t_data *data, char **tab)
 {
 	int	i;
 	int	j;
@@ -96,12 +96,12 @@ int	check_export(t_data *data)
 	while (data->env[i])
 	{
 		j = 1;
-		while (data->input[j])
+		while (tab[j])
 		{
-			// if (ft_strncmp(var, data->input[j]), ft_strlen(var) == 0)
+			// if (ft_strncmp(var, tab[j]), ft_strlen(var) == 0)
 			// 	unset;
-			if (ft_strcmp(data->env[i], data->input[j]) == 0
-				|| ft_strchr(data->input[1], '=') == 0)
+			if (ft_strcmp(data->env[i], tab[j]) == 0
+				|| ft_strchr(tab[1], '=') == 0)
 				return (1);
 			j++;
 		}
@@ -110,18 +110,18 @@ int	check_export(t_data *data)
 	return (0);
 }
 
-void	build_export(t_data *data)
+void	build_export(t_data *data, char **tab)
 {
 	int		i;
 
 	i = 0;
-	if (ft_tablen(data->input) > 1)
+	if (ft_tablen(tab) > 1)
 	{
-		if (check_export(data) == 1)
+		if (check_export(data, tab) == 1)
 			return ;
-		add_export(data);
+		add_export(data, tab);
 	}
-	if (ft_tablen(data->input) == 1)
+	if (ft_tablen(tab) == 1)
 	{
 		data->exp = ft_tabdup(data->env);
 		if (!data->exp)

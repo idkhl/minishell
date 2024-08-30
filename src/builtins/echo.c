@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:15:27 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/20 17:16:22 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:41:57 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,26 @@ int	check_echo(char *str)
 	return (1);
 }
 
-void	build_echo(t_data *data)
+void	build_echo(char **tab)
 {
 	int	i;
 	int	nl;
 
 	i = 0;
 	nl = 0;
-	if (ft_strcmp(data->input[i], "echo") == 0)
+	if (ft_strcmp(tab[i], "echo") == 0)
 		i++;
-	while (data->input[i] && ft_strncmp(data->input[i], "-n", 2) == 0)
+	while (tab[i] && ft_strncmp(tab[i], "-n", 2) == 0)
 	{
-		nl = check_echo(data->input[i]);
+		nl = check_echo(tab[i]);
 		i++;
 	}
-	if (data->input[i])
+	if (tab[i])
 	{
-		while (data->input[i])
+		while (tab[i])
 		{
-			printf("%s", data->input[i]);
-			if (data->input[i + 1])
+			printf("%s", tab[i]);
+			if (tab[i + 1])
 				printf(" ");
 			i++;
 		}

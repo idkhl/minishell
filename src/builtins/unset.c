@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:46 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/22 22:23:03 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:38:53 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ void	unset_var(t_data *data, int i)
 	data->env[i + 1] = NULL;
 }
 
-void	build_unset(t_data *data)
+void	build_unset(t_data *data, char **tab)
 {
 	int	i;
 	int	j;
 
 	j = 1;
-	while (j < ft_tablen(data->input))
+	while (j < ft_tablen(tab))
 	{
 		i = 0;
 		while (data->env[i])
 		{
-			if (ft_strncmp(data->input[j], data->env[i], \
-				ft_strlen(data->input[j])) == 0
-				&& data->env[i][ft_strlen(data->input[j])] == '=')
+			if (ft_strncmp(tab[j], data->env[i], \
+				ft_strlen(tab[j])) == 0
+				&& data->env[i][ft_strlen(tab[j])] == '=')
 				unset_var(data, i);
 			i++;
 		}

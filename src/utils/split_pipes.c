@@ -14,19 +14,19 @@
 
 int	count_blocks(char *line)
 {
-	int	size;
-	int	i;
+	int		i;
+	char	quote;
 
-	size = 0;
 	i = 0;
+	int (size) = 0;
 	while (line[i])
 	{
-        size++;
-        while (line[i] && line[i] != '|')
+		size++;
+		while (line[i] && line[i] != '|')
 		{
 			if (line[i] == 34 || line[i] == 39)
 			{
-				char (quote) = line[i++];
+				quote = line[i++];
 				while (line[i] && line[i] != quote)
 					i++;
 				if (line[i])
@@ -41,20 +41,37 @@ int	count_blocks(char *line)
 	return (size);
 }
 
-char	*malloc_block(char *line, int *i)
+char	*initialize_block(char *line, int start, int len)
 {
-	int		len;
-	int 	start;
 	char	*bloc;
 	int		j;
 
-	start = *i;
+	bloc = (char *)malloc(sizeof(char) * (len + 1));
+	if (!bloc)
+		return (NULL);
 	j = 0;
+	while (j < len)
+	{
+		bloc[j] = line[start + j];
+		j++;
+	}
+	bloc[len] = '\0';
+	return (bloc);
+}
+
+char	*malloc_block(char *line, int *i)
+{
+	int		len;
+	int		start;
+	char	quote;
+	char	*bloc;
+
+	start = *i;
 	while (line[*i] && line[*i] != '|')
 	{
 		if (line[*i] == 34 || line[*i] == 39)
 		{
-			char quote = line[(*i)++];
+			quote = line[(*i)++];
 			while (line[*i] && line[*i] != quote)
 				(*i)++;
 			if (line[*i])
@@ -64,15 +81,7 @@ char	*malloc_block(char *line, int *i)
 			(*i)++;
 	}
 	len = *i - start;
-	bloc = (char *)malloc(sizeof(char) * (len + 1));
-	if (!bloc)
-		return (NULL);
-	while (j < len)
-	{
-		bloc[j] = line[start + j];
-		j++;
-	}
-	bloc[len] = '\0';
+	bloc = initialize_block(line, start, len);
 	while (line[*i] == '|')
 		(*i)++;
 	return (bloc);
@@ -89,7 +98,12 @@ char	**add_blocks(char **bloc, char *line)
 	{
 		bloc[j] = malloc_block(line, &i);
 		if (!bloc[j])
+		{
+			// for (int k = 0; k < j; k++)
+			// 	free(bloc[k]);
+			// free(bloc);
 			return (NULL);
+		}
 		j++;
 	}
 	bloc[j] = NULL;
@@ -104,12 +118,17 @@ char	**split_pipes(char *line)
 	if (!line)
 		return (NULL);
 	size = count_blocks(line);
-	printf("%d\n", size);
+	// printf("%d\n", size);
 	split = (char **)malloc((size + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
 	split = add_blocks(split, line);
-	for (int i = 0; split[i]; i++)
-		printf("[%s]\n", split[i]);
+	if (!split)
+	{
+		malloc_free(split);
+		return (NULL);
+	}
+	// for (int i = 0; split[i]; i++)
+	// 	printf("[%s]\n", split[i]);
 	return (split);
 }
