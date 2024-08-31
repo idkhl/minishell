@@ -6,7 +6,7 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 14:53:25 by idakhlao          #+#    #+#              #
-#    Updated: 2024/08/30 20:15:17 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/08/31 16:21:17 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 SRCS = src/prout.c   \
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c  src/builtins/exit.c\
 		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c src/utils/split_quotes.c\
-		src/signals.c \
+		src/signals.c src/utils/get_big_tab.c\
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\
 		src/path_access.c src/exec_cmd.c \
 		#src/exec_redir_out.c src/exec_redir_in.c \
