@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/31 18:07:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:32:35 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,85 @@ void	init_struct(t_data *data, char **envp)
 	data->path = NULL;
 }
 
-void	exec_pipes(t_data *data, char **tab, int i, int nb_blocks)
+// void	exec_pipes(t_data *data, char **tab, int i, int nb_blocks)
+// {
+// 	char	*cmd;
+// 	char	**tmp;
+
+// 	data->path = get_path(data);
+// 	cmd = access_cmd(data, tab);
+// 	tmp = ft_split(tab[0], ' ');
+// 	if (!tmp)
+// 		return ;
+// 	if (!cmd)
+// 		return (malloc_free(tmp), perror("access_cmd"));
+// 	if (i == nb_blocks - 1)
+// 	{
+// 		if (dup2(data->fd[0], STDIN_FILENO) == -1)
+// 			return (perror("dup2 - 4"));
+// 		// close(data->fd[0]);
+// 		// close(data->fd[1]);
+// 	}
+// 	else
+// 	{
+// 		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
+// 			return (perror("dup2 - 3"));
+// 	}
+// 	close(data->fd[0]);
+// 	close(data->fd[1]);
+// 	if (execve(cmd, tab, data->env) == -1)
+// 		return (perror("execve"), _exit(EXIT_FAILURE));
+// }
+
+// void	pipex(t_data *data, char ***big_tab, int nb_blocks)
+// {
+// 	int		i;
+// 	pid_t	pid;
+// 	int		prev_fd;
+
+// 	i = 0;
+// 	prev_fd = -1;
+// 	while (i < nb_blocks)
+// 	{
+// 		if (i < nb_blocks - 1)
+// 		{
+// 			if (pipe(data->fd) == -1)
+// 				return (perror("pipe"));
+// 		}
+// 		pid = fork();
+// 		if (pid == -1)
+// 			return (perror("fork"));
+// 		if (pid == 0)
+// 		{
+// 			if (i > 0)
+// 			{
+// 				if (dup2(prev_fd, STDIN_FILENO) == -1)
+// 					return (perror("dup2 - 1"));
+// 				close(prev_fd);
+// 			}
+// 			if (i < nb_blocks - 1)
+// 			{
+// 				if (dup2(data->fd[1], STDOUT_FILENO) == -1)
+// 					return (perror("dup2" - 2));
+// 			}
+// 			close(data->fd[0]);
+// 			close(data->fd[1]);
+// 			exec_pipes(data, big_tab[i], i, nb_blocks);
+// 		}
+// 		else
+// 		{
+// 			close(data->fd[1]);
+// 			if (i > 0)
+// 				close(prev_fd);
+// 			prev_fd = data->fd[0];
+// 		}
+// 		i++;
+// 	}
+// 	while (wait(NULL) != -1)
+// 		continue ;
+// }
+
+void	exec_pipes(t_data *data, char **tab)
 {
 	char	*cmd;
 	char	**tmp;
@@ -32,71 +110,67 @@ void	exec_pipes(t_data *data, char **tab, int i, int nb_blocks)
 	if (!tmp)
 		return ;
 	if (!cmd)
-		return (malloc_free(tmp), perror("access_cmd"));
-	if (i == nb_blocks - 1)
 	{
-		if (dup2(data->fd[0], STDIN_FILENO) == -1)
-			return (perror("dup2 - 4"));
-		close(data->fd[0]);
-		close(data->fd[1]);
+		malloc_free(tmp);
+		perror("access_cmd");
+		_exit(EXIT_FAILURE);  // Only exit the child process
 	}
-	else
-	{
-		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
-			return (perror("dup2 - 3"));
-		close(data->fd[0]);
-		close(data->fd[1]);
-	}
+	// printf("test\n");
 	if (execve(cmd, tab, data->env) == -1)
-		return (perror("execve"), _exit(EXIT_FAILURE));
+	{
+		perror("execve");
+		_exit(EXIT_FAILURE);  // Only exit the child process
+	}
 }
+
 
 void	pipex(t_data *data, char ***big_tab, int nb_blocks)
 {
 	int		i;
 	pid_t	pid;
-	int		prev_fd;
+	int		status;
 
 	i = 0;
-	prev_fd = -1;
 	while (i < nb_blocks - 1)
 	{
-		if (i < nb_blocks - 1)
+		if (pipe(data->fd) == -1)
 		{
-			if (pipe(data->fd) == -1)
-			return (perror("pipe"));
+			perror("pipe");
+			return;  // Do not terminate the entire program
 		}
 		pid = fork();
 		if (pid == -1)
-			return (perror("fork"));
+		{
+			perror("fork");
+			return;  // Do not terminate the entire program
+		}
 		if (pid == 0)
 		{
-			if (i > 0)
-			{
-				if (dup2(prev_fd, STDIN_FILENO) == -1)
-					return (perror("dup2 - 1"));
-				close(prev_fd);
-			}
-			if (i < nb_blocks - 1)
-			{
-				if (dup2(data->fd[1], STDOUT_FILENO) == -1)
-					return (perror("dup2" - 2));
-			}
 			close(data->fd[0]);
+			if (dup2(data->fd[1], STDOUT_FILENO) == -1)
+			{
+				perror("dup2");
+				_exit(EXIT_FAILURE);  // Only exit the child process
+			}
 			close(data->fd[1]);
-			exec_pipes(data, big_tab[i], i, nb_blocks);
+			exec_pipes(data, big_tab[i]);
+			// _exit(EXIT_SUCCESS);  // Ensure child  exits after execution
 		}
 		else
 		{
 			close(data->fd[1]);
-			if (i != 0)
-				close(prev_fd);
-			prev_fd = data->fd[0];
+			if (dup2(data->fd[0], STDIN_FILENO) == -1)
+			{
+				perror("dup2");
+				return;  // Do not terminate the entire program
+			}
+			close(data->fd[0]);
+			// waitpid(pid, &status, 0);
 		}
 		i++;
 	}
-	while (wait(NULL) != -1)
-		continue ;
+	exec_pipes(data, big_tab[i]);
+	while (waitpid(-1, &status, WUNTRACED) > 0);
 }
 
 void	parse_line(t_data *data, char *line)
