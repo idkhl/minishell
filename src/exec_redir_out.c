@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:31:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/05 16:47:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:20:29 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	execute_cmd_out(t_data *data)
 	char	**tmp;
 	pid_t	pid;
 
-	data->path = get_path(data);
 	cmd = access_cmd(data);
 	if (!cmd)
 		return (perror("access_cmd"));
@@ -47,10 +46,7 @@ void	execute_cmd_out(t_data *data)
 	{
 		output_redir(data);
 		if (execve(cmd, tmp, data->env) == -1)
-		{
-			malloc_free(data->path);
 			return (free(cmd), malloc_free(tmp), exit(EXIT_FAILURE));
-		}
 	}
 	else
 	{

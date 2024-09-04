@@ -15,3 +15,12 @@ prout.o
 signals.c
 signals.o
 utils
+includes
+infile
+libft
+Makefile
+minishell
+notes
+outfile
+src
+valgrind-readline.supp

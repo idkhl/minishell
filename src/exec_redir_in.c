@@ -69,7 +69,6 @@ void	execute_cmd_in(t_data *data)
 	char	**tmp;
 	pid_t	pid;
 
-	data->path = get_path(data);
 	cmd = access_cmd(data);
 	if (!cmd)
 		return (perror("access_cmd"));
@@ -84,10 +83,7 @@ void	execute_cmd_in(t_data *data)
 		heredoc_signals();
 		input_redir(data);
 		if (execve(cmd, tmp, data->env) == -1)
-		{
-			malloc_free(data->path);
 			return (free(cmd), malloc_free(tmp), perror("exec"));
-		}
 	}
 	else
 	{
