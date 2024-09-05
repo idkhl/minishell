@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/04 18:23:45 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:13:20 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,7 @@ void	exec_first_pipe(t_data *data, char **tab)
 		return (free(cmd), perror("access_cmd 1"));
 	if (pipe(data->fd) == -1)
 		return (perror("pipe 1"));
+	// if (check_builtins(data, tab) == 0)
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 1"));
