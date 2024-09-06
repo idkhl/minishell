@@ -92,3 +92,14 @@ void	execute_cmd_in(t_data *data)
 		malloc_free(tmp);
 	}
 }
+
+	// else if (ft_tablen(data->input) > 1 && *data->input[1] == '>')
+	// {
+	// 	execute_cmd_out(data);
+	// 	malloc_free(data->path);
+	// }
+	// else if (ft_tablen(data->input) > 1 && *data->input[1] == '<')
+	// {
+	// 	execute_cmd_in(data);
+	// 	malloc_free(data->path);
+	// }

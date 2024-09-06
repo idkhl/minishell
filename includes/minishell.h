@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/31 16:14:16 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:18:14 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ typedef struct s_data
 
 void	handle_signals(void);
 void	heredoc_signals(void);
-// void	expand(t_data *data);
-char	*access_cmd(t_data *data, char **tab);
-char	**get_path(t_data *data);
+void	expand(t_data *data, char **tab);
 
 /*	EXEC & REDIRECTIONS	*/
 
 void	execute_cmd(t_data *data, char **tab);
+void	pipex(t_data *data, char ***big_tab, int nb_blocks);
 // void	execute_cmd_out(t_data *data);
 // void	execute_cmd_in(t_data *data);
 
@@ -55,11 +54,15 @@ void	build_exit(t_data *data, char **tab);
 
 /*	UTILS	*/
 
-int		ft_tablen(char **tab);
-char	**ft_tabdup(char **tab);
+char	***get_big_tab(char *line);
 char	**split_quotes(char *line, char c);
 char	**split_pipes(char *line);
+
+char	*access_cmd(t_data *data, char **tab);
+char	**get_path(t_data *data);
+
 int		count_blocks(char *line);
-char	***get_big_tab(char *line);
+int		ft_tablen(char **tab);
+char	**ft_tabdup(char **tab);
 
 #endif

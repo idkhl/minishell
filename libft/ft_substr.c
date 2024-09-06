@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:44:10 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/03/18 10:59:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:37:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_substr(char*s, unsigned int start, size_t len)
 		
 }*/
 
-/*#include <stdlib.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 static void		ft_print_result(char*s)
@@ -113,4 +113,4 @@ int				main(int argc,  char *argv[])
 	else if (arg == 4)
 		check_substr(str, 0, 0);
 	return (0);
-}*/
+}
