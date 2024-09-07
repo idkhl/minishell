@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/06 18:08:03 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:08:32 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	exec_first_pipe(t_data *data, char ***big_tab, int i)
 		return (free(cmd), perror("access_cmd 1"));
 	if (pipe(data->fd) == -1)
 		return (perror("pipe 1"));
-	// if (check_builtins(data, big_tab[i]) == 0)
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 1"));
@@ -129,14 +128,16 @@ void	pipex(t_data *data, char ***big_tab, int nb_blocks)
 	int	i;
 
 	i = 0;
-	exec_first_pipe(data, big_tab, i);
-	i++;
-	while (i < nb_blocks - 1)
+	while (i <= nb_blocks - 1)
 	{
-		exec_middle_pipes(data, big_tab, i);
+		if (i == 0)
+			exec_first_pipe(data, big_tab, i);
+		else if (i == nb_blocks - 1)
+			exec_last_pipe(data, big_tab, i);
+		else
+			exec_middle_pipes(data, big_tab, i);
 		i++;
 	}
-	exec_last_pipe(data, big_tab, i);
 	while (wait(NULL) != -1)
 		continue ;
 }

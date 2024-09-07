@@ -6,11 +6,27 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/31 16:14:49 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:58:26 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_tab(char ***big_tab, int size)
+{
+	int	i;
+
+	i = 0;
+	if (big_tab)
+	{
+		while (i < size)
+		{
+			malloc_free(big_tab[i]);
+			i++;
+		}
+		free(big_tab);
+	}
+}
 
 char	***get_big_tab(char *line)
 {

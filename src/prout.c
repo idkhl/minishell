@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/06 18:08:17 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:50:20 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,25 @@ void	init_struct(t_data *data, char **envp)
 
 void	parse_line(t_data *data, char *line)
 {
-	int		i;
 	int		nb_blocks;
 	char	***big_tab;
 
+	// sert juste pour quand realine est vide pcq sinon segfault
+	// pas sure que ca match avec le parsing et la syntaxe
 	if (ft_strlen(line) == 0)
 		return ;
+
 	big_tab = get_big_tab(line);
 	if (!big_tab)
 		return ;
 	nb_blocks = count_blocks(line);
-	if (nb_blocks == 1)
+	if (nb_blocks == 1) //si pas de pipe
 	{
-		if (check_builtins(data, *big_tab) == 0)
+		if (check_builtins(data, *big_tab) == 0) //si pas un builtin alors une cmd
 			execute_cmd(data, *big_tab);
 	}
 	else
 		pipex(data, big_tab, nb_blocks);
-	i = 0;
-	if (big_tab)
-	{
-		while (i < nb_blocks)
-		{
-			malloc_free(big_tab[i]);
-			i++;
-		}
-		free(big_tab);
-	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -58,7 +50,7 @@ int	main(int ac, char **av, char **envp)
 	t_data	data;
 
 	init_struct(&data, envp);
-	handle_signals();
+	handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
 	line = readline("minishell $> ");
 	while (line)
 	{
@@ -73,6 +65,21 @@ int	main(int ac, char **av, char **envp)
 		malloc_free(data.env);
 	malloc_free(data.path);
 }
+
+
+IDEE(nulle) POUR LES REDIR
+- parcourir le char** juste avant d'executer pour voir s'il y en a
+- si non on continue l'exec normalement
+- si oui -> une fonction qui va identifier si elles sont avant la 
+commande ou apres par ex: < infile > test cat > outfile 
+- on les mets dans deux char** un pour avant, un pour apres
+ex : [< infile][> test] d'un cote [> outfile] de l'autre
+- modifier le char ** de base pour ne garder que la commande pour execve
+-> si on tombe sur une redirection la free et free l'element d'apres qui sera forcement un fichier
+- faire les premieres redirections avant l'exec et la derniere apres l'exec
+-> si plusieurs redirections a la suite, faire une boucle sur le char**
+
+
 
 // export a b -> export X env
 //			pas de chiffres  symboles avant =
