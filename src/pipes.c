@@ -6,23 +6,22 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/07 19:25:09 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:39:35 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	exec_first_pipe(t_data *data, char ***big_tab, int i)
+void	exec_first_pipe(t_data *data, char **tab)
 {
 	char	*cmd;
 	pid_t	pid;
 
-	cmd = access_cmd(data, big_tab[i]);
+	cmd = access_cmd(data, tab);
 	if (!cmd)
 		return (free(cmd), perror("access_cmd 1"));
 	if (pipe(data->fd) == -1)
 		return (perror("pipe 1"));
-	// if (check_builtins(data, big_tab[i]) == 0)
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 1"));
@@ -35,9 +34,9 @@ void	exec_first_pipe(t_data *data, char ***big_tab, int i)
 			exit(EXIT_FAILURE);
 		}
 		close(data->fd[1]);
-		if (check_builtins(data, big_tab[i]) == 0)
+		if (check_builtins(data, tab) == 0)
 		{
-			if (execve(cmd, big_tab[i], data->env) == -1)
+			if (execve(cmd, tab, data->env) == -1)
 			{
 				perror("execve 1");
 				exit(EXIT_FAILURE);
@@ -50,12 +49,12 @@ void	exec_first_pipe(t_data *data, char ***big_tab, int i)
 	free(cmd);
 }
 
-void	exec_middle_pipes(t_data *data, char ***big_tab, int i)
+void	exec_middle_pipes(t_data *data, char **tab)
 {
 	char	*cmd;
 	pid_t	pid;
 
-	cmd = access_cmd(data, big_tab[i]);
+	cmd = access_cmd(data, tab);
 	if (!cmd)
 		return (free(cmd), perror("access_cmd 2"));
 	if (pipe(data->fd) == -1)
@@ -74,9 +73,9 @@ void	exec_middle_pipes(t_data *data, char ***big_tab, int i)
 		}
 		close(data->fd[0]);
 		close(data->fd[1]);
-		if (check_builtins(data, big_tab[i]) == 0)
+		if (check_builtins(data, tab) == 0)
 		{
-			if (execve(cmd, big_tab[i], data->env) == -1)
+			if (execve(cmd, tab, data->env) == -1)
 			{
 				perror("execve 1");
 				exit(EXIT_FAILURE);
@@ -90,12 +89,12 @@ void	exec_middle_pipes(t_data *data, char ***big_tab, int i)
 	free(cmd);
 }
 
-void	exec_last_pipe(t_data *data, char ***big_tab, int i)
+void	exec_last_pipe(t_data *data, char **tab)
 {
 	char	*cmd;
 	pid_t	pid;
 
-	cmd = access_cmd(data, big_tab[i]);
+	cmd = access_cmd(data, tab);
 	if (!cmd)
 		return (free(cmd), perror("access_cmd 3"));
 	pid = fork();
@@ -109,9 +108,9 @@ void	exec_last_pipe(t_data *data, char ***big_tab, int i)
 			exit(EXIT_FAILURE);
 		}
 		close(data->fd[0]);
-		if (check_builtins(data, big_tab[i]) == 0)
+		if (check_builtins(data, tab) == 0)
 		{
-			if (execve(cmd, big_tab[i], data->env) == -1)
+			if (execve(cmd, tab, data->env) == -1)
 			{
 				perror("execve 1");
 				exit(EXIT_FAILURE);
@@ -132,11 +131,11 @@ void	pipex(t_data *data, char ***big_tab, int nb_blocks)
 	while (i <= nb_blocks - 1)
 	{
 		if (i == 0)
-			exec_first_pipe(data, big_tab, i);
+			exec_first_pipe(data, big_tab[i]);
 		else if (i == nb_blocks - 1)
-			exec_last_pipe(data, big_tab, i);
-		else 
-			exec_middle_pipes(data, big_tab, i);
+			exec_last_pipe(data, big_tab[i]);
+		else
+			exec_middle_pipes(data, big_tab[i]);
 		i++;
 	}
 	while (wait(NULL) != -1)

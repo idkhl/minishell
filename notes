@@ -35,3 +35,137 @@
 // 	if 1 cmd 
 // 		exec_cmd(cmd, opt, arg)
 // }
+
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+
+// #define MAX_REDIR 100
+
+// typedef struct s_redir {
+//     char **before;
+//     char **after;
+// } t_redir;
+
+// t_redir parse_redirs(char **args) {
+//     t_redir redirs;
+//     redirs.before = NULL;
+//     redirs.after = NULL;
+    
+//     int i = 0;
+//     while (args[i]) {
+//         if (strcmp(args[i], "<") == 0 || strcmp(args[i], ">") == 0) {
+//             // Créez un nouveau tableau pour les redirections avant/après
+//             char **new_args = malloc((MAX_REDIR + 1) * sizeof(char *));
+            
+//             // Copiez les éléments jusqu'à la redirection
+//             int j = 0;
+//             while (args[j] && strcmp(args[j], "<") != 0 && strcmp(args[j], ">") != 0) {
+//                 new_args[j] = args[j];
+//                 j++;
+//             }
+//             new_args[j] = NULL;
+            
+//             // Mettez à jour le tableau original
+//             memcpy(args, new_args, (j + 1) * sizeof(char *));
+            
+//             // Ajoutez la redirection au bon tableau
+//             if (strcmp(args[0], "<") == 0) {
+//                 redirs.before = &args[1];
+//             } else {
+//                 redirs.after = &args[1];
+//             }
+            
+//             break;
+//         }
+//         i++;
+//     }
+    
+//     return redirs;
+// }
+
+// void exec_first_pipe(t_data *data, char **tab) {
+//     char *cmd;
+//     pid_t pid;
+//     t_redir redirs;
+
+//     cmd = access_cmd(data, tab);
+//     if (!cmd)
+//         return (free(cmd), perror("access_cmd 1"));
+
+//     redirs = parse_redirs(tab);
+
+//     // Gestion des redirections avant l'exécution
+//     if (redirs.before) {
+//         // Ouvrez le fichier d'entrée
+//         FILE *infile = fopen(redirs.before[0], "r");
+//         if (!infile) {
+//             perror("fopen");
+//             exit(EXIT_FAILURE);
+//         }
+        
+//         // Remplacez stdin par le fichier
+//         dup2(fileno(infile), STDIN_FILENO);
+//         fclose(infile);
+//     }
+
+//     if (pipe(data->fd) == -1)
+//         return (perror("pipe 1"));
+
+//     pid = fork();
+//     if (pid == -1)
+//         return (perror("fork 1"));
+
+//     if (pid == 0) {
+//         close(data->fd[0]);
+//         if (dup2(data->fd[1], STDOUT_FILENO) == -1) {
+//             perror("dup2 1");
+//             exit(EXIT_FAILURE);
+//         }
+//         close(data->fd[1]);
+
+//         if (check_builtins(data, tab) == 0) {
+//             if (execve(cmd, tab, data->env) == -1) {
+//                 perror("execve 1");
+//                 exit(EXIT_FAILURE);
+//             }
+//         } else {
+//             exit(EXIT_SUCCESS);
+//         }
+//     }
+
+//     close(data->fd[1]);
+//     free(cmd);
+
+//     // Gestion des redirections après l'exécution
+//     if (redirs.after) {
+//         // Ouvrez le fichier de sortie
+//         FILE *outfile = fopen(redirs.after[0], "w");
+//         if (!outfile) {
+//             perror("fopen");
+//             exit(EXIT_FAILURE);
+//         }
+        
+//         // Remplacez stdout par le fichier
+//         dup2(fileno(outfile), STDOUT_FILENO);
+//         fclose(outfile);
+//     }
+// }
+
+// void pipex(t_data *data, char ***big_tab, int nb_blocks) {
+//     int i;
+
+//     i = 0;
+//     while (i <= nb_blocks - 1) {
+//         if (i == 0)
+//             exec_first_pipe(data, big_tab[i]);
+//         else if (i == nb_blocks - 1)
+//             exec_last_pipe(data, big_tab[i]);
+//         else
+//             exec_middle_pipes(data, big_tab[i]);
+//         i++;
+//     }
+
+//     while (wait(NULL) != -1)
+//         continue;
+// }
