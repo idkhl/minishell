@@ -1,37 +1,37 @@
-cd
-	1 arg
-	revenir au dir de depart avec cd -> segfault
-pwd
-echo
-	echo $var qui n existe pas -> \n
-env
-exit
-	++++ --- en arg
-	long long min/max
-export
-	symboles
-	remplacer une var qui existe deja
-unset
-	unset var pas $var
-commandes
-redirections
-	here_doc X
-pipes
-signaux
-	^C dans here_doc (cmprt de ^d)
+// cd
+// 	1 arg
+// 	revenir au dir de depart avec cd -> segfault
+// pwd
+// echo
+// 	echo $var qui n existe pas -> \n
+// env
+// exit
+// 	++++ --- en arg
+// 	long long min/max
+// export
+// 	symboles
+// 	remplacer une var qui existe deja
+// unset
+// 	unset var pas $var
+// commandes
+// redirections
+// 	here_doc X
+// pipes
+// signaux
+// 	^C dans here_doc (cmprt de ^d)
 
 
 
-parsing(line)
-{
-	if 1 -> builtin
-		echo? 
-			builtin = echo, opt?
-				arg -> ft_echo(builtin, arg)
-				opt -> -n 
-					ft_echo(builtin, opt, arg)
-					erreur -> quitter
-		exit?
-	if 1 cmd 
-		exec_cmd(cmd, opt, arg)
-}
+// parsing(line)
+// {
+// 	if 1 -> builtin
+// 		echo? 
+// 			builtin = echo, opt?
+// 				arg -> ft_echo(builtin, arg)
+// 				opt -> -n 
+// 					ft_echo(builtin, opt, arg)
+// 					erreur -> quitter
+// 		exit?
+// 	if 1 cmd 
+// 		exec_cmd(cmd, opt, arg)
+// }

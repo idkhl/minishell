@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/07 18:50:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:31:24 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	parse_line(t_data *data, char *line)
 	}
 	else
 		pipex(data, big_tab, nb_blocks);
+	free_tab(big_tab, nb_blocks);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -67,17 +68,16 @@ int	main(int ac, char **av, char **envp)
 }
 
 
-IDEE(nulle) POUR LES REDIR
-- parcourir le char** juste avant d'executer pour voir s'il y en a
-- si non on continue l'exec normalement
-- si oui -> une fonction qui va identifier si elles sont avant la 
-commande ou apres par ex: < infile > test cat > outfile 
-- on les mets dans deux char** un pour avant, un pour apres
-ex : [< infile][> test] d'un cote [> outfile] de l'autre
-- modifier le char ** de base pour ne garder que la commande pour execve
--> si on tombe sur une redirection la free et free l'element d'apres qui sera forcement un fichier
-- faire les premieres redirections avant l'exec et la derniere apres l'exec
--> si plusieurs redirections a la suite, faire une boucle sur le char**
+// IDEE(nulle) POUR LES REDIR
+// - parcourir le char** juste avant d'executer pour voir s'il y en a
+// - si non on continue l'exec normalement
+// - si oui -> une fonction qui va identifier si elles sont avant la commande ou apres par ex: < infile > test cat > outfile 
+// - on les mets dans deux char** un pour avant, un pour apres
+// ex : [< infile][> test] d'un cote [> outfile] de l'autre
+// - modifier le char ** de base pour ne garder que la commande pour execve
+// -> si on tombe sur une redirection la free et free l'element d'apres qui sera forcement un fichier
+// - faire les premieres redirections avant l'exec et la derniere apres l'exec
+// -> si plusieurs redirections a la suite, faire une boucle sur le char**
 
 
 

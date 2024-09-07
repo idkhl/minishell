@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/06 18:18:14 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:31:52 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ char	**get_path(t_data *data);
 int		count_blocks(char *line);
 int		ft_tablen(char **tab);
 char	**ft_tabdup(char **tab);
+void	free_tab(char ***big_tab, int size);
 
 #endif
