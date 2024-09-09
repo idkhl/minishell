@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/07 19:31:52 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:39:24 by inesdakhlao      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	expand(t_data *data, char **tab);
 
 void	execute_cmd(t_data *data, char **tab);
 void	pipex(t_data *data, char ***big_tab, int nb_blocks);
+
+void	redir(t_data *data, char **tab);
 // void	execute_cmd_out(t_data *data);
 // void	execute_cmd_in(t_data *data);
 
