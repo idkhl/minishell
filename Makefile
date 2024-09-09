@@ -6,13 +6,13 @@
 #    By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 14:53:25 by idakhlao          #+#    #+#              #
-#    Updated: 2024/09/09 12:30:41 by inesdakhlao      ###   ########.fr        #
+#    Updated: 2024/09/09 18:38:59 by inesdakhlao      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c \
+SRCS = src/prout.c src/pipes.c src/exec_cmd.c src/redir.c \
 		\
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/exit.c\
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\
@@ -21,6 +21,7 @@ SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c \
 		src/utils/get_big_tab.c src/utils/path_access.c\
 		\
 		#src/exec_redir_out.c src/exec_redir_in.c \
+		src/signals.c\
 		src/expand.c 
 		
 OBJS = ${SRCS:.c=.o}
