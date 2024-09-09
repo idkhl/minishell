@@ -20,7 +20,14 @@
 // signaux
 // 	^C dans here_doc (cmprt de ^d)
 
+// export a b -> export X env
+//			pas de chiffres  symboles avant =
+//			export les autres var si la 1ere existe deja
+// echo var qui n'existe pas -> \n 
+// var sans commandes
 
+// line = /n || isspace
+// sigignore dans le parent
 
 // parsing(line)
 // {

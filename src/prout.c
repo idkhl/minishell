@@ -6,7 +6,7 @@
 /*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/09 12:30:19 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/09/09 11:48:06 by inesdakhlao      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,7 @@ int	main(int ac, char **av, char **envp)
 // -> si oui: on tente
 // -> si non: le frapper
 
-
-// export a b -> export X env
-//			pas de chiffres  symboles avant =
-//			export les autres var si la 1ere existe deja
-// echo var qui n'existe pas -> \n 
-// var sans commandes
-
-// line = /n || isspace
-// sigignore dans le parent
-
-
-
+// PRINT BIGTAB
 	// i = 0;
 	// while (i < nb_blocks)
 	// {
