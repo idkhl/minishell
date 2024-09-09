@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/07 19:40:21 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:30:19 by inesdakhlao      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	parse_line(t_data *data, char *line)
 	int		nb_blocks;
 	char	***big_tab;
 
-	// sert juste pour quand realine est vide pcq sinon segfault
+	// sert juste pour quand readline est vide pcq sinon segfault
 	// pas sure que ca match avec le parsing et la syntaxe
 	if (ft_strlen(line) == 0)
 		return ;
@@ -78,7 +78,10 @@ int	main(int ac, char **av, char **envp)
 // -> si on tombe sur une redirection la free et free l'element d'apres qui sera forcement un fichier
 // - faire les premieres redirections avant l'exec et la derniere apres l'exec
 // -> si plusieurs redirections a la suite, faire une boucle sur le char**
-
+// VOIR REDIR.C pour le plan du code
+// Demander au joker s'il pense que c'est faisable/une bonne idee
+// -> si oui: on tente
+// -> si non: le frapper
 
 
 // export a b -> export X env

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/07 18:57:40 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:29:13 by inesdakhlao      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	execute_cmd(t_data *data, char **tab)
 {
-	int		i;
 	char	*cmd;
 	pid_t	pid;
 
-	i = 0;
+	// redir(data, tab);
 	cmd = access_cmd(data, tab);
 	if (!cmd)
 		return (perror("access_cmd"));

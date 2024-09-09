@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
+#    By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 14:53:25 by idakhlao          #+#    #+#              #
-#    Updated: 2024/09/06 18:17:47 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/09/09 12:30:41 by inesdakhlao      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

@@ -112,9 +112,6 @@ int	check_export(t_data *data, char **tab)
 
 void	build_export(t_data *data, char **tab)
 {
-	int		i;
-
-	i = 0;
 	if (ft_tablen(tab) > 1)
 	{
 		if (check_export(data, tab) == 1)
