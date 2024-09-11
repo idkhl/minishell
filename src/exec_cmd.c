@@ -6,7 +6,7 @@
 /*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/09 12:29:13 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/09/11 10:29:40 by inesdakhlao      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	execute_cmd(t_data *data, char **tab)
 	char	*cmd;
 	pid_t	pid;
 
-	// redir(data, tab);
+	redir(data, tab);
 	cmd = access_cmd(data, tab);
 	if (!cmd)
 		return (perror("access_cmd"));
@@ -26,7 +26,6 @@ void	execute_cmd(t_data *data, char **tab)
 		return (free(cmd), perror("fork"));
 	if (pid == 0)
 	{
-		// handle_signals();
 		if (execve(cmd, tab, data->env) == -1)
 			return (free(cmd), exit(EXIT_FAILURE));
 	}
