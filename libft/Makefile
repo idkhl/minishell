@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
+#    By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/20 11:40:35 by idakhlao          #+#    #+#              #
-#    Updated: 2024/06/04 15:22:21 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/09/11 11:51:26 by inesdakhlao      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,26 +24,29 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		ft_lstsize_bonus.c ft_lstmap_bonus.c ft_lstiter_bonus.c \
 		get_next_line.c ft_strcmp.c ft_strjoin_gnl.c get_next_line_utils.c
 		
-OBJS = ${SRCS:.c=.o}
+OBJS_DIR = .objects
+OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 
 CC = cc
-
 CFLAGS = -Wall -Werror -Wextra
-
 RM = rm -f
 
-all : $(NAME)
+all: $(NAME)
 
-$(NAME) : $(OBJS)
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
 
-%.o : %.c 
-	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+clean:
+	$(RM) $(OBJS)
+	find $(OBJS_DIR) -type f -name "*.o" -delete
 
-clean :
-	${RM} ${OBJS} 
-	
-fclean : clean
-	${RM} ${NAME}
+fclean: clean
+	$(RM) $(NAME)
 
-re : fclean all
+re: fclean all
