@@ -6,7 +6,7 @@
 /*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/09/11 10:26:29 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/09/11 12:15:05 by inesdakhlao      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ char	**malloc_redir_before(char **tab, int i)
 	return (tmp);
 }
 
-char **malloc_redir_after(char **tab, int i)
+char	**malloc_redir_after(char **tab, int i)
 {
 	char	**tmp;
 	int		size;
 	int		j;
-	
+
 	j = i;
 	size = 0;
 	while (tab[j])
@@ -77,9 +77,9 @@ char **malloc_redir_after(char **tab, int i)
 
 void	identify_redir(t_data *data, char **tab)
 {
-	char **redir_before; //les mettre dans une structure
-	char **redir_after;
-	int	i;
+	char	**redir_before; //les mettre dans une structure
+	char	**redir_after;
+	int		i;
 
 	i = 0;
 	// saute les premieres redirections
@@ -101,18 +101,18 @@ void	identify_redir(t_data *data, char **tab)
 	while (tab[i] && ft_strncmp(tab[i], ">", 1) != 0 && ft_strncmp(tab[i], "<", 1) != 0)
 		i++;
 	if (tab[i] && (ft_strncmp(tab[i], ">", 1) == 0 || ft_strncmp(tab[i], "<", 1) == 0))
-    {
-        redir_after = malloc_redir_after(tab, i);
-        if (!redir_after)
-            return; 
-        j = 0;
-        while (redir_after[j])
-        {
-            printf("[%s]", redir_after[j]);
-            j++;
-        }
+	{
+		redir_after = malloc_redir_after(tab, i);
+		if (!redir_after)
+			return ;
+		j = 0;
+		while (redir_after[j])
+		{
+			printf("[%s]", redir_after[j]);
+			j++;
+		}
 		printf("\n");
-    }
+	}
 	(void)data;
 	// dans une boucle: if redir -> mettre la redir + le mot d'apres(le fichier)
 	// -> tant qu'il y a une paire redir + fichier la mettre a la suite dans le char **
