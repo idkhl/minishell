@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/13 18:54:01 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:32:55 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	fill_input(t_input *input, char *line)
 	i = 0;
 	nb_blocks = count_blocks(line);
 	tab = split_pipes(line);
+	printf("NB BLOC = %d\n", nb_blocks);
+	printf("TAB[0] %s\n", tab[0]);
+	printf("TAB[1] %s\n", tab[1]);
 	while(i < nb_blocks)
 	{
 		input[i].input= malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
@@ -51,21 +54,20 @@ void	fill_input(t_input *input, char *line)
 	malloc_free(tab);
 }
 
-void	allocate_new_struct(t_input *tab, char *line)
+void	allocate_new_struct(t_input **tab, char *line)
 {
 	int		nb_blocks;
 	nb_blocks = count_blocks(line);
-	tab = malloc(sizeof(t_input) * nb_blocks + 1);
+	*tab = malloc(sizeof(t_input) * (nb_blocks + 1));
 	if (tab == NULL)
 	{
 		perror("Failed to allocate memory for t_input");
 		return ;
 	}
-	
 }
 
 
-// // Fonction pour trouver le premier mot après une redirection
+// Fonction pour trouver le premier mot après une redirection
 // void find_first_redir(t_input *tab, char **big_tab)
 // {
 //     int i;

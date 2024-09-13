@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/13 18:50:29 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:43:35 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,25 @@ int	main(int ac, char **av, char **envp)
 
 	// handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
 	line = readline("minishell $> ");
-	allocate_new_struct(input, line);
-	// init_struct(&data, input,envp);
+	init_struct(&data, input,envp);
 	while (line)
 	{
 		add_history(line);
-		// allocate_input(input, line);
+		allocate_new_struct(&input, line);
 		fill_input(input, line);
 		allocate_and_copy_redir(input, line);
 		// int nb_blocks = count_blocks(line);
 		// // if (check_syntax(line) == 0)
 		// // 	parse_line(&data, line);
 		// i = 0;
-		printf("Bloc [%s]\n", input[1].in_file);
+		printf("Infile = [%s]\n", input[0].in_file);
+		printf("Outfile = [%s]\n", input[0].out_file);
 	
 		free(line);
 		line = readline("minishell $> ");
 	}
 	(void)av;
 	(void)ac;
-	(void)envp;
 	if (data.env)
 		malloc_free(data.env);
 	malloc_free(data.path);

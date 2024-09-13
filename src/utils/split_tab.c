@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_big_tab.c                                    :+:      :+:    :+:   */
+/*   split_tab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/13 17:51:25 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:41:53 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ void	allocate_and_copy_redir(t_input *input, char *line)
 	nb_blocks = count_blocks(line);
 	while (i < nb_blocks)
 	{
-		while (input[i].tab)
+		j = 0;
+		while (input[i].tab[j])
 		{
-			j = 0;
-			if (ft_strcmp(input[i].tab[j], "<"))
+			if (ft_strcmp(input[i].tab[j], "<") == 0)
 				input[i].in_file = ft_strdup(input[i].tab[j + 1]);
+			else if (ft_strcmp(input[i].tab[j], ">") == 0)
+				input[i].out_file = ft_strdup(input[i].tab[j + 1]);
 			j++;
 		}
 		i++;
