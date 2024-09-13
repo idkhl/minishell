@@ -6,7 +6,7 @@
 #    By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 14:53:25 by idakhlao          #+#    #+#              #
-#    Updated: 2024/09/13 19:40:47 by afrikach         ###   ########.fr        #
+#    Updated: 2024/09/13 19:50:31 by afrikach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c \
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\
 		\
 		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c src/utils/split_quotes.c\
-		src/utils/get_big_tab.c src/utils/path_access.c src/utils/split_tab.c\
+		src/utils/get_big_tab.c src/utils/path_access.c src/utils/fill_struct.c\
 		\
 		src/parsing/util.c src/parsing/syntax_quotes.c src/parsing/syntax_pipes.c\
 		src/parsing/syntax_open_redir.c src/parsing/syntax_close_redir.c

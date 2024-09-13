@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/13 19:28:34 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:03:45 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int		count_blocks(char *line);
 int		ft_tablen(char **tab);
 char	**ft_tabdup(char **tab);
 void	free_tab(char ***big_tab, int size);
+int		count_cmds(char **tab);
+void	skip_redir(t_input *input, char *line);
 
 /*  PARSING  */
 

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/13 19:43:35 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:05:59 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	main(int ac, char **av, char **envp)
 		// // if (check_syntax(line) == 0)
 		// // 	parse_line(&data, line);
 		// i = 0;
+		//PETIT PROBLEME A REGLER LUNDI. SI PAS D ESPACE, NE CONSIDERE PAS CA COMME REDIR
 		printf("Infile = [%s]\n", input[0].in_file);
 		printf("Outfile = [%s]\n", input[0].out_file);
 	
