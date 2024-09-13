@@ -1,4 +1,3 @@
-a.out
 includes
 infile
 libft
@@ -7,4 +6,5 @@ minishell
 notes
 outfile
 src
+test
 valgrind-readline.supp

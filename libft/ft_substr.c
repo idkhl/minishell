@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:44:10 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/09 12:34:36 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/09/06 16:37:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_substr(char*s, unsigned int start, size_t len)
 	else
 		
 }*/
-/*
+
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -113,4 +113,4 @@ int				main(int argc,  char *argv[])
 	else if (arg == 4)
 		check_substr(str, 0, 0);
 	return (0);
-}*/
+}

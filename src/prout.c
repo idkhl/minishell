@@ -3,65 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/11 11:52:41 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/09/13 18:50:29 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	init_struct(t_data *data, char **envp)
+void	init_struct(t_data *data, t_input *input, char **envp)
 {
+	int i;
+
+	i = 0;
 	data->env = ft_tabdup(envp);
 	if (!data->env)
 		return ;
 	data->exp = NULL;
 	data->path = get_path(data);
+	if (input == NULL)
+		return ;
+	input->input = NULL;
+	input->tab = NULL;
+    input->cmd = NULL;
+	input->in_file = NULL;
+    input->out_file = NULL;
+	input->fd_in = -1;
+	input->fd_out = -1;
 }
 
-void	parse_line(t_data *data, char *line)
-{
-	int		nb_blocks;
-	char	***big_tab;
+// void	parse_line(t_data *data, char *line)
+// {
+// 	int		nb_blocks;
+// 	char	***big_tab;
 
-	// sert juste pour quand readline est vide pcq sinon segfault
-	// pas sure que ca match avec le parsing et la syntaxe
-	if (ft_strlen(line) == 0)
-		return ;
-
-	big_tab = get_big_tab(line);
-	if (!big_tab)
-		return ;
-	nb_blocks = count_blocks(line);
-	if (nb_blocks == 1) //si pas de pipe
-	{
-		if (check_builtins(data, *big_tab) == 0) //si pas un builtin alors une cmd
-			execute_cmd(data, *big_tab);
-	}
-	else
-		pipex(data, big_tab, nb_blocks);
-	free_tab(big_tab, nb_blocks);
-}
+// 	// sert juste pour quand readline est vide pcq sinon segfault
+// 	// pas sure que ca match avec le parsing et la syntaxe
+// 	// if (ft_strlen(line) == 0)
+// 	// 	return ;
+// 	big_tab = get_big_tab(line);
+// 	if (!big_tab)
+// 		return ;
+// 	nb_blocks = count_blocks(line);
+// 	if (nb_blocks == 1) //si pas de pipe
+// 	{
+// 		if (check_builtins(data, *big_tab) == 0) //si pas un builtin alors une cmd
+// 			execute_cmd(data, *big_tab);
+// 	}
+// 	else
+// 		pipex(data, big_tab, nb_blocks);
+// 	free_tab(big_tab, nb_blocks);
+// }
 
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 	t_data	data;
+	t_input	*input = NULL;
+	// int i;
+	// int j;
 
-	init_struct(&data, envp);
-	handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
+	// handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
 	line = readline("minishell $> ");
+	allocate_new_struct(input, line);
+	// init_struct(&data, input,envp);
 	while (line)
 	{
 		add_history(line);
-		parse_line(&data, line);
+		// allocate_input(input, line);
+		fill_input(input, line);
+		allocate_and_copy_redir(input, line);
+		// int nb_blocks = count_blocks(line);
+		// // if (check_syntax(line) == 0)
+		// // 	parse_line(&data, line);
+		// i = 0;
+		printf("Bloc [%s]\n", input[1].in_file);
+	
 		free(line);
 		line = readline("minishell $> ");
 	}
 	(void)av;
 	(void)ac;
+	(void)envp;
 	if (data.env)
 		malloc_free(data.env);
 	malloc_free(data.path);
