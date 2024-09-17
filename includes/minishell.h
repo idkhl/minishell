@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/13 20:03:45 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:51:14 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ void	fill_input(t_input *input, char *line);
 void	init_struct(t_data *data, t_input *tab, char **envp);
 int		count_words(char *line, char c);
 void	allocate_and_copy_redir(t_input *input, char *line);
+
+int		find_quotes(char *s, int i);
+int		get_redirection(char *s);
 
 enum e_token
 {

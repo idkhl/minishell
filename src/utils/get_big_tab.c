@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/13 19:32:55 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:17:47 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ void	fill_input(t_input *input, char *line)
 	i = 0;
 	nb_blocks = count_blocks(line);
 	tab = split_pipes(line);
-	printf("NB BLOC = %d\n", nb_blocks);
-	printf("TAB[0] %s\n", tab[0]);
-	printf("TAB[1] %s\n", tab[1]);
+
 	while(i < nb_blocks)
 	{
 		input[i].input= malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
-		// input[i].input = ft_strdup(tab[i]);
 		if (input[i].input == NULL)
             perror("fill input = Failed to allocate memory for input[i]");
 		ft_strcpy(input[i].input, tab[i]);
