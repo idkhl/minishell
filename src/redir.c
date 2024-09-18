@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/09/11 12:15:05 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/09/18 11:00:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**malloc_redir_after(char **tab, int i)
 	return (tmp);
 }
 
-void	identify_redir(t_data *data, char **tab)
+void	identify_redir(t_redir *redir, char **tab)
 {
 	char	**redir_before; //les mettre dans une structure
 	char	**redir_after;
@@ -113,7 +113,7 @@ void	identify_redir(t_data *data, char **tab)
 		}
 		printf("\n");
 	}
-	(void)data;
+	(void)redir;
 	// dans une boucle: if redir -> mettre la redir + le mot d'apres(le fichier)
 	// -> tant qu'il y a une paire redir + fichier la mettre a la suite dans le char **
 	// si un mot en + de la paire redir+fichier -> c'est la commande on arrete le char ** 
@@ -122,14 +122,14 @@ void	identify_redir(t_data *data, char **tab)
 	// -> meme chose pour redir_after
 }
 
-void	redir(t_data *data, char **tab)
+void	redirections(t_redir *redir, char **tab)
 {
 	if (is_redir(tab) == 0)
 		return ;
-	identify_redir(data, tab);
+	identify_redir(redir, tab);
 	// while (redir_before[i])
-	// 	exec_redir(data, redir_before[i]);
+	// 	exec_redir(redir, redir_before[i]);
 	// exec_command();
 	// while (redir_after[i])
-	// 	exec_redir(data, redir_after[i]);
+	// 	exec_redir(redir, redir_after[i]);
 }
