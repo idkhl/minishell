@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/19 12:27:38 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:42:23 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,11 @@ int	main(int ac, char **av, char **envp)
 		// 	parse_line(&data, line);
 		// check_syntax(line);
 		// i = 0;
+		int index = find_redirection(input[0].input);
 		printf("length = %d\n", get_redirection_length(input[0].input));
+		printf("index redir = %d\n", find_redirection(input[0].input));
+		printf("redirection = %s\n", get_redir_type(input[0].input, index));
+		printf("index name redir %d\n", get_redirection_start(input[0].input));
 		free(line);
 		line = readline("minishell $> ");
 	}

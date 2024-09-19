@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/19 12:26:25 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:40:41 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	find_quotes(char *s, int index)
 		return (1);
 	return (0);
 }
+
 int get_redirection_length(char *s) 
 {
     int i;
@@ -44,7 +45,10 @@ int get_redirection_length(char *s)
 	{
         if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
 		{
-			i++;
+			if ((s[i + 1] == '<' && s[i] == '<') || (s[i + 1] == '>' && s[i] == '>'))
+                i += 2;
+			else
+				i++;
 			while (s[i] && ft_isspace(s[i]))
 				i++;
 			while (s[i] && !ft_isspace(s[i]) && s[i] != '<' && s[i] != '>') 
@@ -64,94 +68,123 @@ int get_redirection_length(char *s)
 	return 0;
 }
 
-// int		find_redirection(char *s)
+int		find_redirection(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
+			return (i);
+		i++;
+	}
+	return (0);
+}
+char	*get_redir_type(char *s, int index)
+{
+	if (s[index] == '<')
+	{
+        if (s[index + 1] == '<')
+            return ft_strdup("<<");
+        else
+            return ft_strdup("<");
+    } 
+	else if (s[index] == '>')
+	{
+        if (s[index + 1] == '>')
+            return ft_strdup(">>");
+        else
+            return ft_strdup(">");
+    }
+    return (NULL);
+}
+int get_redirection_start(char *s) 
+{
+    int i;
+
+	i = 0;
+    while (s[i])
+	{
+        if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
+		{
+			if ((s[i + 1] == '<' && s[i] == '<') || (s[i + 1] == '>' && s[i] == '>'))
+                i += 2;
+			else
+				i++;
+			while (s[i] && ft_isspace(s[i]))
+				i++;
+			while (s[i] && !ft_isspace(s[i]) && s[i] != '<' && s[i] != '>') 
+			{
+				if (s[i] && s[i] == '\"')
+					i++;
+				else
+				{
+					return(i);
+					i++;
+				}
+			}
+		}
+		i++;
+	}
+	return 0;
+}
+
+
+// int count_cmds(char *tab)
 // {
-// 	int i;
+// 	int i = 0;
+// 	int count = 0;
 
-// 	i = 0;
-// 	while (s[i])
+// 	while (tab[i])
 // 	{
-		
-// 	}
-	
-// }
-
-
-// int allocate_and_copy_redir(char *s)
-// {
-//     int i;
-// 	int	length;
-	
-// 	i = find_redirection(s);
-// 	printf("I = %d\n", i);
-// 	length = 0;
-// 	while (s[i])
-// 	{
-// 		if (s[i] == '<' && s[i] == '>')
+// 		if (ft_strcmp(tab[i], "<") != 0 && ft_strcmp(tab[i], ">") != 0 
+// 		&& ft_strcmp(tab[i], ">>") != 0 && ft_strcmp(tab[i], "<<") != 0)
+// 		{
+// 			count++;
+// 		}
+// 		else
+// 		{
 // 			i++;
-// 		length = get_redirection_length(s);
-// 		return (length);
+// 		}
 // 		i++;
 // 	}
-// 	return (-1);
+// 	return (count);
 // }
 
-
-int count_cmds(char **tab)
-{
-	int i = 0;
-	int count = 0;
-
-	while (tab[i])
-	{
-		if (ft_strcmp(tab[i], "<") != 0 && ft_strcmp(tab[i], ">") != 0
-			&& ft_strcmp(tab[i], ">>") != 0 && ft_strcmp(tab[i], "<<") != 0)
-		{
-			count++;
-		}
-		else
-		{
-			i++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-void	skip_redir(t_input *input, char *line)
-{
-	int		i;
-	int		j;
-	int		k;
-	int		nb_blocks;
+// void	skip_redir(t_input *input, char *line)
+// {
+// 	int		i;
+// 	int		j;
+// 	int		k;
+// 	int		nb_blocks;
 	
-	i = 0;
-	nb_blocks = count_blocks(line);
-	while (i < nb_blocks)
-	{
-		j = 0;
-		k = 0;
-		input[i].cmd = malloc(sizeof(char *) * (count_cmds(input[i].tab) + 1));
-		if (!input[i].cmd)
-			return ;
+// 	i = 0;
+// 	nb_blocks = count_blocks(line);
+// 	while (i < nb_blocks)
+// 	{
+// 		j = 0;
+// 		k = 0;
+// 		input[i].cmd = malloc(sizeof(char *) * (count_cmds(input[i].tab) + 1));
+// 		if (!input[i].cmd)
+// 			return ;
 		
-		while (input[i].tab[j])
-		{
-			
-			if (ft_strcmp(input[i].tab[j], "<") == 0 
-				|| ft_strcmp(input[i].tab[j], ">") == 0 
-				|| ft_strcmp(input[i].tab[j], ">>") == 0 
-				|| ft_strcmp(input[i].tab[j], "<<") == 0)
-			{
-				j += 2;
-				continue;
-			}
-			input[i].cmd[k] = ft_strdup(input[i].tab[j]);
-			k++;
-			j++;
-		}
-		input[i].cmd[k] = NULL;
-		i++;
-	}
-}
+// 		while (input[i].tab[j])
+// 		{
+// 			if (ft_strcmp(input[i].tab[j], "<") == 0 
+// 				|| ft_strcmp(input[i].tab[j], ">") == 0 
+// 				|| ft_strcmp(input[i].tab[j], ">>") == 0 
+// 				|| ft_strcmp(input[i].tab[j], "<<") == 0)
+// 			{
+// 				j += 2;
+// 				continue;
+// 			}
+// 			input[i].cmd[k] = ft_strdup(input[i].tab[j]);
+// 			k++;
+// 			j++;
+// 		}
+// 		input[i].cmd[k] = NULL;
+// 		i++;
+// 	}
+// }
 

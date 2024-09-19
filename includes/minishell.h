@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/19 12:09:44 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:41:17 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ int		allocate_and_copy_redir(char *s);
 int		find_quotes(char *s, int i);
 int		find_redirection(char *s);
 int		get_redirection_length(char *s);
+char	*get_redir_type(char *s, int index);
+int		get_redirection_start(char *s);
 
 
 #endif
