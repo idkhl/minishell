@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/17 10:51:14 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:09:44 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_data
 	int		fd[2];
 }	t_data;
 
-// ex : < infile cat Makefile | ls | echo hello > outfile
+// ex : > infile >> makefile cat Makefile | ls | echo hello > outfile
 // ci bas l'exemple pour le premier bloc
 
 typedef	struct s_input
@@ -40,6 +40,8 @@ typedef	struct s_input
 	char	**cmd; // [cat] [Makefile]
 	char	*in_file; // [infile]
 	char	*out_file;
+	char	*crochet_infile;
+	char	*append;
 	int		fd_in;
 	int		fd_out;
 }	t_input;
@@ -102,24 +104,11 @@ void	allocate_new_struct(t_input **tab, char *line);
 void	fill_input(t_input *input, char *line);
 void	init_struct(t_data *data, t_input *tab, char **envp);
 int		count_words(char *line, char c);
-void	allocate_and_copy_redir(t_input *input, char *line);
+int		allocate_and_copy_redir(char *s);
 
 int		find_quotes(char *s, int i);
-int		get_redirection(char *s);
-
-enum e_token
-{
-	SPACES = 1,
-	HEREDOC,
-	INPUT,
-	APPEND,
-	TRUNC,
-	CMD,
-	OPT, // -l -o -s etc..
-	ARG, // ex: echo salut, salut est l'arg.
-	PIPE,
-	END,
-};
+int		find_redirection(char *s);
+int		get_redirection_length(char *s);
 
 
 #endif

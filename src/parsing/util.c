@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:40:30 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/12 17:48:15 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/19 10:15:26 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void    ft_path(void)
 }
 int	ft_isspace(int c)
 {
-	if (c == ' ' || c == '\t')
+	if (c == ' ' || c == '\t'|| c == '\n')
 		return (1);
 	return (0);
 }

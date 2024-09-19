@@ -10,3 +10,5 @@
 // Pour les redirections '>' on open tout, on supprime le contenu de tout les outfile 
 // sauf la derniere redir qu'on execute>.
 // la commande qui s'execute ici c'est la [cat] [-e]
+
+// ls <  \    "in'f/'ile"

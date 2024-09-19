@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/17 12:54:25 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:27:38 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,11 @@ int	main(int ac, char **av, char **envp)
 		add_history(line);
 		allocate_new_struct(&input, line);
 		fill_input(input, line);
-		allocate_and_copy_redir(input, line);
 		// if (check_syntax(line) == 0)
 		// 	parse_line(&data, line);
 		// check_syntax(line);
 		// i = 0;
-		//PETIT PROBLEME A REGLER LUNDI. SI PAS D ESPACE, NE CONSIDERE PAS CA COMME REDIR
-		printf("input = {%s}\n", input[0].input);
-		printf("infile = {%s}\n", input[0].in_file);
-		printf("outfile = {%s}\n", input[0].out_file);
+		printf("length = %d\n", get_redirection_length(input[0].input));
 		free(line);
 		line = readline("minishell $> ");
 	}
