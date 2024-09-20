@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/17 11:17:47 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:06:23 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	fill_input(t_input *input, char *line)
 		if (input[i].input == NULL)
             perror("fill input = Failed to allocate memory for input[i]");
 		ft_strcpy(input[i].input, tab[i]);
-		input[i].tab = split_quotes(tab[i], ' ');
+		printf("INPUT %s\n", input[i].input);
+		// input[i].tab = split_quotes(tab[i], ' ');
 		i++;
 	}
 	input[nb_blocks].input = NULL;

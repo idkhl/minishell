@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/19 15:40:41 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:29:05 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		find_redirection(char *s)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 char	*get_redir_type(char *s, int index)
 {
@@ -129,28 +129,74 @@ int get_redirection_start(char *s)
 	}
 	return 0;
 }
+void	add_redir_struct(t_input *input)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (input[i].input)
+	{
+		printf("Analyzing input[%d]: %s\n", i, input[i].input);
+		j = 0;
+		while ((find_redirection(&input[i].input[j])) != -1)
+		{
+			if (input[i].input[j] == '<' && input[i].input[j + 1] == '<')
+			{
+				printf("Found '<<' at position %d\n", j);
+				input[i].redir_infile = get_redir_type(input[i].input, j);
+				printf("redir_infile set to <<: %s\n", input[i].redir_infile);
+				j += 2;
+			}
+			else if (input[i].input[j] == '<')
+			{
+				printf("Found '<' at position %d\n", j);
+				input[i].redir_infile = get_redir_type(input[i].input, j);
+				printf("redir_infile set to <: %s\n", input[i].redir_infile);
+				j++;
+			}
+			else
+				j++;
+		}
+		i++;
+	}
+	return ;
+}
+void	add_redir_struct2(t_input *input)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (input[i].input)
+	{
+		printf("================[%d]===============\n", i);
+		printf("Analyzing input[%d]: %s\n", i, input[i].input);
+		j = 0;
+		while ((find_redirection(&input[i].input[j])) != -1)
+		{
+			if (input[i].input[j] == '>' && input[i].input[j + 1] == '>')
+			{
+				printf("Found '>>' at position %d\n", j);
+				input[i].redir_outfile = get_redir_type(input[i].input, j);
+				printf("redir_outfile set to >>: %s\n", input[i].redir_outfile);
+				j += 2;
+			}
+			else if (input[i].input[j] == '>')
+			{
+				printf("Found '>' at position %d\n", j);
+				input[i].redir_outfile = get_redir_type(input[i].input, j);
+				printf("redir_outfile set to >: %s\n", input[i].redir_outfile);
+				j++;
+			}
+			else
+				j++;
+		}
+		i++;
+	}
+}
 
 
-// int count_cmds(char *tab)
-// {
-// 	int i = 0;
-// 	int count = 0;
-
-// 	while (tab[i])
-// 	{
-// 		if (ft_strcmp(tab[i], "<") != 0 && ft_strcmp(tab[i], ">") != 0 
-// 		&& ft_strcmp(tab[i], ">>") != 0 && ft_strcmp(tab[i], "<<") != 0)
-// 		{
-// 			count++;
-// 		}
-// 		else
-// 		{
-// 			i++;
-// 		}
-// 		i++;
-// 	}
-// 	return (count);
-// }
 
 // void	skip_redir(t_input *input, char *line)
 // {

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/19 15:42:23 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:52:11 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	init_struct(t_data *data, t_input *input, char **envp)
     input->cmd = NULL;
 	input->in_file = NULL;
     input->out_file = NULL;
+	input->redir_infile = NULL;
+	input->redir_outfile = NULL;
 	input->fd_in = -1;
 	input->fd_out = -1;
 }
@@ -72,15 +74,19 @@ int	main(int ac, char **av, char **envp)
 		add_history(line);
 		allocate_new_struct(&input, line);
 		fill_input(input, line);
+		add_redir_struct(input);
+		add_redir_struct2(input);
 		// if (check_syntax(line) == 0)
 		// 	parse_line(&data, line);
 		// check_syntax(line);
 		// i = 0;
-		int index = find_redirection(input[0].input);
-		printf("length = %d\n", get_redirection_length(input[0].input));
-		printf("index redir = %d\n", find_redirection(input[0].input));
-		printf("redirection = %s\n", get_redir_type(input[0].input, index));
-		printf("index name redir %d\n", get_redirection_start(input[0].input));
+		// int index = find_redirection(input[0].input);
+		// printf("length = %d\n", get_redirection_length(input[0].input));
+		// printf("index redir = %d\n", find_redirection(input[0].input));
+		// printf("redirection = %s\n", get_redir_type(input[0].input, index));
+		// printf("index name redir %d\n", get_redirection_start(input[0].input));
+		// printf("redir_infile %s\n", input[0].redir_infile);
+		// printf("add redir struct %d\n", add_redir_struct(input));
 		free(line);
 		line = readline("minishell $> ");
 	}

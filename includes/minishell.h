@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/19 15:41:17 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:50:14 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef	struct s_input
 	char	**cmd; // [cat] [Makefile]
 	char	*in_file; // [infile]
 	char	*out_file;
-	char	*crochet_infile;
+	char	*redir_infile;
+	char	*redir_outfile;
 	char	*append;
 	int		fd_in;
 	int		fd_out;
@@ -111,6 +112,7 @@ int		find_redirection(char *s);
 int		get_redirection_length(char *s);
 char	*get_redir_type(char *s, int index);
 int		get_redirection_start(char *s);
-
+void	add_redir_struct(t_input *input);
+void	add_redir_struct2(t_input *input);
 
 #endif

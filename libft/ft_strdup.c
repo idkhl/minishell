@@ -6,13 +6,13 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:07:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/13 18:55:11 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:07:48 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char	*ft_strdup( char *s)
+char	*ft_strdup(char *s)
 {
 	char	*dest;
 	int		len;
