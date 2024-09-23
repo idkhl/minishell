@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/20 15:50:14 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:22:27 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char	**ft_tabdup(char **tab);
 void	free_tab(char ***big_tab, int size);
 int		count_cmds(char **tab);
 void	skip_redir(t_input *input, char *line);
+char	*ft_structcpy(char *dest, char *src, int i);
 
 /*  PARSING  */
 
@@ -108,11 +109,13 @@ int		count_words(char *line, char c);
 int		allocate_and_copy_redir(char *s);
 
 int		find_quotes(char *s, int i);
-int		find_redirection(char *s);
+int		find_redirection(char *s, int i);
 int		get_redirection_length(char *s);
 char	*get_redir_type(char *s, int index);
 int		get_redirection_start(char *s);
-void	add_redir_struct(t_input *input);
-void	add_redir_struct2(t_input *input);
+void	store_redir_symbols(t_input *input);
+void	store_redir_symbols2(t_input *input);
+void	store_redirection(t_input *input);
+void	store_redirection2(t_input *input);
 
 #endif

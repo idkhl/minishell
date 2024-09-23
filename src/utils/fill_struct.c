@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/20 16:29:05 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:26:51 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int get_redirection_length(char *s)
 	return 0;
 }
 
-int		find_redirection(char *s)
+int		find_redirection(char *s, int i)
 {
-	int i;
+	// int i;
 
-	i = 0;
+	// i = 0;
 	while (s[i])
 	{
 		if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
@@ -99,7 +99,7 @@ char	*get_redir_type(char *s, int index)
     }
     return (NULL);
 }
-int get_redirection_start(char *s) 
+int get_redirection_start(char *s)
 {
     int i;
 
@@ -121,15 +121,14 @@ int get_redirection_start(char *s)
 				else
 				{
 					return(i);
-					i++;
 				}
 			}
 		}
 		i++;
 	}
-	return 0;
+	return (-1);
 }
-void	add_redir_struct(t_input *input)
+void	store_redir_symbols(t_input *input)
 {
 	int i;
 	int j;
@@ -139,18 +138,18 @@ void	add_redir_struct(t_input *input)
 	{
 		printf("Analyzing input[%d]: %s\n", i, input[i].input);
 		j = 0;
-		while ((find_redirection(&input[i].input[j])) != -1)
+		while (find_redirection(input[i].input, j) != -1)
 		{
 			if (input[i].input[j] == '<' && input[i].input[j + 1] == '<')
 			{
-				printf("Found '<<' at position %d\n", j);
+				// printf("Found '<<' at position %d\n", j);
 				input[i].redir_infile = get_redir_type(input[i].input, j);
 				printf("redir_infile set to <<: %s\n", input[i].redir_infile);
 				j += 2;
 			}
 			else if (input[i].input[j] == '<')
 			{
-				printf("Found '<' at position %d\n", j);
+				// printf("Found '<' at position %d\n", j);
 				input[i].redir_infile = get_redir_type(input[i].input, j);
 				printf("redir_infile set to <: %s\n", input[i].redir_infile);
 				j++;
@@ -162,7 +161,7 @@ void	add_redir_struct(t_input *input)
 	}
 	return ;
 }
-void	add_redir_struct2(t_input *input)
+void	store_redir_symbols2(t_input *input)
 {
 	int i;
 	int j;
@@ -170,21 +169,20 @@ void	add_redir_struct2(t_input *input)
 	i = 0;
 	while (input[i].input)
 	{
-		printf("================[%d]===============\n", i);
-		printf("Analyzing input[%d]: %s\n", i, input[i].input);
+		// printf("Analyzing input[%d]: %s\n", i, input[i].input);
 		j = 0;
-		while ((find_redirection(&input[i].input[j])) != -1)
+		while ((find_redirection(input[i].input, j)) != -1)
 		{
 			if (input[i].input[j] == '>' && input[i].input[j + 1] == '>')
 			{
-				printf("Found '>>' at position %d\n", j);
+				// printf("Found '>>' at position %d\n", j);
 				input[i].redir_outfile = get_redir_type(input[i].input, j);
 				printf("redir_outfile set to >>: %s\n", input[i].redir_outfile);
 				j += 2;
 			}
 			else if (input[i].input[j] == '>')
 			{
-				printf("Found '>' at position %d\n", j);
+				// printf("Found '>' at position %d\n", j);
 				input[i].redir_outfile = get_redir_type(input[i].input, j);
 				printf("redir_outfile set to >: %s\n", input[i].redir_outfile);
 				j++;
@@ -196,41 +194,107 @@ void	add_redir_struct2(t_input *input)
 	}
 }
 
-
-
-// void	skip_redir(t_input *input, char *line)
+// int get_redirection_start2(char *s, int i)
 // {
-// 	int		i;
-// 	int		j;
-// 	int		k;
-// 	int		nb_blocks;
-	
-// 	i = 0;
-// 	nb_blocks = count_blocks(line);
-// 	while (i < nb_blocks)
+//     while (s[i])
 // 	{
-// 		j = 0;
-// 		k = 0;
-// 		input[i].cmd = malloc(sizeof(char *) * (count_cmds(input[i].tab) + 1));
-// 		if (!input[i].cmd)
-// 			return ;
-		
-// 		while (input[i].tab[j])
+//         if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
 // 		{
-// 			if (ft_strcmp(input[i].tab[j], "<") == 0 
-// 				|| ft_strcmp(input[i].tab[j], ">") == 0 
-// 				|| ft_strcmp(input[i].tab[j], ">>") == 0 
-// 				|| ft_strcmp(input[i].tab[j], "<<") == 0)
+// 			if ((s[i + 1] == '<' && s[i] == '<') || (s[i + 1] == '>' && s[i] == '>'))
+//                 i += 2;
+// 			else
+// 				i++;
+// 			while (s[i] && ft_isspace(s[i]))
+// 				i++;
+// 			while (s[i] && !ft_isspace(s[i]) && s[i] != '<' && s[i] != '>') 
 // 			{
-// 				j += 2;
-// 				continue;
+// 				if (s[i] && s[i] == '\"')
+// 					i++;
+// 				else
+// 				{
+// 					return(i);
+// 				}
 // 			}
-// 			input[i].cmd[k] = ft_strdup(input[i].tab[j]);
-// 			k++;
-// 			j++;
 // 		}
-// 		input[i].cmd[k] = NULL;
 // 		i++;
 // 	}
+// 	return (-1);
 // }
+
+void	store_redirection(t_input *input)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (input[i].input)
+	{
+		j = 0;
+		while (find_redirection(input[i].input, j) != -1)
+		{
+			// printf("index redir [%d]\n",find_redirection(&input[i].input[j]));
+			j = find_redirection(input[i].input, j);
+			if (input[i].input[j] == '<' && input[i].input[j + 1] == '<')
+			{
+				if (input[i].in_file != NULL)
+					free(input[i].in_file);
+				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
+				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
+				printf("in_file set to <<: %s\n", input[i].in_file);
+				j+=2;
+			}
+			else if (input[i].input[j] == '<')
+			{
+				if (input[i].in_file != NULL)
+					free(input[i].in_file);
+				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
+				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
+				printf("in_file set to <: %s\n", input[i].in_file);
+				j++;
+			}
+			else
+				j++;
+		}
+		i++;
+	}
+}
+void	store_redirection2(t_input *input)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (input[i].input)
+	{
+		j = 0;
+		while (find_redirection(input[i].input, j) != -1)
+		{
+			// printf("index redir [%d]\n",find_redirection(&input[i].input[j]));
+			j = find_redirection(input[i].input, j);
+			if (input[i].input[j] == '>' && input[i].input[j + 1] == '>')
+			{
+				if (input[i].in_file != NULL)
+					free(input[i].in_file);
+				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
+				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
+				printf("in_file set to >>: %s\n", input[i].in_file);
+				j+=2;
+			}
+			else if (input[i].input[j] == '>')
+			{
+				if (input[i].in_file != NULL)
+					free(input[i].in_file);
+				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
+				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
+				printf("in_file set to >: %s\n", input[i].in_file);
+				j++;
+			}
+			else
+				j++;
+		}
+		i++;
+	}
+}
+
+
 
