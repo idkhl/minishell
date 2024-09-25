@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/23 16:22:27 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:48:56 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ typedef struct s_data
 typedef	struct s_input
 {
 	char	*input; //< infile cat Makefile
-	char	**tab; // [<][infile] [cat] [Makefile]
+	// char	**tab; // [<][infile] [cat] [Makefile]
 	char	**cmd; // [cat] [Makefile]
 	char	*in_file; // [infile]
 	char	*out_file;
 	char	*redir_infile;
 	char	*redir_outfile;
-	char	*append;
 	int		fd_in;
 	int		fd_out;
 }	t_input;
@@ -83,7 +82,7 @@ int		ft_tablen(char **tab);
 char	**ft_tabdup(char **tab);
 void	free_tab(char ***big_tab, int size);
 int		count_cmds(char **tab);
-void	skip_redir(t_input *input, char *line);
+// void	skip_redir(t_input *input, char *line);
 char	*ft_structcpy(char *dest, char *src, int i);
 
 /*  PARSING  */
@@ -117,5 +116,9 @@ void	store_redir_symbols(t_input *input);
 void	store_redir_symbols2(t_input *input);
 void	store_redirection(t_input *input);
 void	store_redirection2(t_input *input);
+int		count_cmd(char *s);
+void	fill_cmd(t_input *input);
+int		get_len_in_quotes(char *s);
+int		get_len(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/23 16:23:50 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:09:37 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	if (input == NULL)
 		return ;
 	input->input = NULL;
-	input->tab = NULL;
     input->cmd = NULL;
 	input->in_file = NULL;
     input->out_file = NULL;
@@ -63,7 +62,7 @@ int	main(int ac, char **av, char **envp)
 	char	*line;
 	t_data	data;
 	t_input	*input = NULL;
-	// int i;
+	int i;
 	// int j;
 
 	// handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
@@ -78,6 +77,16 @@ int	main(int ac, char **av, char **envp)
 		store_redir_symbols2(input);
 		store_redirection(input);
 		store_redirection2(input);
+		fill_cmd(input);
+		printf("input : %s\n", input[0].input);
+		printf("len inn quotes : %d\n", get_len_in_quotes(input[0].input));
+		printf("NB CMD = %d\n", count_cmd(input[0].input));
+		i = 0;
+		while (input[0].cmd[i])
+		{
+			printf("CMD [%d]: %s\n", i, input[0].cmd[i]);
+			i++;
+		}
 		// if (check_syntax(line) == 0)
 		// 	parse_line(&data, line);
 		// check_syntax(line);
