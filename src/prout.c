@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/11 11:52:41 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/09/26 17:57:11 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	init_struct(t_data *data, char **envp)
 	data->env = ft_tabdup(envp);
 	if (!data->env)
 		return ;
-	data->exp = NULL;
+	data->exp = ft_tabdup(data->env);
+	if (!data->exp)
+		return ;
 	data->path = get_path(data);
 }
 

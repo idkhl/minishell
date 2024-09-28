@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/25 17:06:47 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:56:44 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	check_existing_variable(t_data *data, char **tab)
 			j++;
 		}
 		free(var_to_add);
-		add_export(data, tab);
+		// add_export(data, tab);
 		i++;
 	}
 }
@@ -163,17 +163,14 @@ void	build_export(t_data *data, char **tab)
 			return ;
 		}
 		else
-		{
 			check_existing_variable(data, tab);
-			return ;
-		}
-		// add_export(data, tab);
+		add_export(data, tab);
 	}
 	if (ft_tablen(tab) == 1)
 	{
-		data->exp = ft_tabdup(data->env);
-		if (!data->exp)
-			return ;
+		// data->exp = ft_tabdup(data->env);
+		// if (!data->exp)
+		// 	return ;
 		print_export(data);
 		malloc_free(data->exp);
 	}
