@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:40:30 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/19 10:15:26 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:00:46 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,21 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 	}
 	return (dest);
 }
+
+char	*quotecpy(char *dest, char *src, int n, char quote)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0' && i < n && src[i] != quote)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 // char	**malloc_free(char	**tab)
 // {
 // 	int	i;
