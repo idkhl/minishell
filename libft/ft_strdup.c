@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:07:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/03/18 10:59:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:07:48 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-/*size_t	ft_strlen( char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}*/
-
-char	*ft_strdup( char *s)
+char	*ft_strdup(char *s)
 {
 	char	*dest;
 	int		len;

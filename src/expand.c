@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 22:09:40 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/23 15:19:55 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:48:52 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	expand_variable(t_data *data, char *var_env, char *word, int i)
 	new = ft_substr(var_env, ft_strlen(word), size);
 	if (!new)
 		return ;
-	free(data->tab[i]);
-	data->tab[i] = ft_strdup(new);
+	free(data->input[i]);
+	data->input[i] = ft_strdup(new);
 	free(new);
 }
 

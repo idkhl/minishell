@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_big_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/07 17:58:26 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:58:33 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,200 @@ void	free_tab(char ***big_tab, int size)
 	}
 }
 
-char	***get_big_tab(char *line)
+void	fill_input(t_input *input, char *line)
 {
-	char	***result;
+	char	**tab;
 	int		i;
 	int		nb_blocks;
-	char	**tab;
-
+	
 	i = 0;
-	tab = split_pipes(line);
-	if (!tab)
-		return (NULL);
 	nb_blocks = count_blocks(line);
-	result = (char ***)malloc((nb_blocks + 1) * sizeof(char **));
-	if (!result)
+	tab = split_pipes(line);
+
+	while(i < nb_blocks)
 	{
-		perror("allocation failed\n");
-		return (free(tab), NULL);
-	}
-	while (i < nb_blocks)
-	{
-		result[i] = split_quotes(tab[i], ' ');
-		if (!result[i])
-			return (malloc_free(tab), NULL);
+		input[i].input= malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
+		if (input[i].input == NULL)
+            perror("fill input = Failed to allocate memory for input[i]");
+		ft_strcpy(input[i].input, tab[i]);
+		// input[i].tab = split_quotes(tab[i], ' ');
 		i++;
 	}
+	input[nb_blocks].input = NULL;
 	malloc_free(tab);
-	return (result);
 }
+
+void	allocate_new_struct(t_input **tab, char *line)
+{
+	int		nb_blocks;
+	nb_blocks = count_blocks(line);
+	*tab = malloc(sizeof(t_input) * (nb_blocks + 1));
+	if (tab == NULL)
+	{
+		perror("Failed to allocate memory for t_input");
+		return ;
+	}
+}
+int skip_quotes(char *s, int i)
+{
+    char quote;
+	
+	quote = s[i];
+    i++;
+    while (s[i] && s[i] != quote)
+        i++;
+    if (s[i] == quote)
+        i++;
+    return (i);
+}
+int	skip_redir(char *s, int i)
+{
+	while (s[i])
+	{
+		if ((!find_quotes(s, i)) && (s[i] == '<' || s[i] == '>'))
+		{
+			while (s[i] == '<' || s[i] == '>')
+				i++;
+			while (s[i] && (ft_isspace(s[i]) == 1))
+				i++;
+			while (s[i] && (ft_isspace(s[i]) == 0))
+			{
+				if (s[i] == '"' || s[i] == '\'')
+					i = skip_quotes(s, i);
+				else
+					i++;
+			}
+		}
+		else
+			break;
+	}
+	return (i);
+}
+int	count_cmd(char *s)
+{
+	int i;
+	int	cmd;
+
+	i = 0;
+	cmd = 0;
+	while (s[i])
+	{
+		while (s[i] && ft_isspace(s[i]) == 1)
+			i++;
+		if (s[i] && (s[i] == '<' || s[i] == '>'))
+			i = skip_redir(s, i);
+		else if (s[i] && find_quotes(s, i) == 1)
+		{
+			cmd++;
+			i = skip_quotes(s, i);
+		}
+		else if (s[i] && ft_isspace(s[i]) == 0)
+		{
+			cmd++;
+			while (s[i] && ft_isspace(s[i]) == 0 && s[i] != '<' && s[i] != '>')
+				i++;
+		}
+	}
+	return (cmd);
+}
+
+int	get_len_in_quotes(char *s)
+{
+	int i;
+	int	len;
+	char quote;
+
+	i = 0;
+	len = 0;
+	while (s[i] && s[i] != '"' && s[i] != '\'')
+		i++;
+	if (s[i] == '"' || s[i] == '\'')
+	{
+		quote = s[i];
+		i++;
+		while (s[i] && ft_isspace(s[i + 1]) == 0)
+		{
+			if (s[i] == quote && s[i + 1] != ft_isspace(s[i]) == 1)
+				i++;	
+			else
+			{
+				len++;
+				i++;
+			}
+		}
+	}
+    return (len);
+}
+
+int	get_len(char *s)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = 0;
+    while (s[i])
+	{
+		while (s[i] && ft_isspace(s[i]) == 1)
+        	i++;
+		while (s[i] && ft_isspace(s[i]) == 0)
+		{
+			len++;
+			i++;
+		}
+		if (s[i] && ft_isspace(s[i]) == 1)
+        	break;
+	}
+    return (len);
+}
+
+void	fill_cmd(t_input *input)
+{
+	int i;
+	int j;
+	int k;
+
+	i = 0;
+	while(input[i].input)
+	{
+		j = 0;
+		k = 0;
+		input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
+		if (!input[i].cmd)
+			return;
+		while (input[i].input[j])
+		{
+			while (input[i].input[j] && ft_isspace(input[i].input[j]) == 1)
+				j++;
+			if (input[i].input[j] && (input[i].input[j] == '<' || input[i].input[j] == '>'))
+				j = skip_redir(input[i].input, j);
+			else if (input[i].input[j] && find_quotes(input[i].input, j) == 1)
+			{
+				int len = get_len_in_quotes(&input[i].input[j]);
+				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
+				if (!input[i].cmd[k])
+					return;
+				ft_strncpy(input[i].cmd[k], &input[i].input[j], len);
+				input[i].cmd[k][len] = '\0';
+				k++;
+				j = skip_quotes(input[i].input, j);
+			}
+			else if (input[i].input[j] && ft_isspace(input[i].input[j]) == 0)
+			{		
+				int len = get_len(&input[i].input[j]);
+				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
+				if (!input[i].cmd[k])
+					return;
+				ft_strncpy(input[i].cmd[k], &input[i].input[j], len);
+				input[i].cmd[k][len] = '\0';
+				k++;
+				j += len;
+			}
+			else
+				j++;	
+		}
+		input[i].cmd[k] = NULL;
+		i++;
+	}
+}
+

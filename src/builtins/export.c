@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/26 17:56:44 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:36:50 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ void	add_export(t_data *data, char **tab)
 	malloc_free(newenv);
 }
 
-int	check_var_is_valid(t_data *data, char **tab)
+// void	replace_var(t_data *data)
+// {
+// 	char	*newvar;
+// }
+
+int	check_export(t_data *data, char **tab)
 {
 	int	i;
 	int	j;
@@ -93,8 +98,11 @@ int	check_var_is_valid(t_data *data, char **tab)
 		j = 1;
 		while (tab[j])
 		{
-			if (ft_strchr(tab[j], '=') == 0)
-				return (-11);
+			// if (ft_strncmp(var, tab[j]), ft_strlen(var) == 0)
+			// 	unset;
+			if (ft_strcmp(data->env[i], tab[j]) == 0
+				|| ft_strchr(tab[1], '=') == 0)
+				return (1);
 			j++;
 		}
 		i++;
@@ -102,78 +110,20 @@ int	check_var_is_valid(t_data *data, char **tab)
 	return (0);
 }
 
-char	*var_name(char	*var)
-{
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (var[i] && var[i] != '=')
-		i++;
-	tmp = (char *)malloc(sizeof(char) * (i - j + 2));
-	if (!tmp)
-		return (NULL);
-	while (j < i)
-	{
-		tmp[j] = var[j];
-		j++;
-	}
-	tmp[j] = '\0';
-	return (tmp);
-}
-
-void	check_existing_variable(t_data *data, char **tab)
-{
-	int		i;
-	int		j;
-	char	*var_to_add;
-	char	*var_env;
-
-	i = 1;
-	while (tab[i])
-	{
-		var_to_add = var_name(tab[i]);
-		j = 0;
-		while (data->env[j])
-		{
-			var_env = var_name(data->env[j]);
-			if (ft_strcmp(var_to_add, var_env) == 0)
-			{
-				unset_var(data, j);
-				break ;
-			}
-			free(var_env);
-			j++;
-		}
-		free(var_to_add);
-		// add_export(data, tab);
-		i++;
-	}
-}
-
 void	build_export(t_data *data, char **tab)
 {
 	if (ft_tablen(tab) > 1)
 	{
-		if (check_var_is_valid(data, tab) == -1)
-		{
-			// add to data->exp;
+		if (check_export(data, tab) == 1)
 			return ;
-		}
-		else
-			check_existing_variable(data, tab);
 		add_export(data, tab);
 	}
 	if (ft_tablen(tab) == 1)
 	{
-		// data->exp = ft_tabdup(data->env);
-		// if (!data->exp)
-		// 	return ;
+		data->exp = ft_tabdup(data->env);
+		if (!data->exp)
+			return ;
 		print_export(data);
 		malloc_free(data->exp);
 	}
 }
-
-// export -> mettre ntre guillemets le contenu de la var

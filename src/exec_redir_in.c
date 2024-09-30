@@ -29,7 +29,7 @@ void	here_doc(t_data *data)
 			break ;
 		}
 		write(data->heredoc, line, ft_strlen(line));
-		write(data->heredoc, "\n", 1);
+		write(data->heredoc, "\n", 1); 
 		free(line);
 		line = readline("> ");
 	}
