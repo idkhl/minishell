@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_big_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/25 16:58:33 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:51:37 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	fill_input(t_input *input, char *line)
 
 	while(i < nb_blocks)
 	{
+		input[i].input = NULL;
 		input[i].input= malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
 		if (input[i].input == NULL)
             perror("fill input = Failed to allocate memory for input[i]");
@@ -54,6 +55,8 @@ void	fill_input(t_input *input, char *line)
 void	allocate_new_struct(t_input **tab, char *line)
 {
 	int		nb_blocks;
+	
+	*tab = NULL;
 	nb_blocks = count_blocks(line);
 	*tab = malloc(sizeof(t_input) * (nb_blocks + 1));
 	if (tab == NULL)
@@ -62,16 +65,27 @@ void	allocate_new_struct(t_input **tab, char *line)
 		return ;
 	}
 }
-int skip_quotes(char *s, int i)
+
+int	skip_quotes(char *s, int i)
 {
-    char quote;
+	char	quote;
 	
-	quote = s[i];
-    i++;
-    while (s[i] && s[i] != quote)
-        i++;
-    if (s[i] == quote)
-        i++;
+	while (s[i] && s[i] != '"' && s[i] != '\'')
+		i++;
+	if (s[i] == '"' || s[i] == '\'')
+	{
+		quote = s[i];
+		i++;
+		while (s[i] && ft_isspace(s[i + 1]) == 0)
+		{
+			if (s[i] == quote && s[i + 1] != ft_isspace(s[i]) == 1)
+				i++;	
+			else
+			{
+				i++;
+			}
+		}
+	}
     return (i);
 }
 int	skip_redir(char *s, int i)
@@ -108,13 +122,13 @@ int	count_cmd(char *s)
 	{
 		while (s[i] && ft_isspace(s[i]) == 1)
 			i++;
-		if (s[i] && (s[i] == '<' || s[i] == '>'))
-			i = skip_redir(s, i);
-		else if (s[i] && find_quotes(s, i) == 1)
+		if (s[i] && find_quotes(s, i) == 1)
 		{
 			cmd++;
 			i = skip_quotes(s, i);
 		}
+		if (s[i] && (s[i] == '<' || s[i] == '>'))
+			i = skip_redir(s, i);
 		else if (s[i] && ft_isspace(s[i]) == 0)
 		{
 			cmd++;
@@ -139,15 +153,10 @@ int	get_len_in_quotes(char *s)
 	{
 		quote = s[i];
 		i++;
-		while (s[i] && ft_isspace(s[i + 1]) == 0)
+		while (s[i] && s[i] != quote)
 		{
-			if (s[i] == quote && s[i + 1] != ft_isspace(s[i]) == 1)
-				i++;	
-			else
-			{
-				len++;
-				i++;
-			}
+			len++;
+			i++;
 		}
 	}
     return (len);
@@ -182,29 +191,31 @@ void	fill_cmd(t_input *input)
 	int k;
 
 	i = 0;
+	k = 0;
 	while(input[i].input)
 	{
 		j = 0;
-		k = 0;
 		input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
 		if (!input[i].cmd)
 			return;
 		while (input[i].input[j])
 		{
-			while (input[i].input[j] && ft_isspace(input[i].input[j]) == 1)
-				j++;
 			if (input[i].input[j] && (input[i].input[j] == '<' || input[i].input[j] == '>'))
 				j = skip_redir(input[i].input, j);
-			else if (input[i].input[j] && find_quotes(input[i].input, j) == 1)
+			if (input[i].input[j] && (input[i].input[j] == '"' || input[i].input[j] == '\''))
 			{
+				char quote;
+				quote = input[i].input[j];
 				int len = get_len_in_quotes(&input[i].input[j]);
+				printf("LEN IN QUOTE : %d\n", get_len_in_quotes(&input[i].input[j]));
+				j++;
 				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
 				if (!input[i].cmd[k])
 					return;
-				ft_strncpy(input[i].cmd[k], &input[i].input[j], len);
-				input[i].cmd[k][len] = '\0';
+				quotecpy(input[i].cmd[k], &input[i].input[j], len, quote);
 				k++;
-				j = skip_quotes(input[i].input, j);
+				j += len;
+				printf("J = %d\n", j);
 			}
 			else if (input[i].input[j] && ft_isspace(input[i].input[j]) == 0)
 			{		
@@ -217,11 +228,9 @@ void	fill_cmd(t_input *input)
 				k++;
 				j += len;
 			}
-			else
-				j++;	
+			j++;	
 		}
 		input[i].cmd[k] = NULL;
 		i++;
 	}
 }
-
