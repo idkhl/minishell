@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/18 11:25:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:01:01 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ typedef struct s_data
 	int		fd[2];
 }	t_data;
 
-typedef struct s_redir
-{
-	char	**before;
-	char	**after;
-	int		heredoc;
-}	t_redir;
-
 void	handle_signals(void);
 void	heredoc_signals(void);
 void	expand(t_data *data, char **tab);
@@ -46,7 +39,7 @@ void	expand(t_data *data, char **tab);
 void	execute_cmd(t_data *data, char **tab);
 void	pipex(t_data *data, char ***big_tab, int nb_blocks);
 
-void	redirections(t_redir *redir, char **tab);
+void	redir(t_data *data, char **tab);
 // void	execute_cmd_out(t_data *data);
 // void	execute_cmd_in(t_data *data);
 
@@ -59,6 +52,7 @@ void	build_cd(char **line);
 void	build_env(t_data *data);
 void	build_export(t_data *data, char **tab);
 void	build_unset(t_data *data, char **tab);
+void	unset_var(t_data *data, int i);
 void	build_exit(t_data *data, char **tab);
 
 /*	UTILS	*/
