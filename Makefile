@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+         #
+#    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/09/20 17:14:03 by afrikach         ###   ########.fr        #
+#    Updated: 2024/09/30 15:26:00 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c \
+SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c \
 		\
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/exit.c\
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/07 19:39:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:06:34 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	exec_last_pipe(t_data *data, char **tab)
 	free(cmd);
 }
 
-void	pipex(t_data *data, char ***big_tab, int nb_blocks)
+void	pipex(t_data *data, t_input	*input, int nb_blocks)
 {
 	int	i;
 
@@ -131,11 +131,11 @@ void	pipex(t_data *data, char ***big_tab, int nb_blocks)
 	while (i <= nb_blocks - 1)
 	{
 		if (i == 0)
-			exec_first_pipe(data, big_tab[i]);
+			exec_first_pipe(data, input[i].cmd);
 		else if (i == nb_blocks - 1)
-			exec_last_pipe(data, big_tab[i]);
+			exec_last_pipe(data, input[i].cmd);
 		else
-			exec_middle_pipes(data, big_tab[i]);
+			exec_middle_pipes(data, input[i].cmd);
 		i++;
 	}
 	while (wait(NULL) != -1)

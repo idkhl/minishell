@@ -7,5 +7,4 @@ minishell
 notes
 outfile
 src
-test
 valgrind-readline.supp
