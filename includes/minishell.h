@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/25 15:48:56 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:27:17 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int		check_nb_pipes(char *line);
 int		check_syntax(char *line);
 void	find_first_redir(t_input *tab, char **big_tab);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
+char	*quotecpy(char *dest, char *src, int n, char quote);
 void	allocate_new_struct(t_input **tab, char *line);
 void	fill_input(t_input *input, char *line);
 void	init_struct(t_data *data, t_input *tab, char **envp);

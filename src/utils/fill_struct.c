@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/23 16:26:51 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:22:40 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ int get_redirection_length(char *s)
 
 int		find_redirection(char *s, int i)
 {
-	// int i;
-
-	// i = 0;
 	while (s[i])
 	{
 		if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
@@ -194,39 +191,13 @@ void	store_redir_symbols2(t_input *input)
 	}
 }
 
-// int get_redirection_start2(char *s, int i)
-// {
-//     while (s[i])
-// 	{
-//         if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
-// 		{
-// 			if ((s[i + 1] == '<' && s[i] == '<') || (s[i + 1] == '>' && s[i] == '>'))
-//                 i += 2;
-// 			else
-// 				i++;
-// 			while (s[i] && ft_isspace(s[i]))
-// 				i++;
-// 			while (s[i] && !ft_isspace(s[i]) && s[i] != '<' && s[i] != '>') 
-// 			{
-// 				if (s[i] && s[i] == '\"')
-// 					i++;
-// 				else
-// 				{
-// 					return(i);
-// 				}
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (-1);
-// }
-
 void	store_redirection(t_input *input)
 {
 	int i;
 	int j;
 
 	i = 0;
+	input[i].in_file = NULL;
 	while (input[i].input)
 	{
 		j = 0;
