@@ -6,13 +6,13 @@
 #    By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/10/01 13:28:33 by afrikach         ###   ########.fr        #
+#    Updated: 2024/10/01 16:31:33 by afrikach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c \
+SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c\
 		\
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/exit.c\
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\
@@ -23,8 +23,7 @@ SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c \
 		src/parsing/util.c src/parsing/syntax_quotes.c src/parsing/syntax_pipes.c\
 		src/parsing/syntax_open_redir.c src/parsing/syntax_close_redir.c src/parsing/is_expand.c
 		\
-		#src/exec_redir_out.c src/exec_redir_in.c \
-		src/expand.c
+		
 		
 OBJS = ${SRCS:.c=.o}
 CFLAGS = -Wall -Wextra -Werror -g3 

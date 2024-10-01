@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/01 13:23:56 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:46:55 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,14 @@ void	store_redir_symbols(t_input *input)
 			{
 				// printf("Found '<<' at position %d\n", j);
 				input[i].redir_infile = get_redir_type(input[i].input, j);
-				printf("redir_infile set to <<: %s\n", input[i].redir_infile);
+				// printf("redir_infile set to <<: %s\n", input[i].redir_infile);
 				j += 2;
 			}
 			else if (input[i].input[j] == '<')
 			{
 				// printf("Found '<' at position %d\n", j);
 				input[i].redir_infile = get_redir_type(input[i].input, j);
-				printf("redir_infile set to <: %s\n", input[i].redir_infile);
+				// printf("redir_infile set to <: %s\n", input[i].redir_infile);
 				j++;
 			}
 			else
@@ -174,14 +174,14 @@ void	store_redir_symbols2(t_input *input)
 			{
 				// printf("Found '>>' at position %d\n", j);
 				input[i].redir_outfile = get_redir_type(input[i].input, j);
-				printf("redir_outfile set to >>: %s\n", input[i].redir_outfile);
+				// printf("redir_outfile set to >>: %s\n", input[i].redir_outfile);
 				j += 2;
 			}
 			else if (input[i].input[j] == '>')
 			{
 				// printf("Found '>' at position %d\n", j);
 				input[i].redir_outfile = get_redir_type(input[i].input, j);
-				printf("redir_outfile set to >: %s\n", input[i].redir_outfile);
+				// printf("redir_outfile set to >: %s\n", input[i].redir_outfile);
 				j++;
 			}
 			else
@@ -211,7 +211,7 @@ void	store_redirection(t_input *input)
 					free(input[i].in_file);
 				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
 				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
-				printf("in_file set to <<: %s\n", input[i].in_file);
+				// printf("in_file set to <<: %s\n", input[i].in_file);
 				j+=2;
 			}
 			else if (input[i].input[j] == '<')
@@ -220,7 +220,7 @@ void	store_redirection(t_input *input)
 					free(input[i].in_file);
 				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
 				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
-				printf("in_file set to <: %s\n", input[i].in_file);
+				// printf("in_file set to <: %s\n", input[i].in_file);
 				j++;
 			}
 			else
@@ -244,20 +244,20 @@ void	store_redirection2(t_input *input)
 			j = find_redirection(input[i].input, j);
 			if (input[i].input[j] == '>' && input[i].input[j + 1] == '>')
 			{
-				if (input[i].in_file != NULL)
-					free(input[i].in_file);
-				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
-				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
-				printf("in_file set to >>: %s\n", input[i].in_file);
+				if (input[i].out_file != NULL)
+					free(input[i].out_file);
+				input[i].out_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
+				ft_structcpy(input[i].out_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
+				// printf("out_file set to >>: %s\n", input[i].out_file);
 				j+=2;
 			}
 			else if (input[i].input[j] == '>')
 			{
-				if (input[i].in_file != NULL)
-					free(input[i].in_file);
-				input[i].in_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
-				ft_structcpy(input[i].in_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
-				printf("in_file set to >: %s\n", input[i].in_file);
+				if (input[i].out_file != NULL)
+					free(input[i].out_file);
+				input[i].out_file = malloc(sizeof(char) * (get_redirection_length(&input[i].input[j]) + 1));
+				ft_structcpy(input[i].out_file, &input[i].input[j], get_redirection_start(&input[i].input[j]));
+				// printf("out_file set to >: %s\n", input[i].out_file);
 				j++;
 			}
 			else
