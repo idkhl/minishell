@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/30 17:51:37 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:33:21 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	fill_input(t_input *input, char *line)
 	while(i < nb_blocks)
 	{
 		input[i].input = NULL;
+		// Appeler add_to_input(tab[i]) et le stocker dans input[i].input
 		input[i].input= malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
 		if (input[i].input == NULL)
             perror("fill input = Failed to allocate memory for input[i]");
@@ -189,11 +190,13 @@ void	fill_cmd(t_input *input)
 	int i;
 	int j;
 	int k;
+	char quote;
 
 	i = 0;
 	k = 0;
 	while(input[i].input)
 	{
+		k = 0;
 		j = 0;
 		input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
 		if (!input[i].cmd)
@@ -204,7 +207,6 @@ void	fill_cmd(t_input *input)
 				j = skip_redir(input[i].input, j);
 			if (input[i].input[j] && (input[i].input[j] == '"' || input[i].input[j] == '\''))
 			{
-				char quote;
 				quote = input[i].input[j];
 				int len = get_len_in_quotes(&input[i].input[j]);
 				printf("LEN IN QUOTE : %d\n", get_len_in_quotes(&input[i].input[j]));
@@ -234,3 +236,4 @@ void	fill_cmd(t_input *input)
 		i++;
 	}
 }
+

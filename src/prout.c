@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/30 15:43:32 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:42:13 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,6 @@ int	main(int ac, char **av, char **envp)
 		store_redirection(input);
 		store_redirection2(input);
 		fill_cmd(input);
-		// printf("input : %s\n", input[0].input);
-		// printf("len inn quotes : %d\n", get_len_in_quotes(input[0].input));
-		// printf("NB CMD = %d\n", count_cmd(input[0].input));
-		// i = 0;
-		// while (input[0].cmd[i])
-		// {
-		// 	printf("CMD [%d]: %s\n", i, input[0].cmd[i]);
-		// 	i++;
-		// }
 		if (check_syntax(line) == 0)
 			parse_line(&data, input, line);
 		// check_syntax(line);
