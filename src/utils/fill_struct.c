@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/30 16:22:40 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:23:56 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	store_redir_symbols(t_input *input)
 	i = 0;
 	while (input[i].input)
 	{
-		printf("Analyzing input[%d]: %s\n", i, input[i].input);
+		// printf("Analyzing input[%d]: %s\n", i, input[i].input);
 		j = 0;
 		while (find_redirection(input[i].input, j) != -1)
 		{

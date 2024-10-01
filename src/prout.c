@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/30 15:53:07 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:19:14 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **envp)
 	t_data	data;
 	t_input	*input = NULL;
 	int i;
-	// int j;
+	int j;
 
 	// handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
 	line = readline("minishell $> ");
@@ -82,9 +82,16 @@ int	main(int ac, char **av, char **envp)
 		// printf("len inn quotes : %d\n", get_len_in_quotes(input[0].input));
 		// printf("NB CMD = %d\n", count_cmd(input[0].input));
 		i = 0;
-		while (input[0].cmd[i])
+		while (input[i].input)
 		{
-			printf("CMD [%d]: %s\n", i, input[0].cmd[i]);
+			j = 0;
+			printf("=============== struct [%d]================\n", i);
+			printf("Analyzing input[%d]: %s\n", i, input[i].input);
+			while (input[i].cmd[j])
+			{
+				printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
+				j++;
+			}
 			i++;
 		}
 		// if (check_syntax(line) == 0)
