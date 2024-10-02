@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/02 10:55:52 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:23:27 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	main(int ac, char **av, char **envp)
 	char	*line;
 	t_data	data;
 	t_input	*input = NULL;
-	// int i;
-	// int j;
 
 	// handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
 	line = readline("minishell $> ");
@@ -71,14 +69,10 @@ int	main(int ac, char **av, char **envp)
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line);
-		// fill_input(input, line);
-		// fill_cmd(input);
-		// store_redir_symbols(input);
-		// store_redir_symbols2(input);
-		// store_redirection(input);
-		// store_redirection2(input);
-		// i = 0;
 		parse_line(&data, input, line);
+		// int i;
+		// int j;
+		// i = 0;
 		// while (input[i].input)
 		// {
 		// 	j = 0;
