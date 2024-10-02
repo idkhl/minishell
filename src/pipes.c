@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/01 16:47:29 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:03:29 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 			exit(EXIT_FAILURE);
 		}
 		close(data->fd[1]);
+		if (input[i].in_file != NULL || input[i].out_file != NULL)
+			redir(data, input, i);
 		if (check_builtins(data, tab) == 0)
 		{
-			redir(data, input, i);
 			if (execve(cmd, tab, data->env) == -1)
 			{
 				perror("execve 1");
@@ -74,9 +75,10 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		}
 		close(data->fd[0]);
 		close(data->fd[1]);
+		if (input[i].in_file != NULL || input[i].out_file != NULL)
+			redir(data, input, i);
 		if (check_builtins(data, tab) == 0)
 		{
-			redir(data, input, i);
 			if (execve(cmd, tab, data->env) == -1)
 			{
 				perror("execve 1");
@@ -110,9 +112,10 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 			exit(EXIT_FAILURE);
 		}
 		close(data->fd[0]);
+		if (input[i].in_file != NULL || input[i].out_file != NULL)
+			redir(data, input, i);
 		if (check_builtins(data, tab) == 0)
 		{
-			redir(data, input, i);
 			if (execve(cmd, tab, data->env) == -1)
 			{
 				perror("execve 1");

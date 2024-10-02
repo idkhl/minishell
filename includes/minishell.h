@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/02 10:54:16 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:32:31 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	build_cd(char **line);
 void	build_env(t_data *data);
 void	build_export(t_data *data, char **tab);
 void	build_unset(t_data *data, char **tab);
+void	unset_var(t_data *data, int i);
 void	build_exit(t_data *data, char **tab);
 
 /*	UTILS	*/
