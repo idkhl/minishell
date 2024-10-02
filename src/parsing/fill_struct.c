@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/01 17:30:43 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:00:55 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,5 +233,15 @@ void	store_redirection2(t_input *input)
 	}
 }
 
-
+void	fill_struct(t_input *input, char *line)
+{
+		fill_input(input, line);
+		fill_cmd(input);
+		store_redir_symbols(input);
+		store_redir_symbols2(input);
+		store_redirection(input);
+		store_redirection2(input);
+		// printf("infile : %s, symbole : %s\n", input[0].in_file, input[0].redir_infile);
+		// printf("cmd : %s\n", input[0].cmd[0]);
+}
 

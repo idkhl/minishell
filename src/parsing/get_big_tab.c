@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/01 17:42:46 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:25:03 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,52 +186,52 @@ int	get_len(char *s)
     return (len);
 }
 
-void	fill_cmd(t_input *input)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	quote;
+// void	fill_cmd(t_input *input)
+// {
+// 	int		i;
+// 	int		j;
+// 	int		k;
+// 	char	quote;
 
-	i = 0;
-	while(input[i].input)
-	{
-		k = 0;
-		j = 0;
-		input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
-		if (!input[i].cmd)
-			return;
-		while (input[i].input[j])
-		{
-			if (input[i].input[j] && (input[i].input[j] == '<' || input[i].input[j] == '>'))
-				j = skip_redir(input[i].input, j);
-			if (input[i].input[j] && (input[i].input[j] == '"' || input[i].input[j] == '\''))
-			{
-				quote = input[i].input[j];
-				int len = get_len_in_quotes(&input[i].input[j]);
-				j++;
-				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
-				if (!input[i].cmd[k])
-					return;
-				quotecpy(input[i].cmd[k], &input[i].input[j], len, quote);
-				k++;
-				j += len;
-			}
-			else if (input[i].input[j] && ft_isspace(input[i].input[j]) == 0)
-			{		
-				int len = get_len(&input[i].input[j]);
-				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
-				if (!input[i].cmd[k])
-					return;
-				ft_strncpy(input[i].cmd[k], &input[i].input[j], len);
-				input[i].cmd[k][len] = '\0';
-				k++;
-				j += len;
-			}
-			j++;	
-		}
-		input[i].cmd[k] = NULL;
-		i++;
-	}
-}
+// 	i = 0;
+// 	while(input[i].input)
+// 	{
+// 		k = 0;
+// 		j = 0;
+// 		input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
+// 		if (!input[i].cmd)
+// 			return;
+// 		while (input[i].input[j])
+// 		{
+// 			if (input[i].input[j] && (input[i].input[j] == '<' || input[i].input[j] == '>'))
+// 				j = skip_redir(input[i].input, j);
+// 			if (input[i].input[j] && (input[i].input[j] == '"' || input[i].input[j] == '\''))
+// 			{
+// 				quote = input[i].input[j];
+// 				int len = get_len_in_quotes(&input[i].input[j]);
+// 				j++;
+// 				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
+// 				if (!input[i].cmd[k])
+// 					return;
+// 				quotecpy(input[i].cmd[k], &input[i].input[j], len, quote);
+// 				k++;
+// 				j += len;
+// 			}
+// 			else if (input[i].input[j] && ft_isspace(input[i].input[j]) == 0)
+// 			{		
+// 				int len = get_len(&input[i].input[j]);
+// 				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
+// 				if (!input[i].cmd[k])
+// 					return;
+// 				ft_strncpy(input[i].cmd[k], &input[i].input[j], len);
+// 				input[i].cmd[k][len] = '\0';
+// 				k++;
+// 				j += len;
+// 			}
+// 			j++;	
+// 		}
+// 		input[i].cmd[k] = NULL;
+// 		i++;
+// 	}
+// }
 

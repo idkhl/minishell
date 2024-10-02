@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/01 16:30:54 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:54:16 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		count_cmds(char **tab);
 // void	skip_redir(t_input *input, char *line);
 char	*ft_structcpy(char *dest, char *src, int i);
 
+
 /*  PARSING  */
 
 char	*ft_strcpy(char *dest, char *src);
@@ -120,5 +121,13 @@ int		count_cmd(char *s);
 void	fill_cmd(t_input *input);
 int		get_len_in_quotes(char *s);
 int		get_len(char *s);
+
+int		skip_redir(char *s, int i);
+void	fill_cmd(t_input *input);
+void	allocate_cmds(t_input *input, int i);
+void	process_input(t_input *input, int i);
+int		handle_quotes_in_cmd(t_input *input, int i, int *k, int j);
+int		handle_word(t_input *input, int i, int *k, int j);
+void	fill_struct(t_input *input, char *line);
 
 #endif
