@@ -1,0 +1,17 @@
+total 128
+drwxr-xr-x  8 afrikach 2023_paris   238 Oct  2 10:38 .
+drwxr-xr-x 19 afrikach 2023_paris  4096 Sep 11 16:59 ..
+-rw-r--r--  1 afrikach 2023_paris  6148 Sep 11 16:59 .DS_Store
+-rw-r--r--  1 afrikach 2023_paris   523 Sep 19 12:21 exemples_a_tester.c
+drwxr-xr-x  8 afrikach 2023_paris   185 Oct  1 17:45 .git
+drwxr-xr-x  2 afrikach 2023_paris    40 Sep 11 17:02 includes
+-rw-r--r--  1 afrikach 2023_paris     0 Oct  2 10:39 infile
+drwxr-xr-x  2 afrikach 2023_paris  4096 Oct  1 16:45 libft
+-rw-r--r--  1 afrikach 2023_paris  1982 Oct  2 10:24 Makefile
+-rwxr-xr-x  1 afrikach 2023_paris 80640 Oct  2 10:38 minishell
+-rw-r--r--  1 afrikach 2023_paris  4483 Sep 11 17:02 notes
+drwxr-xr-x  3 afrikach 2023_paris    17 Sep 11 16:59 .objects
+-rw-r--r--  1 afrikach 2023_paris    12 Oct  1 16:42 outfile
+drwxr-xr-x  5 afrikach 2023_paris   243 Oct  1 17:38 src
+-rw-r--r--  1 afrikach 2023_paris   245 Sep 11 17:02 valgrind-readline.supp
+drwxr-xr-x  2 afrikach 2023_paris    27 Sep 11 16:59 .vscode
