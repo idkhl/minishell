@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/30 17:53:48 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:21:28 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	expand(t_data *data, char **tab);
 void	execute_cmd(t_data *data, t_input *input, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
 void	redir(t_data *data, t_input *input, int i);
-// void	execute_cmd_out(t_data *data);
-// void	execute_cmd_in(t_data *data);
 
 /*	BUILT-INS	*/
 

@@ -6,7 +6,7 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/09/30 15:26:00 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/10/01 16:23:53 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,6 @@ SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c \
 		src/parsing/util.c src/parsing/syntax_quotes.c src/parsing/syntax_pipes.c\
 		src/parsing/syntax_open_redir.c src/parsing/syntax_close_redir.c\
 		\
-		#src/exec_redir_out.c src/exec_redir_in.c \
-		src/expand.c
 		
 OBJS = ${SRCS:.c=.o}
 CFLAGS = -Wall -Wextra -Werror -g3 

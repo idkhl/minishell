@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/01 15:42:13 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:33:31 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,7 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 void	parse_line(t_data *data, t_input *input, char *line)
 {
 	int		nb_blocks;
-	// char	***big_tab;
 
-	// sert juste pour quand readline est vide pcq sinon segfault
-	// pas sure que ca match avec le parsing et la syntaxe
-	// if (ft_strlen(line) == 0)
-	// 	return ;
-	// big_tab = get_big_tab(line);
-	// if (!big_tab)
-	// 	return ;
 	nb_blocks = count_blocks(line);
 	if (nb_blocks == 1)
 	{
