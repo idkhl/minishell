@@ -6,7 +6,7 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/10/02 13:49:06 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/10/02 18:13:07 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,33 +25,40 @@ SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c\
 		src/parsing/fill_struct.c src/parsing/is_expand.c src/parsing/ft_structcpy.c src/parsing/fill_cmd.c \
 		
 		
-OBJS = ${SRCS:.c=.o}
+OBJS_DIR = .objects
+OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+
 CFLAGS = -Wall -Wextra -Werror -g3 
 LIBFT = ./libft/libft.a
 CC = cc
 RM = rm -f
 
-all : $(NAME) 
+all: $(NAME)
 
-.c.o:
-	cc $(CFLAGS) -c -o $@ $< 
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJS)
 	make -C libft all
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(LIBFT)
 
-clean :
-	${RM} ${OBJS}
+clean:
+	$(RM) $(OBJS) $(LIBFT_OBJS)
 	make -C libft clean
+	find $(OBJS_DIR) -type f -name "*.o" -delete
 
-fclean : clean
-	${RM} ${NAME}
+fclean: clean
+	$(RM) $(NAME)
 	make -C libft fclean
 
-ac : all clean
+
+ac: all clean
 	make clean
 	make -C libft clean
 
-re : fclean all
+re: fclean all
 
-.PHONY = make clean fclean re
+.PHONY: all clean fclean re

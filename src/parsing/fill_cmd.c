@@ -3,46 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/02 10:46:26 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:19:59 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 //fonction principale a appeler
-void fill_cmd(t_input *input)
+void	fill_cmd(t_input *input)
 {
-    int i;
+	int	i;
 
 	i = 0;
-    while (input[i].input)
-    {
-        allocate_cmds(input, i);
-        if (!input[i].cmd)
-            return;
-        process_input(input, i);
-        i++;
-    }
+	while (input[i].input)
+	{
+		allocate_cmds(input, i);
+		if (!input[i].cmd)
+			return ;
+		process_input(input, i);
+		i++;
+	}
 }
 
 // Fonction pour allouer la memoire pour les cmd
 void allocate_cmds(t_input *input, int i)
 {
-    input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
+	input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
 }
 
 // Fonction pour traiter chaque input et remplir cmd
 void process_input(t_input *input, int i)
 {
-    int j;
+	int j;
 	int k;
-	
+
 	j = 0;
 	k = 0;
-    while (input[i].input[j])
+	while (input[i].input[j])
     {
         if (input[i].input[j] == '<' || input[i].input[j] == '>')
             j = skip_redir(input[i].input, j);
