@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/02 18:17:58 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:48:28 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	execute_cmd(t_data *data, t_input *input, char **tab)
 			if (execve(cmd, tab, data->env) == -1)
 				return (free(cmd), exit(EXIT_FAILURE));
 		}
-		// else
-		// 	exit(EXIT_SUCCESS);
+		else
+			exit(EXIT_SUCCESS);
 		// if (execve(cmd, tab, data->env) == -1)
 		// 	return (free(cmd), exit(EXIT_FAILURE));
 	}

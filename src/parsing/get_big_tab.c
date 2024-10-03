@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_big_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/02 10:25:03 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:50:09 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	fill_input(t_input *input, char *line)
 	char	**tab;
 	int		i;
 	int		nb_blocks;
-	
+
 	i = 0;
 	nb_blocks = count_blocks(line);
 	tab = split_pipes(line);
@@ -55,7 +55,7 @@ void	fill_input(t_input *input, char *line)
 void	allocate_new_struct(t_input **tab, char *line)
 {
 	int		nb_blocks;
-	
+
 	*tab = NULL;
 	nb_blocks = count_blocks(line);
 	*tab = malloc(sizeof(t_input) * (nb_blocks + 1));
@@ -69,7 +69,7 @@ void	allocate_new_struct(t_input **tab, char *line)
 int	skip_quotes(char *s, int i)
 {
 	char	quote;
-	
+
 	while (s[i] && s[i] != '"' && s[i] != '\'')
 		i++;
 	if (s[i] == '"' || s[i] == '\'')
