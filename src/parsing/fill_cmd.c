@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/02 18:19:59 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:55:16 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void process_input(t_input *input, int i)
             j = handle_quotes_in_cmd(input, i, &k, j);
         else if (!ft_isspace(input[i].input[j]))
             j = handle_word(input, i, &k, j);
-        j++;
+        if (input[i].input[j] != '\0')
+            j++;
     }
     input[i].cmd[k] = NULL;
 }
