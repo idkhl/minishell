@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/02 10:25:03 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:50:59 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,21 @@ void	fill_input(t_input *input, char *line)
 	char	**tab;
 	int		i;
 	int		nb_blocks;
-	
+
 	i = 0;
 	nb_blocks = count_blocks(line);
 	tab = split_pipes(line);
 
-	while(i < nb_blocks)
+	//ft_strjoin chaque caractere au fur et a mesure qu'on parcours tab[i]
+	//ex char*s1 = tab[i++]. et des aue je tombe sur un '$' je strjoin s1 avec
+	//ce que me return look_for_expand->s2; et c'est ca qu'on va mettre dans input[i].input;
+	while (i < nb_blocks)
 	{
-		input[i].input = NULL;
 		// Appeler add_to_input(tab[i]) et le stocker dans input[i].input
-		input[i].input= malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
+		input[i].input = NULL;
+		input[i].input = malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
 		if (input[i].input == NULL)
-            perror("fill input = Failed to allocate memory for input[i]");
+			perror("fill input = Failed to allocate memory for input[i]");
 		ft_strcpy(input[i].input, tab[i]);
 		i++;
 	}
@@ -55,7 +58,7 @@ void	fill_input(t_input *input, char *line)
 void	allocate_new_struct(t_input **tab, char *line)
 {
 	int		nb_blocks;
-	
+
 	*tab = NULL;
 	nb_blocks = count_blocks(line);
 	*tab = malloc(sizeof(t_input) * (nb_blocks + 1));
@@ -69,7 +72,7 @@ void	allocate_new_struct(t_input **tab, char *line)
 int	skip_quotes(char *s, int i)
 {
 	char	quote;
-	
+
 	while (s[i] && s[i] != '"' && s[i] != '\'')
 		i++;
 	if (s[i] == '"' || s[i] == '\'')
@@ -79,14 +82,14 @@ int	skip_quotes(char *s, int i)
 		while (s[i] && ft_isspace(s[i + 1]) == 0)
 		{
 			if (s[i] == quote && s[i + 1] != ft_isspace(s[i]) == 1)
-				i++;	
+				i++;
 			else
 			{
 				i++;
 			}
 		}
 	}
-    return (i);
+	return (i);
 }
 
 int	skip_redir(char *s, int i)
@@ -108,14 +111,14 @@ int	skip_redir(char *s, int i)
 			}
 		}
 		else
-			break;
+			break ;
 	}
 	return (i);
 }
 
 int	count_cmd(char *s)
 {
-	int i;
+	int	i;
 	int	cmd;
 
 	i = 0;
@@ -143,9 +146,9 @@ int	count_cmd(char *s)
 
 int	get_len_in_quotes(char *s)
 {
-	int i;
-	int	len;
-	char quote;
+	int		i;
+	int		len;
+	char	quote;
 
 	i = 0;
 	len = 0;
@@ -161,77 +164,27 @@ int	get_len_in_quotes(char *s)
 			i++;
 		}
 	}
-    return (len);
+	return (len);
 }
 
 int	get_len(char *s)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
-    while (s[i])
+	while (s[i])
 	{
 		while (s[i] && ft_isspace(s[i]) == 1)
-        	i++;
+			i++;
 		while (s[i] && ft_isspace(s[i]) == 0)
 		{
 			len++;
 			i++;
 		}
 		if (s[i] && ft_isspace(s[i]) == 1)
-        	break;
+			break ;
 	}
-    return (len);
+	return (len);
 }
-
-// void	fill_cmd(t_input *input)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		k;
-// 	char	quote;
-
-// 	i = 0;
-// 	while(input[i].input)
-// 	{
-// 		k = 0;
-// 		j = 0;
-// 		input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
-// 		if (!input[i].cmd)
-// 			return;
-// 		while (input[i].input[j])
-// 		{
-// 			if (input[i].input[j] && (input[i].input[j] == '<' || input[i].input[j] == '>'))
-// 				j = skip_redir(input[i].input, j);
-// 			if (input[i].input[j] && (input[i].input[j] == '"' || input[i].input[j] == '\''))
-// 			{
-// 				quote = input[i].input[j];
-// 				int len = get_len_in_quotes(&input[i].input[j]);
-// 				j++;
-// 				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
-// 				if (!input[i].cmd[k])
-// 					return;
-// 				quotecpy(input[i].cmd[k], &input[i].input[j], len, quote);
-// 				k++;
-// 				j += len;
-// 			}
-// 			else if (input[i].input[j] && ft_isspace(input[i].input[j]) == 0)
-// 			{		
-// 				int len = get_len(&input[i].input[j]);
-// 				input[i].cmd[k] = malloc(sizeof(char) * (len + 1));
-// 				if (!input[i].cmd[k])
-// 					return;
-// 				ft_strncpy(input[i].cmd[k], &input[i].input[j], len);
-// 				input[i].cmd[k][len] = '\0';
-// 				k++;
-// 				j += len;
-// 			}
-// 			j++;	
-// 		}
-// 		input[i].cmd[k] = NULL;
-// 		i++;
-// 	}
-// }
-

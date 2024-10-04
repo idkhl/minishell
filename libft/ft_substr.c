@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:44:10 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/06 16:37:47 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:52:58 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,48 +69,48 @@ char	*ft_substr(char*s, unsigned int start, size_t len)
 		
 }*/
 
-#include <stdlib.h>
-#include <unistd.h>
+// #include <stdlib.h>
+// #include <unistd.h>
 
-static void		ft_print_result(char*s)
-{
-	int		len;
+// static void		ft_print_result(char*s)
+// {
+// 	int		len;
 
-	len = 0;
-	while (s[len])
-		len++;
-	write(1, s, len);
-}
+// 	len = 0;
+// 	while (s[len])
+// 		len++;
+// 	write(1, s, len);
+// }
 
-static void		check_substr(char *str, int start, int len)
-{
-	char	*substr;
+// static void		check_substr(char *str, int start, int len)
+// {
+// 	char	*substr;
 
-	if (!(substr = ft_substr(str, start, len)))
-		ft_print_result("NULL");
-	else
-		ft_print_result(substr);
-	if (str == substr)
-		ft_print_result("\nA new string was not returned");
-	else
-		free(substr);
-}
+// 	if (!(substr = ft_substr(str, start, len)))
+// 		ft_print_result("NULL");
+// 	else
+// 		ft_print_result(substr);
+// 	if (str == substr)
+// 		ft_print_result("\nA new string was not returned");
+// 	else
+// 		free(substr);
+// }
 
-int				main(int argc,  char *argv[])
-{
-	char	str[] = "tripouille";
-	int		arg;
+// int				main(int argc,  char *argv[])
+// {
+// 	char	str[] = "tripouille";
+// 	int		arg;
 
-	alarm(5);
-	if (argc == 1)
-		return (0);
-	else if ((arg = atoi(argv[1])) == 1)
-		check_substr(str, 0, 42000);
-	else if (arg == 2)
-		check_substr(str, 7, 10);
-	else if (arg == 3)
-		check_substr(str, 7, 0);
-	else if (arg == 4)
-		check_substr(str, 0, 0);
-	return (0);
-}
+// 	alarm(5);
+// 	if (argc == 1)
+// 		return (0);
+// 	else if ((arg = atoi(argv[1])) == 1)
+// 		check_substr(str, 0, 42000);
+// 	else if (arg == 2)
+// 		check_substr(str, 7, 10);
+// 	else if (arg == 3)
+// 		check_substr(str, 7, 0);
+// 	else if (arg == 4)
+// 		check_substr(str, 0, 0);
+// 	return (0);
+// }
