@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/02 18:03:29 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:40:45 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	i = 0;
 	while (i <= nb_blocks - 1)
 	{
-		// printf("cmd : %s\n", input[i].cmd[0]);
 		if (i == 0)
 			exec_first_pipe(data, input, input[i].cmd, i);
 		else if (i == nb_blocks - 1)
