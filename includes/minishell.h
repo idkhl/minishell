@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/02 16:32:31 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:26:44 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 	char	**path;
 	int		heredoc;
 	int		fd[2];
+	int		copy_stdin;
 }	t_data;
 
 // ex : > infile >> makefile cat Makefile | ls | echo hello > outfile

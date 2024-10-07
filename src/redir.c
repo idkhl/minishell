@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/02 16:34:59 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:51:36 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	here_doc(t_data *data, t_input *input, int i)
 		return ;
 	while (line)
 	{
-		// heredoc_signals();
 		if (ft_strcmp(line, input[i].in_file) == 0)
 		{
 			free(line);
@@ -61,7 +60,6 @@ void	input_redir(t_data *data, t_input *input, int i)
 		close(heredoc_infile);
 		unlink(".tmp_doc");
 	}
-	// printf("[[[%d]]]\n\n", i);
 }
 
 void	redir(t_data *data, t_input *input, int i)
