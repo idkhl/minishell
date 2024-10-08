@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/09/26 17:56:44 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:35:40 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	add_export(t_data *data, char **tab)
 	char	**newenv;
 	int		newsize;
 
+	printf("TEST\n");
 	newsize = ft_tablen(data->env) + ft_tablen(tab);
 	newenv = (char **)malloc(sizeof(char *) * (newsize));
 	if (!newenv)
@@ -94,7 +95,7 @@ int	check_var_is_valid(t_data *data, char **tab)
 		while (tab[j])
 		{
 			if (ft_strchr(tab[j], '=') == 0)
-				return (-11);
+				return (-1);
 			j++;
 		}
 		i++;
@@ -158,19 +159,17 @@ void	build_export(t_data *data, char **tab)
 	if (ft_tablen(tab) > 1)
 	{
 		if (check_var_is_valid(data, tab) == -1)
-		{
-			// add to data->exp;
 			return ;
-		}
 		else
 			check_existing_variable(data, tab);
 		add_export(data, tab);
 	}
 	if (ft_tablen(tab) == 1)
 	{
-		// data->exp = ft_tabdup(data->env);
-		// if (!data->exp)
-		// 	return ;
+		// printf("%d\n", ft_tablen(tab));
+		data->exp = ft_tabdup(data->env);
+		if (!data->exp)
+			return ;
 		print_export(data);
 		malloc_free(data->exp);
 	}
