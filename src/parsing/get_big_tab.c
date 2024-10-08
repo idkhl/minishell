@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/04 17:50:59 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:30:45 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,30 @@ void	fill_input(t_input *input, char *line)
 {
 	char	**tab;
 	int		i;
+	int		j;
 	int		nb_blocks;
+	// char	*s1;
 
 	i = 0;
 	nb_blocks = count_blocks(line);
 	tab = split_pipes(line);
-
+	j = 0;
 	//ft_strjoin chaque caractere au fur et a mesure qu'on parcours tab[i]
-	//ex char*s1 = tab[i++]. et des aue je tombe sur un '$' je strjoin s1 avec
+	//ex char*s1 = tab[i++]. et des Que je tombe sur un '$' je strjoin s1 avec
 	//ce que me return look_for_expand->s2; et c'est ca qu'on va mettre dans input[i].input;
+	
 	while (i < nb_blocks)
 	{
 		// Appeler add_to_input(tab[i]) et le stocker dans input[i].input
 		input[i].input = NULL;
-		input[i].input = malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
+		input[i].input = malloc(sizeof(char) * ft_strlen(tab[j]) + 1);
 		if (input[i].input == NULL)
 			perror("fill input = Failed to allocate memory for input[i]");
+		// while (tab[i])
+		// {
+		// 	if (tab[j] != '$')
+		// 		s1[j] = 
+		// }
 		ft_strcpy(input[i].input, tab[i]);
 		i++;
 	}

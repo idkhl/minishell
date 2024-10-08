@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/03 17:46:56 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:25:59 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ typedef struct s_data
 // ex : > infile >> makefile cat Makefile | ls | echo hello > outfile
 // ci bas l'exemple pour le premier bloc
 
-typedef	struct s_input
+typedef struct s_input
 {
 	char	*input; //< infile cat Makefile
-	// char	**tab; // [<][infile] [cat] [Makefile]
+	char	**tab; // [<][infile] [cat] [Makefile]
 	char	**cmd; // [cat] [Makefile]
 	char	*in_file; // [infile]
 	char	*out_file;
@@ -45,6 +45,14 @@ typedef	struct s_input
 	int		fd_in;
 	int		fd_out;
 }	t_input;
+
+typedef struct s_vars
+{
+	int		i;
+	int		len;
+	int		in_quote;
+	int		quote_char;
+}	t_vars;
 
 void	handle_signals(void);
 void	heredoc_signals(void);
@@ -134,5 +142,8 @@ void	add_to_input(char *line, t_data *data);
 char	*return_var_name(char *line);
 char	*find_variable_in_env(char *line, t_data *data);
 char	*look_for_expand(char *line, t_data *data);
+
+int		get_tab_len(char *s);
+int		len_with_quote(char *str);
 
 #endif

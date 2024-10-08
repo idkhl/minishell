@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/04 15:43:01 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:31:18 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ char	*get_redir_type(char *s, int index)
 	if (s[index] == '<')
 	{
 		if (s[index + 1] == '<')
-			return ft_strdup("<<");
+			return (ft_strdup("<<"));
 		else
-			return ft_strdup("<");
+			return (ft_strdup("<"));
 	}
 	else if (s[index] == '>')
 	{
