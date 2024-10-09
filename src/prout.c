@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/07 19:05:43 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:53:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,23 @@ void    parse_line(t_data *data, t_input *input, char *line)
 	nb_blocks = count_blocks(line);
 	if (nb_blocks == 1)
 	{
-		// if (check_builtins(data, input->cmd) == 0)
+		if (check_builtins(input->cmd) == 0)
 			execute_cmd(data, input, input->cmd);
+		else
+		{
+			if (input[0].in_file != NULL || input[0].out_file != NULL)
+			{
+				data->copy_stdin = dup(STDIN_FILENO);
+				data->copy_stdout = dup(STDOUT_FILENO);
+				redir(data, input, 0);
+			}
+			exec_builtins(data, input->cmd);
+			dup2(data->copy_stdin, STDIN_FILENO);
+			dup2(data->copy_stdout, STDOUT_FILENO);
+		}
 	}
 	else
 		pipex(data, input, nb_blocks);
-	// free_tab(big_tab, nb_blocks);
 }
 
 int	main(int ac, char **av, char **envp)

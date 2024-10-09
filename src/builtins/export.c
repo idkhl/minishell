@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/08 15:35:40 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:56:17 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	add_export(t_data *data, char **tab)
 	char	**newenv;
 	int		newsize;
 
-	printf("TEST\n");
 	newsize = ft_tablen(data->env) + ft_tablen(tab);
 	newenv = (char **)malloc(sizeof(char *) * (newsize));
 	if (!newenv)

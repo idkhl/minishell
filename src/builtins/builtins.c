@@ -6,13 +6,33 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 19:57:35 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/30 20:14:32 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:44:12 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_builtins(t_data *data, char **tab)
+int	check_builtins(char **tab)
+{
+	if (ft_strcmp(*tab, "exit") == 0)
+		return (1);
+	else if (ft_strcmp(*tab, "echo") == 0)
+		return (1);
+	else if (ft_strcmp(*tab, "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(*tab, "cd") == 0)
+		return (1);
+	else if (ft_strcmp(*tab, "env") == 0)
+		return (1);
+	else if (ft_strcmp(*tab, "export") == 0)
+		return (1);
+	else if (ft_strcmp(*tab, "unset") == 0)
+		return (1);
+	else
+		return (0);
+}
+
+int	exec_builtins(t_data *data, char **tab)
 {
 	if (ft_strcmp(*tab, "exit") == 0)
 		return (build_exit(data, tab), 1);

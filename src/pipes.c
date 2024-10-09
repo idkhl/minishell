@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/07 16:32:39 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:55:43 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[0]);
 		close(data->fd[1]);
 		close(data->copy_stdin);
-		if (check_builtins(data, tab) == 0)
+		if (exec_builtins(data, tab) == 0)
 		{
 			if (execve(cmd, tab, data->env) == -1)
 			{
@@ -46,9 +46,6 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		else
 			exit(EXIT_SUCCESS);
 	}
-	// close(data->copy_stdin);
-	// close(data->fd[0]);
-	// close(data->fd[1]);
 	free(cmd);
 }
 
@@ -75,7 +72,7 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[1]);
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
 			redir(data, input, i);
-		if (check_builtins(data, tab) == 0)
+		if (exec_builtins(data, tab) == 0)
 		{
 			if (execve(cmd, tab, data->env) == -1)
 			{
@@ -86,9 +83,6 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		else
 			exit(EXIT_SUCCESS);
 	}
-	// close(data->copy_stdin);
-	// close(data->fd[0]);
-	// close(data->fd[1]); 
 	free(cmd);
 }
 
@@ -110,7 +104,7 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[0]);
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
 			redir(data, input, i);
-		if (check_builtins(data, tab) == 0)
+		if (exec_builtins(data, tab) == 0)
 		{
 			if (execve(cmd, tab, data->env) == -1)
 			{
@@ -121,9 +115,6 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 		else
 			exit(EXIT_SUCCESS);
 	}
-	// close(data->copy_stdin);
-	// close(data->fd[0]);
-	// close(data->fd[1]);
 	free(cmd);
 }
 
@@ -154,5 +145,4 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	close(data->copy_stdin);
 	while (wait(NULL) != -1)
 		continue ;
-	// (void)copy_stdin;
 }

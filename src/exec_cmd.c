@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/07 20:04:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:53:52 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,10 @@ void	execute_cmd(t_data *data, t_input *input, char **tab)
 		return (free(cmd), perror("fork"));
 	if (pid == 0)
 	{
-		// handle_signals();
 		if (input[0].in_file != NULL || input[0].out_file != NULL)
 			redir(data, input, 0);
-		if (check_builtins(data, tab) == 0)
-		{
-			if (execve(cmd, tab, data->env) == -1)
-				return (free(cmd), exit(EXIT_FAILURE));
-		}
-		else
-			exit(EXIT_SUCCESS);
-		// if (execve(cmd, tab, data->env) == -1)
-		// 	return (free(cmd), exit(EXIT_FAILURE));
+		if (execve(cmd, tab, data->env) == -1)
+			return (free(cmd), exit(EXIT_FAILURE));
 	}
 	else
 	{
