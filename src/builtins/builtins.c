@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 19:57:35 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/09 12:44:12 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:43:24 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_builtins(char **tab)
 {
+	if (!tab || !*tab)
+		return (0);
 	if (ft_strcmp(*tab, "exit") == 0)
 		return (1);
 	else if (ft_strcmp(*tab, "echo") == 0)

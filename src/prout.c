@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/09 12:53:58 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:58:56 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,52 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	input->fd_out = -1;
 }
 
-void    parse_line(t_data *data, t_input *input, char *line)
+void	heredoc_input(t_input *input, char *file)
+{
+	
+}
+
+void	heredoc(t_data *data, t_input *input, int nb)
+{
+	char	*tmp;
+	char	*file;
+	int		i;
+	char	*line;
+
+	tmp = ft_strdup(".heredoc");
+	file = ft_strjoin(tmp, ft_itoa(nb));
+	data->heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (data->heredoc == -1)
+		return ;
+	line = readline("> ");
+	while (line)
+	{
+		if (ft_strcmp(line, input[i].in_file) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(data->heredoc, line, ft_strlen(line));
+		write(data->heredoc, "\n", 1);
+		free(line);
+		line = readline("> ");
+	}
+	close(data->heredoc);
+	heredoc_input(input, file);
+}
+
+void	parse_line(t_data *data, t_input *input, char *line)
 {
 	int		nb_blocks;
 
 	nb_blocks = count_blocks(line);
 	if (nb_blocks == 1)
 	{
+		if (input[0].redir_infile
+			&& ft_strcmp(input[0].redir_infile, "<<") == 0)
+		{
+			heredoc(data, input, 0);
+		}
 		if (check_builtins(input->cmd) == 0)
 			execute_cmd(data, input, input->cmd);
 		else

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/09 12:55:43 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:18:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	data->copy_stdin = dup(STDIN_FILENO);
 	while (i <= nb_blocks - 1)
 	{
+		// here_doc
 		if (pipe(data->fd) == -1)
 			return (perror("pipe 1"));
 		if (i == 0)
