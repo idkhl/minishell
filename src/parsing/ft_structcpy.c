@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:51:17 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/04 15:33:33 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:34:18 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_structcpy(char *dest, char *src, int i)
 	j = 0;
 	while (ft_isspace(src[i]) == 1)
 		i++;
-	while (src[i] != '\0' && ft_isspace(src[i]) != 1)
+	while (src[i] && ft_isspace(src[i]) != 1)
 	{
 		dest[j] = src[i];
 		i++;

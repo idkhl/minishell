@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/08 11:30:45 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:29:52 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	fill_input(t_input *input, char *line)
 	while (i < nb_blocks)
 	{
 		// Appeler add_to_input(tab[i]) et le stocker dans input[i].input
-		input[i].input = NULL;
+		// input[i] = malloc(sizeof(t_input));
 		input[i].input = malloc(sizeof(char) * ft_strlen(tab[j]) + 1);
 		if (input[i].input == NULL)
 			perror("fill input = Failed to allocate memory for input[i]");
@@ -63,14 +63,13 @@ void	fill_input(t_input *input, char *line)
 	malloc_free(tab);
 }
 
-void	allocate_new_struct(t_input **tab, char *line)
+void	allocate_new_struct(t_input **input, char *line)
 {
 	int		nb_blocks;
 
-	*tab = NULL;
 	nb_blocks = count_blocks(line);
-	*tab = malloc(sizeof(t_input) * (nb_blocks + 1));
-	if (tab == NULL)
+	*input = malloc(sizeof(t_input) * (nb_blocks + 1));
+	if (input == NULL)
 	{
 		perror("Failed to allocate memory for t_input");
 		return ;

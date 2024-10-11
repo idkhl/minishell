@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/08 17:25:59 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:34:50 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		check_syntax(char *line);
 void	find_first_redir(t_input *tab, char **big_tab);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*quotecpy(char *dest, char *src, int n, char quote);
-void	allocate_new_struct(t_input **tab, char *line);
+void	allocate_new_struct(t_input **input, char *line);
 void	fill_input(t_input *input, char *line);
 void	init_struct(t_data *data, t_input *tab, char **envp);
 int		count_words(char *line, char c);
@@ -145,5 +145,6 @@ char	*look_for_expand(char *line, t_data *data);
 
 int		get_tab_len(char *s);
 int		len_with_quote(char *str);
+void	fill_tab(t_input *input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:34:50 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/04 16:07:14 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:20:51 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	store_redirection(t_input *input)
 	int	j;
 
 	i = 0;
-	while (input[i].input)
+	while (i < (int)ft_strlen(input[i].input) && input[i].input)
 	{
 		input[i].in_file = NULL;
 		j = 0;

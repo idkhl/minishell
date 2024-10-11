@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 19:57:35 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/30 20:14:32 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:17:34 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_builtins(t_data *data, char **tab)
 {
+	if (!tab || !*tab)
+		return 0;
 	if (ft_strcmp(*tab, "exit") == 0)
 		return (build_exit(data, tab), 1);
 	else if (ft_strcmp(*tab, "echo") == 0)

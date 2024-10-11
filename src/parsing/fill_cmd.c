@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/04 17:44:43 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:43:54 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	process_input(t_input *input, int i)
 
 	j = 0;
 	k = 0;
-	while (input[i].input[j])
+	while (j < (int)ft_strlen(input[i].input) && input[i].input[j])
 	{
 		if (input[i].input[j] == '<' || input[i].input[j] == '>')
 			j = skip_redir(input[i].input, j);

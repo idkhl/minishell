@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:35:06 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/08 17:43:57 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:13:58 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,20 @@ int	get_tab_len(char *s)
 			i++;
 		if (s[i] && (s[i] == '\'' || s[i] == '"'))
 		{
-			k = len_with_quote(s);
-			printf("[%d]\n", i);
+			k = len_with_quote(s + i);
 			len++;
-			printf("len === %d\n", k);
-			i += len_with_quote(s);
+			i += k;
 		}
-		if (s[i] && (s[i] == '<' || s[i] == '>'))
+		else if (s[i] && (s[i] == '<' || s[i] == '>'))
 		{
-			// printf("[%d]\n", i);
-			// printf("%c\n", s[i]);
 			len++;
 			if (s[i + 1] == '<' || s[i + 1] == '>')
 				i += 2;
-			else 
+			else
 				i++;
 		}
 		else if (s[i] && ft_isspace(s[i]) == 0)
 		{
-			// printf("[%d]\n", i);
-			// printf("%c\n", s[i]);
 			len++;
 			while (s[i] && ft_isspace(s[i]) == 0 && s[i] != '<' && s[i] != '>')
 				i++;
@@ -84,55 +78,140 @@ int	get_tab_len(char *s)
 	}
 	return (len);
 }
-void	fill_tab(t_input *input)
+
+int	get_len2(char *s)
 {
-	int	i;
-	int	j;
-	int	k;
 	int	len;
 
-	i = 0;
 	len = 0;
+	while (s[len] && !ft_isspace(s[len]) && s[len] != '<' && s[len] != '>')
+		len++;
+	return (len);
+}
+int handle_normal_string(t_input *input, int i, int *j, int k)
+{
+	int len = get_len2(input[i].input + *j);
+	input[i].tab[k] = malloc(sizeof(char) * (len + 1));
+	if (!input[i].tab[k])
+		return k;
+	ft_strlcpy(input[i].tab[k], input[i].input + *j, len + 1);
+	*j += len;
+	return (k + 1);
+}
+
+int handle_quoted_string(t_input *input, int i, int *j, int k)
+{
+	int len = len_with_quote(input[i].input + *j);
+	input[i].tab[k] = malloc(sizeof(char) * (len + 1));
+	if (!input[i].tab[k])
+		return k;
+	ft_strlcpy(input[i].tab[k], input[i].input + *j, len + 1);
+	*j += len;
+	return (k + 1);
+}
+
+int handle_redirection(t_input *input, int i, int *j, int k)
+{
+	input[i].tab[k] = get_redir_type(input[i].input, *j);
+	if (input[i].input[*j + 1] == '<' || input[i].input[*j + 1] == '>')
+		*j += 2;
+	else
+		(*j)++;
+	return (k + 1);
+}
+
+void fill_tab_entries(t_input *input, int i)
+{
+	int j;
+	int k;
+	
+	j = 0;
+	k = 0;
+	while (input[i].input[j])
+	{
+		while (input[i].input[j] && ft_isspace(input[i].input[j]))
+			j++;
+		if (input[i].input[j] == '<' || input[i].input[j] == '>')
+			k = handle_redirection(input, i, &j, k);
+		else if (input[i].input[j] == '\'' || input[i].input[j] == '"')
+			k = handle_quoted_string(input, i, &j, k);
+		else if (input[i].input[j] && !ft_isspace(input[i].input[j]))
+			k = handle_normal_string(input, i, &j, k);
+	}
+	input[i].tab[k] = NULL;
+}
+
+void fill_tab(t_input *input)
+{
+	int i;
+
+	i = 0;
 	while (input[i].input)
 	{
-		j = 0;
-		while (input[i].input[j])
-		{
-			input[i].tab[k] = NULL;
-			k = 0;
-			while (ft_isspace(input[i].input[j]))
-				j++;
-			if (input[i].input[j] == '<' || input[i].input[j] == '>')
-			{
-				input[i].tab[k] = get_redir_type(input[i].input, j);
-				if (input[i].input[j + 1] == '<'
-					|| input[i].input[j + 1] == '>')
-					j += 2;
-				else
-					j++;
-				k++;
-			}
-			if (input[i].input[j] == '\'' || input[i].input[j] == '"')
-			{
-				len = len_with_quote(input[i].input);
-				input[i].tab[k] = malloc(sizeof(char) * (len + 1));
-				if (!input[i].tab[k])
-					return ;
-				ft_strlcpy(input[i].tab[k], input[i].input, len);
-				k++;
-				j += len;
-			}
-			else
-			{
-				len = get_len(input[i].input);
-				input[i].tab[k] = malloc(sizeof(char) * (len + 1));
-				if (!input[i].tab[k])
-					return ;
-				ft_strlcpy(input[i].tab[k], input[i].input, len);
-				k++;
-				j += len;
-			}
-		}
+		input[i].tab = malloc(sizeof(char *)
+			* (get_tab_len(input[i].input) + 1));
+		if (!input[i].tab)
+			return;
+
+		fill_tab_entries(input, i);
 		i++;
 	}
 }
+
+
+// void	fill_tab(t_input *input)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	k;
+// 	int	len;
+
+// 	i = 0;
+// 	len = 0;
+// 	while (input[i].input)
+// 	{
+// 		j = 0;
+// 		k = 0;
+// 		input[i].tab = malloc(sizeof(char *) * (get_tab_len(input[i].input) + 1));
+// 		if (!input[i].tab)
+// 			return ;
+// 		printf("get_tab_len: %d\n", get_tab_len(input[i].input));
+// 		while (input[i].input[j])
+// 		{
+// 			while (input[i].input[j] && ft_isspace(input[i].input[j]))
+// 				j++;
+// 			if (input[i].input[j] == '<' || input[i].input[j] == '>')
+// 			{
+// 				input[i].tab[k] = get_redir_type(input[i].input, j);
+// 				if (input[i].input[j + 1] == '<'
+// 					|| input[i].input[j + 1] == '>')
+// 					j += 2;
+// 				else
+// 					j++;
+// 				k++;
+// 			}
+// 			else if (input[i].input[j] == '\'' || input[i].input[j] == '"')
+// 			{
+// 				len = len_with_quote(input[i].input + j);
+// 				input[i].tab[k] = malloc(sizeof(char) * (len + 1));
+// 				if (!input[i].tab[k])
+// 					return ;
+// 				ft_strlcpy(input[i].tab[k], input[i].input + j, len + 1);
+// 				k++;
+// 				j += len;
+// 			}
+// 			else if (input[i].input[j] && ft_isspace(input[i].input[j]) == 0)
+// 			{
+// 				len = get_len2(input[i].input + j);
+// 				input[i].tab[k] = malloc(sizeof(char) * (len + 1));
+// 				if (!input[i].tab[k])
+// 					return ;
+// 				ft_strlcpy(input[i].tab[k], input[i].input + j, len + 1);
+// 				k++;
+// 				j += len;
+// 			}
+// 		}
+// 		input[i].tab[k] = NULL;
+// 		i++;
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/08 17:27:08 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:49:58 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,24 @@ int	main(int ac, char **av, char **envp)
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line);
-		parse_line(&data, input, line);
-		printf("get_tab_len: %d\n", get_tab_len(line));
-		// printf("len with quote= %d\n",len_with_quote(line));
+		fill_tab(input);
 		// add_to_input(line, &data);
-		// int	i;
-		// int	j;
-		// i = 0;
-		// while (input[i].input)
-		// {
-		// 	j = 0;
-		// 	printf("=============== struct [%d]================\n", i);
-		// 	printf("Analyzing input[%d]: %s\n", i, input[i].input);
-		// 	while (input[i].tab[j])
-		// 	{
-		// 		printf("TAB [%d]: %s\n", j, input[0].tab[0]);
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
+		int	i;
+		int	j;
+		i = 0;
+		while (input[i].input)
+		{
+			j = 0;
+			printf("=============== struct [%d]================\n", i);
+			printf("Analyzing input[%d]: %s\n", i, input[i].input);
+			while (input[i].tab[j])
+			{
+				printf("TAB [%d]: %s\n", j, input[i].tab[j]);
+				j++;
+			}
+			i++;
+		}
+		parse_line(&data, input, line);
 		free(line);
 		line = readline("minishell $> ");
 	}

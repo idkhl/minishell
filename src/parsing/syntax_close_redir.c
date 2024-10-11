@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:03:21 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/04 15:08:49 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:39:38 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_close_operators(char *line)
 
 	i = 0;
 	word = 0;
-	while (line[i])
+	while ((size_t)i < ft_strlen(line) && line[i])
 	{
 		ignore_spaces(line, &i);
 		if (line[i] == '>')
