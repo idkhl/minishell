@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/09 17:58:56 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:19:59 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,19 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	input->redir_outfile = NULL;
 	input->fd_in = -1;
 	input->fd_out = -1;
+	input->heredoc = 0;
 }
 
-void	heredoc_input(t_input *input, char *file)
-{
-	
-}
-
-void	heredoc(t_data *data, t_input *input, int nb)
+void	heredoc(t_input *input, int i)
 {
 	char	*tmp;
 	char	*file;
-	int		i;
 	char	*line;
 
 	tmp = ft_strdup(".heredoc");
-	file = ft_strjoin(tmp, ft_itoa(nb));
-	data->heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (data->heredoc == -1)
+	file = ft_strjoin(tmp, ft_itoa(i));
+	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (input[i].heredoc == -1)
 		return ;
 	line = readline("> ");
 	while (line)
@@ -59,13 +54,14 @@ void	heredoc(t_data *data, t_input *input, int nb)
 			free(line);
 			break ;
 		}
-		write(data->heredoc, line, ft_strlen(line));
-		write(data->heredoc, "\n", 1);
+		write(input[i].heredoc, line, ft_strlen(line));
+		write(input[i].heredoc, "\n", 1);
 		free(line);
 		line = readline("> ");
 	}
-	close(data->heredoc);
-	heredoc_input(input, file);
+	close(input[i].heredoc);
+	free(input[i].in_file);
+	input[i].in_file = ft_strdup(file);
 }
 
 void	parse_line(t_data *data, t_input *input, char *line)
@@ -78,7 +74,7 @@ void	parse_line(t_data *data, t_input *input, char *line)
 		if (input[0].redir_infile
 			&& ft_strcmp(input[0].redir_infile, "<<") == 0)
 		{
-			heredoc(data, input, 0);
+			heredoc(input, 0);
 		}
 		if (check_builtins(input->cmd) == 0)
 			execute_cmd(data, input, input->cmd);
@@ -97,6 +93,7 @@ void	parse_line(t_data *data, t_input *input, char *line)
 	}
 	else
 		pipex(data, input, nb_blocks);
+	// unlink(file);
 }
 
 int	main(int ac, char **av, char **envp)

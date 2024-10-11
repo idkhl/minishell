@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/09 12:43:18 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:21:12 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef	struct s_input
 	char	*redir_outfile;
 	int		fd_in;
 	int		fd_out;
+	int		heredoc;
 }	t_input;
 
 void	handle_signals(void);
@@ -58,6 +59,7 @@ void	execute_cmd(t_data *data, t_input *input, char **tab);
 int		exec_builtins(t_data *data, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
 void	redir(t_data *data, t_input *input, int i);
+void	heredoc(t_input *input, int i);
 
 /*	BUILT-INS	*/
 
