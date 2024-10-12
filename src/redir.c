@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/09 18:03:28 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:17:18 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,15 @@ void	input_redir(t_data *data, t_input *input, int i)
 	int	infile;
 	// int	heredoc_infile;
 
-	if (ft_strcmp(input[i].redir_infile, "<") == 0)
+	if (ft_strncmp(input[i].redir_infile, "<", 1) == 0)
 	{
 		infile = open(input[i].in_file, O_RDONLY, 0644);
 		if (infile < 0)
-			return (perror("Open"));
+			return (perror("Open infile"));
 		if (dup2(infile, STDIN_FILENO) == -1)
 			return (close(infile), perror("dup2"));
 		close(infile);
 	}
-	// else if (ft_strcmp(input[i].redir_infile, "<<") == 0)
-	// {
-	// 	here_doc(data, input, i);
-	// 	heredoc_infile = open(".tmp_doc", O_RDONLY);
-	// 	if (heredoc_infile < 0)
-	// 		return (perror("heredoc read open"));
-	// 	if (dup2(heredoc_infile, STDIN_FILENO) == -1)
-	// 		return (close(heredoc_infile), perror("dup2"));
-	// 	close(heredoc_infile);
-	// 	unlink(".tmp_doc");
-	// }
 	(void)data;
 }
 
@@ -81,4 +70,11 @@ void	redir(t_data *data, t_input *input, int i)
 			return (close(outfile), perror("dup2"));
 		close(outfile);
 	}
+	// int j = 0;
+	// while (input[j].in_file)
+	// {
+	// 	if (ft_strcmp(input[j].redir_infile, "<<") == 0)
+	// 		unlink(input[j].in_file);
+	// 	j++;
+	// }
 }

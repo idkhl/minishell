@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/11 18:19:59 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:01:51 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,13 @@ void	heredoc(t_input *input, int i)
 	char	*tmp;
 	char	*file;
 	char	*line;
+	char	*nb;
 
 	tmp = ft_strdup(".heredoc");
-	file = ft_strjoin(tmp, ft_itoa(i));
+	nb = ft_itoa(i);
+	file = ft_strjoin(tmp, nb);
+	free(tmp);
+	free(nb);
 	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (input[i].heredoc == -1)
 		return ;
@@ -62,6 +66,29 @@ void	heredoc(t_input *input, int i)
 	close(input[i].heredoc);
 	free(input[i].in_file);
 	input[i].in_file = ft_strdup(file);
+	free(file);
+}
+
+void	pipe_heredoc(t_data *data, t_input *input, int nb)
+{
+	int		i;
+
+	i = 0;
+	while (i < nb)
+	{
+		if (input[i].redir_infile)
+		{
+			if (ft_strcmp(input[i].redir_infile, "<<") == 0)
+			{
+				data->copy_stdin = dup(STDIN_FILENO);
+				data->copy_stdout = dup(STDOUT_FILENO);
+				heredoc(input, i);
+				dup2(data->copy_stdin, STDIN_FILENO);
+				dup2(data->copy_stdout, STDOUT_FILENO);
+			}
+		}
+		i++;
+	}
 }
 
 void	parse_line(t_data *data, t_input *input, char *line)
@@ -92,8 +119,10 @@ void	parse_line(t_data *data, t_input *input, char *line)
 		}
 	}
 	else
+	{
+		pipe_heredoc(data, input, nb_blocks);
 		pipex(data, input, nb_blocks);
-	// unlink(file);
+	}
 }
 
 int	main(int ac, char **av, char **envp)
