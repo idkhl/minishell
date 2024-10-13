@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/12 18:01:51 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:44:43 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	pipe_heredoc(t_data *data, t_input *input, int nb)
 	i = 0;
 	while (i < nb)
 	{
-		if (input[i].redir_infile)
+		if (input[i].in_file)
 		{
 			if (ft_strcmp(input[i].redir_infile, "<<") == 0)
 			{
@@ -85,6 +85,8 @@ void	pipe_heredoc(t_data *data, t_input *input, int nb)
 				heredoc(input, i);
 				dup2(data->copy_stdin, STDIN_FILENO);
 				dup2(data->copy_stdout, STDOUT_FILENO);
+				close(data->copy_stdin);
+				close(data->copy_stdout);
 			}
 		}
 		i++;
@@ -98,10 +100,10 @@ void	parse_line(t_data *data, t_input *input, char *line)
 	nb_blocks = count_blocks(line);
 	if (nb_blocks == 1)
 	{
-		if (input[0].redir_infile
-			&& ft_strcmp(input[0].redir_infile, "<<") == 0)
+		if (input[0].in_file)
 		{
-			heredoc(input, 0);
+			if (ft_strcmp(input[0].redir_infile, "<<") == 0)
+				heredoc(input, 0);
 		}
 		if (check_builtins(input->cmd) == 0)
 			execute_cmd(data, input, input->cmd);
@@ -116,6 +118,8 @@ void	parse_line(t_data *data, t_input *input, char *line)
 			exec_builtins(data, input->cmd);
 			dup2(data->copy_stdin, STDIN_FILENO);
 			dup2(data->copy_stdout, STDOUT_FILENO);
+			// close(data->copy_stdin);
+			// close(data->copy_stdout);
 		}
 	}
 	else
@@ -158,3 +162,7 @@ int	main(int ac, char **av, char **envp)
 
 // rajouter l'export modifié
 // rajouter cd
+// ==121132==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==121132==    by 0x405498: allocate_new_struct (get_big_tab.c:61)
+// ==121132==    by 0x40184E: main (prout.c:150)
+// redir_infile pas init?

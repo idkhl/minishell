@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/12 17:29:22 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:34:28 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 		i++;
 	}
 	dup2(data->copy_stdin, STDIN_FILENO);
-	// close(data->copy_stdin);
+	close(data->copy_stdin);
 	while (wait(NULL) != -1)
 		continue ;
 }

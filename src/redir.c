@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/12 16:17:18 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/13 20:17:00 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	here_doc(t_data *data, t_input *input, int i)
 		write(data->heredoc, line, ft_strlen(line));
 		write(data->heredoc, "\n", 1);
 		free(line);
-		line = readline("> "); 
+		line = readline("> ");
 	}
 	close(data->heredoc);
 }
@@ -38,7 +38,6 @@ void	here_doc(t_data *data, t_input *input, int i)
 void	input_redir(t_data *data, t_input *input, int i)
 {
 	int	infile;
-	// int	heredoc_infile;
 
 	if (ft_strncmp(input[i].redir_infile, "<", 1) == 0)
 	{
@@ -63,7 +62,8 @@ void	redir(t_data *data, t_input *input, int i)
 		if (ft_strcmp(input[i].redir_outfile, ">") == 0)
 		outfile = open(input[i].out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (ft_strcmp(input[i].redir_outfile, ">>") == 0)
-			outfile = open(input[i].out_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			outfile = open(input[i].out_file, \
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (outfile < 0)
 			return (perror("Open"));
 		if (dup2(outfile, STDOUT_FILENO) == -1)
