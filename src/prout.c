@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/13 19:44:43 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:25:14 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,15 @@ void	heredoc(t_input *input, int i)
 	tmp = ft_strdup(".heredoc");
 	nb = ft_itoa(i);
 	file = ft_strjoin(tmp, nb);
-	free(tmp);
 	free(nb);
+	// while (access(file, F_OK) == 0)
+	// {
+	// 	free(file);
+	// 	nb = ft_itoa(++i);
+	// 	file = ft_strjoin(tmp, nb);
+	// 	free(nb);
+	// }
+	free(tmp);
 	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (input[i].heredoc == -1)
 		return ;
@@ -126,6 +133,13 @@ void	parse_line(t_data *data, t_input *input, char *line)
 	{
 		pipe_heredoc(data, input, nb_blocks);
 		pipex(data, input, nb_blocks);
+	}
+	int j = 0;
+	while (j < nb_blocks)
+	{
+		if (input[j].in_file && ft_strcmp(input[j].redir_infile, "<<") == 0)
+			unlink(input[j].in_file);
+		j++;
 	}
 }
 

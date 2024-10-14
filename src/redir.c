@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/13 20:17:00 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:34:06 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,4 @@ void	redir(t_data *data, t_input *input, int i)
 			return (close(outfile), perror("dup2"));
 		close(outfile);
 	}
-	// int j = 0;
-	// while (input[j].in_file)
-	// {
-	// 	if (ft_strcmp(input[j].redir_infile, "<<") == 0)
-	// 		unlink(input[j].in_file);
-	// 	j++;
-	// }
 }

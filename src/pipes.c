@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/13 19:34:28 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:32:46 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->copy_stdin);
 		if (exec_builtins(data, tab) == 0)
 		{
+			if (!cmd)
+				exit(EXIT_SUCCESS);
 			// if (cmd)
 			// {
-				if (execve(cmd, tab, data->env) == -1)
-				{
-					// perror("execve 1");
-					exit(EXIT_FAILURE);
-				}
+			if (execve(cmd, tab, data->env) == -1)
+			{
+				// perror("execve 1");
+				exit(EXIT_FAILURE);
+			}
 			// }
 		}
 		else
@@ -79,11 +81,13 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		{
 			// if (cmd)
 			// {
-				if (execve(cmd, tab, data->env) == -1)
-				{
-					// perror("execve 2");
-					exit(EXIT_FAILURE);
-				}
+			if (!cmd)
+				exit(EXIT_SUCCESS);
+			if (execve(cmd, tab, data->env) == -1)
+			{
+				// perror("execve 2");
+				exit(EXIT_FAILURE);
+			}
 			// }
 		}
 		else
@@ -112,13 +116,15 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 			redir(data, input, i);
 		if (exec_builtins(data, tab) == 0)
 		{
+			if (!cmd)
+				exit(EXIT_SUCCESS);
 			// if (cmd)
 			// {
-				if (execve(cmd, tab, data->env) == -1)
-				{
-					// perror("execve 3");
-					exit(EXIT_FAILURE);
-				}
+			if (execve(cmd, tab, data->env) == -1)
+			{
+				// perror("execve 3");
+				exit(EXIT_FAILURE);
+			}
 			// }
 		}
 		else

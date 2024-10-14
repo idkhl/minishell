@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/13 21:44:00 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:26:42 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	execute_cmd(t_data *data, t_input *input, char **tab)
 	pid_t	pid;
 
 	cmd = access_cmd(data, tab);
-	// if (!cmd)
+	if (!cmd)
+		return ;
 	// 	return (perror("access_cmd"));
 	pid = fork();
 	if (pid < 0)

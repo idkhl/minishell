@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/03 15:50:09 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:37:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	allocate_new_struct(t_input **tab, char *line)
 	*tab = NULL;
 	nb_blocks = count_blocks(line);
 	*tab = malloc(sizeof(t_input) * (nb_blocks + 1));
+	tab[nb_blocks] = NULL;
 	if (tab == NULL)
 	{
 		perror("Failed to allocate memory for t_input");
