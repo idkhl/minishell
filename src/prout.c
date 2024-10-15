@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/11 18:49:58 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:20:43 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int	main(int ac, char **av, char **envp)
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line);
-		fill_tab(input);
+		printf("redir in file : %s | %s\n", input[0].redir_infile, input[0].in_file);
+		printf("redir out file : %s | %s\n", input[0].redir_outfile, input[0].out_file);
+		printf("CMD Len = %d\n", get_nb_cmd(input));
 		// add_to_input(line, &data);
 		int	i;
 		int	j;
@@ -81,9 +83,15 @@ int	main(int ac, char **av, char **envp)
 			j = 0;
 			printf("=============== struct [%d]================\n", i);
 			printf("Analyzing input[%d]: %s\n", i, input[i].input);
-			while (input[i].tab[j])
+			// while (input[i].tab[j])
+			// {
+			// 	printf("Index redir = %d\n", get_index_redir(input, &j));
+			// 	printf("TAB [%d]: %s\n", j, input[i].tab[j]);
+			// 	j++;
+			// }
+			while (input[i].cmd[j])
 			{
-				printf("TAB [%d]: %s\n", j, input[i].tab[j]);
+				printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
 				j++;
 			}
 			i++;

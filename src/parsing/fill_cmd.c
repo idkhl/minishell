@@ -6,83 +6,163 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/11 17:43:54 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:16:42 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//fonction principale a appeler
-void	fill_cmd(t_input *input)
+// fonction qui parcourt le tableau et return l'index des redirections
+
+int	get_index_redir(t_input *input, int *j)
 {
 	int	i;
 
 	i = 0;
-	while (input[i].input)
+	while (input[i].tab)
 	{
-		allocate_cmds(input, i);
-		if (!input[i].cmd)
-			return ;
-		process_input(input, i);
+		while (*j < get_tab_len(input[i].input) && input[i].tab[*j])
+		{
+			if (ft_strcmp(input[i].tab[*j], "<") == 0
+				|| ft_strcmp(input[i].tab[*j], ">") == 0
+				|| ft_strcmp(input[i].tab[*j], "<<") == 0
+				|| ft_strcmp(input[i].tab[*j], ">>") == 0)
+				return (*j);
+			j++;
+		}
+		i++;
+	}
+	return (-1);
+}
+
+int	get_nb_cmd(t_input *input)
+{
+	int	i;
+	int	j;
+	int	index_redir;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (input[i].tab)
+	{
+		j = 0;
+		while (input[i].tab[j])
+		{
+			index_redir = get_index_redir(input, &j);
+			if (index_redir == j)
+				j += 2;
+			else
+			{
+				len++;
+				j++;
+			}
+		}
+		i++;
+	}
+	return (len);
+}
+
+void	fill_cmd(t_input *input)
+{
+	int	i;
+	int	j;
+	int	index_redir;
+	int	k;
+
+	i = 0;
+	while (input[i].tab)
+	{
+		input[i].cmd = malloc(sizeof(char *) * (get_nb_cmd(input) + 1));
+		j = 0;
+		k = 0;
+		while (input[i].tab[j])
+		{
+			index_redir = get_index_redir(input, &j);
+			if (index_redir == j)
+				j += 2;
+			else
+			{
+				input[i].cmd[k] = ft_strdup(input[i].tab[j]);
+				j++;
+				k++;
+			}
+		}
 		i++;
 	}
 }
 
-// Fonction pour allouer la memoire pour les cmd
-void	allocate_cmds(t_input *input, int i)
-{
-	input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
-}
+// //fonction principale a appeler
+// void	fill_cmd(t_input *input)
+// {
+// 	int	i;
 
-// Fonction pour traiter chaque input et remplir cmd
-void	process_input(t_input *input, int i)
-{
-	int	j;
-	int	k;
+// 	i = 0;
+// 	while (input[i].input)
+// 	{
+// 		allocate_cmds(input, i);
+// 		if (!input[i].cmd)
+// 			return ;
+// 		process_input(input, i);
+// 		i++;
+// 	}
+// }
 
-	j = 0;
-	k = 0;
-	while (j < (int)ft_strlen(input[i].input) && input[i].input[j])
-	{
-		if (input[i].input[j] == '<' || input[i].input[j] == '>')
-			j = skip_redir(input[i].input, j);
-		else if (input[i].input[j] == '"' || input[i].input[j] == '\'')
-			j = handle_quotes_in_cmd(input, i, &k, j);
-		else if (!ft_isspace(input[i].input[j]))
-			j = handle_word(input, i, &k, j);
-		j++;
-	}
-	input[i].cmd[k] = NULL;
-}
+// // Fonction pour allouer la memoire pour les cmd
+// void	allocate_cmds(t_input *input, int i)
+// {
+// 	input[i].cmd = malloc(sizeof(char *) * (count_cmd(input[i].input) + 1));
+// }
 
-// Fonction pour traiter les guillemets et copier les str entre guillemets
-int	handle_quotes_in_cmd(t_input *input, int i, int *k, int j)
-{
-	char	quote;
-	int		len;
+// // Fonction pour traiter chaque input et remplir cmd
+// void	process_input(t_input *input, int i)
+// {
+// 	int	j;
+// 	int	k;
 
-	quote = input[i].input[j];
-	len = get_len_in_quotes(&input[i].input[j]);
-	j++;
-	input[i].cmd[*k] = malloc(sizeof(char) * (len + 1));
-	if (!input[i].cmd[*k])
-		return (j);
-	quotecpy(input[i].cmd[*k], &input[i].input[j], len, quote);
-	(*k)++;
-	return (j + len);
-}
+// 	j = 0;
+// 	k = 0;
+// 	while (j < (int)ft_strlen(input[i].input) && input[i].input[j])
+// 	{
+// 		if (input[i].input[j] == '<' || input[i].input[j] == '>')
+// 			j = skip_redir(input[i].input, j);
+// 		else if (input[i].input[j] == '"' || input[i].input[j] == '\'')
+// 			j = handle_quotes_in_cmd(input, i, &k, j);
+// 		else if (!ft_isspace(input[i].input[j]))
+// 			j = handle_word(input, i, &k, j);
+// 		j++;
+// 	}
+// 	input[i].cmd[k] = NULL;
+// }
 
-// Fonction pour traiter les mots normaux (sans guillemets)
-int	handle_word(t_input *input, int i, int *k, int j)
-{
-	int	len;
+// // Fonction pour traiter les guillemets et copier les str entre guillemets
+// int	handle_quotes_in_cmd(t_input *input, int i, int *k, int j)
+// {
+// 	char	quote;
+// 	int		len;
 
-	len = get_len(&input[i].input[j]);
-	input[i].cmd[*k] = malloc(sizeof(char) * (len + 1));
-	if (!input[i].cmd[*k])
-		return (j);
-	ft_strncpy(input[i].cmd[*k], &input[i].input[j], len);
-	input[i].cmd[*k][len] = '\0';
-	(*k)++;
-	return (j + len);
-}
+// 	quote = input[i].input[j];
+// 	len = get_len_in_quotes(&input[i].input[j]);
+// 	j++;
+// 	input[i].cmd[*k] = malloc(sizeof(char) * (len + 1));
+// 	if (!input[i].cmd[*k])
+// 		return (j);
+// 	quotecpy(input[i].cmd[*k], &input[i].input[j], len, quote);
+// 	(*k)++;
+// 	return (j + len);
+// }
+
+// // Fonction pour traiter les mots normaux (sans guillemets)
+// int	handle_word(t_input *input, int i, int *k, int j)
+// {
+// 	int	len;
+
+// 	len = get_len(&input[i].input[j]);
+// 	input[i].cmd[*k] = malloc(sizeof(char) * (len + 1));
+// 	if (!input[i].cmd[*k])
+// 		return (j);
+// 	ft_strncpy(input[i].cmd[*k], &input[i].input[j], len);
+// 	input[i].cmd[*k][len] = '\0';
+// 	(*k)++;
+// 	return (j + len);
+// }
