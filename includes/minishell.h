@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:00 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:56:02 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		handle_quotes_in_cmd(t_input *input, int i, int *k, int j);
 int		handle_word(t_input *input, int i, int *k, int j);
 void	fill_struct(t_input *input, char *line);
 
-void	add_to_input(char *line, t_data *data);
+char	*add_to_input(char *line, t_data *data);
 char	*return_var_name(char *line);
 char	*find_variable_in_env(char *line, t_data *data);
 char	*look_for_expand(char *line, t_data *data);
@@ -149,5 +149,7 @@ int		len_with_quote(char *str);
 void	fill_tab(t_input *input);
 int		get_index_redir(t_input *input, int *j);
 int		get_nb_cmd(t_input *input);
+char	*join_str(char *s1, char *s2);
+char	*join_char(char *s1, char c);
 
 #endif

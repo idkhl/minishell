@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:03:10 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/04/11 09:31:08 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:26:40 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 size_t	ft_strlcat(char *dst, char *src, size_t size)
 {
 	size_t	i;
-	size_t	d_len;
-	size_t	s_len;
+	size_t	dst_len;
+	size_t	src_len;
 
-	s_len = ft_strlen(src);
+	src_len = ft_strlen(src);
 	if (size == 0)
-		return (s_len);
+		return (src_len);
 	i = 0;
-	d_len = ft_strlen(dst);
-	if (size < d_len + 1)
-		return (size + s_len);
-	if (size > d_len + 1)
+	dst_len = ft_strlen(dst);
+	if (size < dst_len + 1)
+		return (size + src_len);
+	if (size > dst_len + 1)
 	{
-		while (src[i] != '\0' && d_len + 1 + i < size)
+		while (src[i] != '\0' && dst_len + 1 + i < size)
 		{
-			dst[d_len + i] = src[i];
+			dst[dst_len + i] = src[i];
 			i++;
 		}
 	}
-	dst[d_len + i] = '\0';
-	return (d_len + s_len);
+	dst[dst_len + i] = '\0';
+	return (dst_len + src_len);
 }
 
 /*size_t	ft_strlcat(char *dst,  char *src, size_t size)

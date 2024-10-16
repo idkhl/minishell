@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:21:23 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/04 15:22:05 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:00:59 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ char	*ft_strncat(char *dest, char *src, int nb)
 	return (dest);
 }
 
-char	*ft_strcpy(char *dest, char *src)
-{
-	int		index;
+// char	*ft_strcpy(char *dest, char *src)
+// {
+// 	int		index;
 
-	index = 0;
-	while (src[index] != '\0')
-	{
-		dest[index] = src[index];
-		index++;
-	}
-	dest[index] = '\0';
-	return (dest);
-}
+// 	index = 0;
+// 	while (src[index] != '\0')
+// 	{
+// 		dest[index] = src[index];
+// 		index++;
+// 	}
+// 	dest[index] = '\0';
+// 	return (dest);
+// }
 
 int	found_newlines(char *all_read)
 {

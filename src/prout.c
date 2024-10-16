@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/16 16:28:02 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:53:38 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	main(int ac, char **av, char **envp)
 		// printf("redir in file : %s | %s\n", input[0].redir_infile, input[0].in_file);
 		// printf("redir out file : %s | %s\n", input[0].redir_outfile, input[0].out_file);
 		// printf("var in env ===== %s ===== \n", return_var_name(line));
-		add_to_input(line, &data);
+		char * str = add_to_input(line, &data);
+		printf(" input = %s\n", str);
 		// int	i;
 		// int	j;
 		// i = 0;
