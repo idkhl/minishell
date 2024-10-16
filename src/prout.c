@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/15 16:20:43 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:28:02 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av, char **envp)
 
 	input = NULL;
 	// handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
-	line = readline("minishell $> ");
+	line = readline("\033[1;32mminishell $> \033[0m");
 	init_struct(&data, input, envp);
 	while (line)
 	{
@@ -66,39 +66,39 @@ int	main(int ac, char **av, char **envp)
 		if (check_syntax(line) == 1)
 		{
 			free(line);
-			line = readline("minishell $> ");
+			line = readline("\033[1;32mminishell $> \033[0m");
 			continue ;
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line);
-		printf("redir in file : %s | %s\n", input[0].redir_infile, input[0].in_file);
-		printf("redir out file : %s | %s\n", input[0].redir_outfile, input[0].out_file);
-		printf("CMD Len = %d\n", get_nb_cmd(input));
-		// add_to_input(line, &data);
-		int	i;
-		int	j;
-		i = 0;
-		while (input[i].input)
-		{
-			j = 0;
-			printf("=============== struct [%d]================\n", i);
-			printf("Analyzing input[%d]: %s\n", i, input[i].input);
-			// while (input[i].tab[j])
-			// {
-			// 	printf("Index redir = %d\n", get_index_redir(input, &j));
-			// 	printf("TAB [%d]: %s\n", j, input[i].tab[j]);
-			// 	j++;
-			// }
-			while (input[i].cmd[j])
-			{
-				printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
-				j++;
-			}
-			i++;
-		}
+		// printf("redir in file : %s | %s\n", input[0].redir_infile, input[0].in_file);
+		// printf("redir out file : %s | %s\n", input[0].redir_outfile, input[0].out_file);
+		// printf("var in env ===== %s ===== \n", return_var_name(line));
+		add_to_input(line, &data);
+		// int	i;
+		// int	j;
+		// i = 0;
+		// while (input[i].input)
+		// {
+		// 	j = 0;
+		// 	printf("=============== struct [%d]================\n", i);
+		// 	printf("Analyzing input[%d]: %s\n", i, input[i].input);
+		// 	// while (input[i].tab[j])
+		// 	// {
+		// 	// 	printf("Index redir = %d\n", get_index_redir(input, &j));
+		// 	// 	printf("TAB [%d]: %s\n", j, input[i].tab[j]);
+		// 	// 	j++;
+		// 	// }
+		// 	while (input[i].cmd[j])
+		// 	{
+		// 		printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
+		// 		j++;
+		// 	}
+		// 	i++;
+		// }
 		parse_line(&data, input, line);
 		free(line);
-		line = readline("minishell $> ");
+		line = readline("\033[1;32mminishell $> \033[0m");
 	}
 	(void)av;
 	(void)ac;

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:27:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/08 10:43:02 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:13:25 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void add_to_input(char *line, t_data *data)
 	int		open_quote;
 	char	quote_type;
 
+	(void)data;
 	i = 0;
 	open_quote = 0;
 	quote_type = 0;
@@ -35,7 +36,6 @@ void add_to_input(char *line, t_data *data)
 		{
 			quote_type = line[i];
 			open_quote = !open_quote;
-			printf("VAR NAME = %s\n", return_var_name(line));
 		}
 		else if (line[i] == quote_type && open_quote == 1)
 		{
@@ -44,21 +44,30 @@ void add_to_input(char *line, t_data *data)
 		}
 		else
 		{
-			// (void)data;
-			// printf("%c", line[i]);
-			printf("INDEX = %d\n", i);
-			if (quote_type == '\'' && open_quote == 1)
-				printf("%s\n", return_var_name(line));
+			if (open_quote == 1 && quote_type == '\'')
+			{
+				printf("%c", line[i]);
+			}
 			else
-				printf("%s\n", look_for_expand(line, data));
+			{
+				if (line[i] == '$')
+				{
+					printf("[%s]", look_for_expand(&line[i], data));
+					i += ft_strlen(return_var_name(&line[i]));
+				}
+				else
+					printf("%c", line[i]);
+			}
 		}
 		i++;
 	}
+	printf("\n");
 }
 
-//on parcours et on ajoute au fur et a mesure si ce n'est pas un guillemet
+// on parcours et on ajoute au fur et a mesure si ce n'est pas un guillemet
 // si c'est un guillemets on appel la fonction
 /////////FONCTION QUI VA REMPLACER LE NOM DE LA VARIABLE PAR SA VALEUR////////////
+
 char	*look_for_expand(char *line, t_data *data)
 {
 	int		i;
@@ -96,28 +105,29 @@ char	*return_var_name(char *line)
 	char	*variable;
 	int		len;
 	int		start;
-
+ 
 	i = 0;
-	len = 0;
 	start = -1;
 	variable = NULL;
 	while (line[i])
 	{
-		if (line[i] == '$' && line [i + 1] != ' ')
+		if (line[i] == '$')
 		{
 			i++;
 			start = i;
-			while (line[i] && line[i] != ' ')
+			len = 0;
+			while (line[i] && (ft_isalnum(line[i])|| line[i] == '_'))
 			{
 				len++;
 				i++;
 			}
+			break ;
 		}
 		i++;
 	}
-	if (start != -1)
+	if (start != -1 && len > 0)
 		variable = ft_substr(line, start, len);
-	if (!variable)
+	else
 		return (NULL);
 	return (variable);
 }
