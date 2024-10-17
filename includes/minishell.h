@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/11 18:21:12 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/17 11:30:41 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		exec_builtins(t_data *data, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
 void	redir(t_data *data, t_input *input, int i);
 void	heredoc(t_input *input, int i);
+void	pipe_heredoc(t_data *data, t_input *input, int nb);
 
 /*	BUILT-INS	*/
 
@@ -89,13 +90,14 @@ void	free_tab(char ***big_tab, int size);
 int		count_cmds(char **tab);
 // void	skip_redir(t_input *input, char *line);
 char	*ft_structcpy(char *dest, char *src, int i);
+int		get_len2(char *s);
 
 
 /*  PARSING  */
 
 char	*ft_strcpy(char *dest, char *src);
 void	free_strings(char **strs);
-void    ft_path(void);
+void	ft_path(void);
 int		ft_isspace(int c);
 int		no_word_string(char *line);
 int		check_quotes(char *line);
@@ -135,5 +137,13 @@ void	process_input(t_input *input, int i);
 int		handle_quotes_in_cmd(t_input *input, int i, int *k, int j);
 int		handle_word(t_input *input, int i, int *k, int j);
 void	fill_struct(t_input *input, char *line);
+
+int		get_tab_len(char *s);
+int		len_with_quote(char *str);
+void	fill_tab(t_input *input);
+int		get_index_redir(t_input *input, int *j);
+int		get_nb_cmd(t_input *input);
+char	*join_str(char *s1, char *s2);
+char	*join_char(char *s1, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/14 17:25:14 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/17 11:43:36 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,74 +35,10 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	input->heredoc = 0;
 }
 
-void	heredoc(t_input *input, int i)
-{
-	char	*tmp;
-	char	*file;
-	char	*line;
-	char	*nb;
-
-	tmp = ft_strdup(".heredoc");
-	nb = ft_itoa(i);
-	file = ft_strjoin(tmp, nb);
-	free(nb);
-	// while (access(file, F_OK) == 0)
-	// {
-	// 	free(file);
-	// 	nb = ft_itoa(++i);
-	// 	file = ft_strjoin(tmp, nb);
-	// 	free(nb);
-	// }
-	free(tmp);
-	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (input[i].heredoc == -1)
-		return ;
-	line = readline("> ");
-	while (line)
-	{
-		if (ft_strcmp(line, input[i].in_file) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(input[i].heredoc, line, ft_strlen(line));
-		write(input[i].heredoc, "\n", 1);
-		free(line);
-		line = readline("> ");
-	}
-	close(input[i].heredoc);
-	free(input[i].in_file);
-	input[i].in_file = ft_strdup(file);
-	free(file);
-}
-
-void	pipe_heredoc(t_data *data, t_input *input, int nb)
-{
-	int		i;
-
-	i = 0;
-	while (i < nb)
-	{
-		if (input[i].in_file)
-		{
-			if (ft_strcmp(input[i].redir_infile, "<<") == 0)
-			{
-				data->copy_stdin = dup(STDIN_FILENO);
-				data->copy_stdout = dup(STDOUT_FILENO);
-				heredoc(input, i);
-				dup2(data->copy_stdin, STDIN_FILENO);
-				dup2(data->copy_stdout, STDOUT_FILENO);
-				close(data->copy_stdin);
-				close(data->copy_stdout);
-			}
-		}
-		i++;
-	}
-}
-
 void	parse_line(t_data *data, t_input *input, char *line)
 {
 	int		nb_blocks;
+	int		j;
 
 	nb_blocks = count_blocks(line);
 	if (nb_blocks == 1)
@@ -125,8 +61,6 @@ void	parse_line(t_data *data, t_input *input, char *line)
 			exec_builtins(data, input->cmd);
 			dup2(data->copy_stdin, STDIN_FILENO);
 			dup2(data->copy_stdout, STDOUT_FILENO);
-			// close(data->copy_stdin);
-			// close(data->copy_stdout);
 		}
 	}
 	else
@@ -134,7 +68,7 @@ void	parse_line(t_data *data, t_input *input, char *line)
 		pipe_heredoc(data, input, nb_blocks);
 		pipex(data, input, nb_blocks);
 	}
-	int j = 0;
+	j = 0;
 	while (j < nb_blocks)
 	{
 		if (input[j].in_file && ft_strcmp(input[j].redir_infile, "<<") == 0)
@@ -147,8 +81,9 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 	t_data	data;
-	t_input	*input = NULL;
+	t_input	*input;
 
+	input = NULL;
 	handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
 	line = readline("minishell $> ");
 	init_struct(&data, input, envp);

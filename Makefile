@@ -6,7 +6,7 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/10/04 15:20:14 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/10/17 11:34:41 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,16 @@ SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c\
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/exit.c\
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\
 		\
-		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c src/utils/split_quotes.c\
+		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c src/utils/split_quotes.c src/utils/heredoc.c\
 		src/utils/path_access.c \
 		\
 		src/parsing/util.c src/parsing/syntax_quotes.c src/parsing/syntax_pipes.c \
 		src/parsing/syntax_open_redir.c src/parsing/syntax_close_redir.c src/parsing/get_big_tab.c \
 		src/parsing/fill_struct.c src/parsing/is_expand.c src/parsing/ft_structcpy.c src/parsing/fill_cmd.c \
-		
+		#src/utils/handle_len.c src/parsing/fill_redirections.c\
+		src/parsing/divide_input.c \
+		\
+	
 		
 OBJS_DIR = .objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
