@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/09 12:56:17 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:28:55 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ void	build_export(t_data *data, char **tab)
 	}
 	if (ft_tablen(tab) == 1)
 	{
-		// printf("%d\n", ft_tablen(tab));
 		data->exp = ft_tabdup(data->env);
 		if (!data->exp)
 			return ;

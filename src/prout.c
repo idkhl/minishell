@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/17 11:43:36 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:33:03 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ void	parse_line(t_data *data, t_input *input, char *line)
 			execute_cmd(data, input, input->cmd);
 		else
 		{
+			data->copy_stdin = dup(STDIN_FILENO);
+			data->copy_stdout = dup(STDOUT_FILENO);
 			if (input[0].in_file != NULL || input[0].out_file != NULL)
 			{
-				data->copy_stdin = dup(STDIN_FILENO);
-				data->copy_stdout = dup(STDOUT_FILENO);
 				redir(data, input, 0);
 			}
 			exec_builtins(data, input->cmd);
 			dup2(data->copy_stdin, STDIN_FILENO);
 			dup2(data->copy_stdout, STDOUT_FILENO);
+			close(data->copy_stdin);
+			close(data->copy_stdout);
 		}
 	}
 	else

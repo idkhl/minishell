@@ -1,11 +1,11 @@
-total 116
--rw-r--r-- 1 idakhlao 2023_paris   523 Oct  2 11:30 exemples_a_tester.c
-drwxr-xr-x 2 idakhlao 2023_paris    40 Oct  2 11:30 includes
--rw-r--r-- 1 idakhlao 2023_paris     0 Oct  3 16:01 infile
-drwxr-xr-x 2 idakhlao 2023_paris  8192 Oct  2 18:18 libft
--rw-r--r-- 1 idakhlao 2023_paris  2161 Oct  2 18:13 Makefile
--rwxr-xr-x 1 idakhlao 2023_paris 81360 Oct  3 16:00 minishell
--rw-r--r-- 1 idakhlao 2023_paris  4483 Oct  2 11:30 notes
--rw-r--r-- 1 idakhlao 2023_paris    24 Oct  2 16:37 outfile
-drwxr-xr-x 5 idakhlao 2023_paris   163 Oct  2 18:12 src
--rw-r--r-- 1 idakhlao 2023_paris   245 Oct  2 11:30 valgrind-readline.supp
+exemples_a_tester.c
+includes
+infile
+libft
+Makefile
+minishell
+notes
+outfile
+src
+test
+valgrind-readline.supp
