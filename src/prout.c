@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/17 17:33:03 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:07:54 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,3 +117,4 @@ int	main(int ac, char **av, char **envp)
 // ==121132==    by 0x405498: allocate_new_struct (get_big_tab.c:61)
 // ==121132==    by 0x40184E: main (prout.c:150)
 // redir_infile pas init?
+// echo si vide -> sauter

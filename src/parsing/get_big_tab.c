@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/17 17:22:19 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:48:23 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	skip_quotes(char *s, int i)
 			}
 		}
 	}
-    return (i);
+	return (i);
 }
 
 int	skip_redir(char *s, int i)

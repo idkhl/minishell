@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/17 17:28:55 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:56:13 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,17 +153,12 @@ void	check_existing_variable(t_data *data, char **tab)
 	}
 }
 
-void	build_export(t_data *data, char **tab)
+void	build_export(t_data *data, char	**tab)
 {
-	if (ft_tablen(tab) > 1)
-	{
-		if (check_var_is_valid(data, tab) == -1)
-			return ;
-		else
-			check_existing_variable(data, tab);
-		add_export(data, tab);
-	}
-	if (ft_tablen(tab) == 1)
+	int	i;
+
+	i = 1;
+	if (ft_tablen(tab) == 1 || tab[1] == NULL)
 	{
 		data->exp = ft_tabdup(data->env);
 		if (!data->exp)
@@ -171,6 +166,34 @@ void	build_export(t_data *data, char **tab)
 		print_export(data);
 		malloc_free(data->exp);
 	}
+	else
+	{
+		while (tab[i])
+		{
+			
+		}
+	}
 }
+
+
+// void	build_export(t_data *data, char **tab)
+// {
+// 	if (ft_tablen(tab) > 1)
+// 	{
+// 		if (check_var_is_valid(data, tab) == -1)
+// 			return ;
+// 		else
+// 			check_existing_variable(data, tab);
+// 		add_export(data, tab);
+// 	}
+// 	if (ft_tablen(tab) == 1)
+// 	{
+// 		data->exp = ft_tabdup(data->env);
+// 		if (!data->exp)
+// 			return ;
+// 		print_export(data);
+// 		malloc_free(data->exp);
+// 	}
+// }
 
 // export -> mettre ntre guillemets le contenu de la var
