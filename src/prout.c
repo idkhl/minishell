@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/18 18:30:27 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:01:32 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,3 +118,50 @@ int	main(int ac, char **av, char **envp)
 // ==121132==    by 0x40184E: main (prout.c:150)
 // redir_infile pas init?
 // echo si vide -> sauter
+// exit dup2 l.55-56
+
+
+// la
+// Invalid read of size 1
+// ==168601==    at 0x405152: check_open_operators (syntax_open_redir.c:43)
+// ==168601==    by 0x404C50: check_syntax (syntax_quotes.c:88)
+// ==168601==    by 0x401607: main (prout.c:95)
+// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
+// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4015D5: main (prout.c:90)
+// ==168601== 
+// ==168601== Invalid read of size 1
+// ==168601==    at 0x405372: check_close_operators (syntax_close_redir.c:47)
+// ==168601==    by 0x404C6E: check_syntax (syntax_quotes.c:90)
+// ==168601==    by 0x401607: main (prout.c:95)
+// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
+// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4015D5: main (prout.c:90)
+// ==168601== 
+// ==168601== Invalid read of size 1
+// ==168601==    at 0x404DED: check_begin_pipes (syntax_pipes.c:48)
+// ==168601==    by 0x404C8C: check_syntax (syntax_quotes.c:92)
+// ==168601==    by 0x401607: main (prout.c:95)
+// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
+// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4015D5: main (prout.c:90)
+// ==168601== 
+// ==168601== Invalid read of size 1
+// ==168601==    at 0x404F72: check_end_pipes (syntax_pipes.c:75)
+// ==168601==    by 0x404CAA: check_syntax (syntax_quotes.c:94)
+// ==168601==    by 0x401607: main (prout.c:95)
+// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
+// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+// ==168601==    by 0x4015D5: main (prout.c:90)
