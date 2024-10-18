@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/18 15:56:13 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:55:50 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ void	print_export(t_data *data)
 		printf("export %s\n", data->exp[i]);
 }
 
-char	**new_env(t_data *data, char **tab, char **newenv)
+char	**new_env(t_data *data, char *var, char **newenv)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (data->env[i])
@@ -52,29 +51,26 @@ char	**new_env(t_data *data, char **tab, char **newenv)
 			return (NULL);
 		i++;
 	}
-	j = 1;
-	while (tab[j])
-	{
-		newenv[i] = ft_strdup(tab[j]);
-		if (!newenv[i])
-			return (NULL);
-		i++;
-		j++;
-	}
+	newenv[i] = ft_strdup(var);
+	if (!newenv[i])
+		return (NULL);
+	i++;
 	newenv[i] = NULL;
 	return (newenv);
 }
 
-void	add_export(t_data *data, char **tab)
+void	add_export(t_data *data, char *var)
 {
 	char	**newenv;
 	int		newsize;
 
-	newsize = ft_tablen(data->env) + ft_tablen(tab);
-	newenv = (char **)malloc(sizeof(char *) * (newsize));
+	newsize = ft_tablen(data->env) + 1;
+	newenv = (char **)malloc(sizeof(char *) * (newsize + 1));
 	if (!newenv)
 		return ;
-	newenv = new_env(data, tab, newenv);
+	newenv = new_env(data, var, newenv);
+	if (!newenv)
+		return ;
 	malloc_free(data->env);
 	data->env = ft_tabdup(newenv);
 	if (!data->env)
@@ -82,21 +78,29 @@ void	add_export(t_data *data, char **tab)
 	malloc_free(newenv);
 }
 
-int	check_var_is_valid(t_data *data, char **tab)
+int	check_var_is_valid(char *var)
 {
 	int	i;
-	int	j;
 
+	if (ft_strchr(var, '=') == 0)
+		return (-1);
+	if (ft_isdigit(var[0]))
+		return (-1);
+	if (var[0] == '=')
+		return (-1);
 	i = 0;
-	while (data->env[i])
+	while (var[i] && var[i] != '=')
 	{
-		j = 1;
-		while (tab[j])
-		{
-			if (ft_strchr(tab[j], '=') == 0)
-				return (-1);
-			j++;
-		}
+		if (!isalnum(var[i]) && var[i] != '_')
+			return (-1);
+		i++;
+	}
+	if (var[i] == '=')
+		i++;
+	while (var[i] != '\0')
+	{
+		if (!isalnum(var[i]) && var[i] != '_' && var[i] != '"')
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -124,33 +128,31 @@ char	*var_name(char	*var)
 	return (tmp);
 }
 
-void	check_existing_variable(t_data *data, char **tab)
+void	check_existing_variable(t_data *data, char *var)
 {
-	int		i;
 	int		j;
 	char	*var_to_add;
 	char	*var_env;
 
-	i = 1;
-	while (tab[i])
+	j = 0;
+	var_to_add = var_name(var);
+	if (!var_to_add)
+		return ;
+	while (data->env[j])
 	{
-		var_to_add = var_name(tab[i]);
-		j = 0;
-		while (data->env[j])
+		var_env = var_name(data->env[j]);
+		if (var_env)
 		{
-			var_env = var_name(data->env[j]);
 			if (ft_strcmp(var_to_add, var_env) == 0)
 			{
 				unset_var(data, j);
-				break ;
+				return (free(var_env), free(var_to_add));
 			}
 			free(var_env);
-			j++;
 		}
-		free(var_to_add);
-		// add_export(data, tab);
-		i++;
+		j++;
 	}
+	free(var_to_add);
 }
 
 void	build_export(t_data *data, char	**tab)
@@ -158,7 +160,7 @@ void	build_export(t_data *data, char	**tab)
 	int	i;
 
 	i = 1;
-	if (ft_tablen(tab) == 1 || tab[1] == NULL)
+	if (ft_tablen(tab) == 1)
 	{
 		data->exp = ft_tabdup(data->env);
 		if (!data->exp)
@@ -170,30 +172,12 @@ void	build_export(t_data *data, char	**tab)
 	{
 		while (tab[i])
 		{
-			
+			if (check_var_is_valid(tab[i]) == 0)
+			{
+				check_existing_variable(data, tab[i]);
+				add_export(data, tab[i]);
+			}
+			i++;
 		}
 	}
 }
-
-
-// void	build_export(t_data *data, char **tab)
-// {
-// 	if (ft_tablen(tab) > 1)
-// 	{
-// 		if (check_var_is_valid(data, tab) == -1)
-// 			return ;
-// 		else
-// 			check_existing_variable(data, tab);
-// 		add_export(data, tab);
-// 	}
-// 	if (ft_tablen(tab) == 1)
-// 	{
-// 		data->exp = ft_tabdup(data->env);
-// 		if (!data->exp)
-// 			return ;
-// 		print_export(data);
-// 		malloc_free(data->exp);
-// 	}
-// }
-
-// export -> mettre ntre guillemets le contenu de la var

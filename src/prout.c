@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/18 12:07:54 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:30:27 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **envp)
 
 	input = NULL;
 	handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
-	line = readline("minishell $> ");
+	line = readline("\033[1;33mminishell $> \033[0m");
 	init_struct(&data, input, envp);
 	while (line)
 	{
@@ -95,14 +95,14 @@ int	main(int ac, char **av, char **envp)
 		if (check_syntax(line) == 1)
 		{
 			free(line);
-			line = readline("minishell $> ");
+			line = readline("\033[1;33mminishell $> \033[0m");
 			continue ;
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line);
 		parse_line(&data, input, line);
 		free(line);
-		line = readline("minishell $> ");
+		line = readline("\033[1;33mminishell $> \033[0m");
 	}
 	(void)av;
 	(void)ac;
