@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:34:50 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/15 14:11:58 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:39:52 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,40 +124,3 @@ char	*get_redir_type(char *s, int index)
 	return (NULL);
 }
 
-// TO DO LIST
-
-// STOCKER LES COMMANDES si c pas une redir ou le + 1 d'une redir on part du principe aue c une cmd
-// CODER L EXPAND si les premieres quotes ouvrante ne sont pas des simple alors expand
-
-
-
-//// jinka ////
-
-// int	get_redirection_start(char *s)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (s[i])
-// 	{
-// 		if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
-// 		{
-// 			if ((s[i + 1] == '<' && s[i] == '<')
-// 				|| (s[i + 1] == '>' && s[i] == '>'))
-// 				i += 2;
-// 			else
-// 				i++;
-// 			while (s[i] && ft_isspace(s[i]))
-// 				i++;
-// 			while (s[i] && !ft_isspace(s[i]) && s[i] != '<' && s[i] != '>')
-// 			{
-// 				if (s[i] && s[i] == '\"')
-// 					i++;
-// 				else
-// 					return (i);
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (-1);
-// }

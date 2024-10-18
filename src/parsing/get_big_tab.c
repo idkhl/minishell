@@ -6,35 +6,19 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/15 15:52:33 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:48:28 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_tab(char ***big_tab, int size)
-{
-	int	i;
-
-	i = 0;
-	if (big_tab)
-	{
-		while (i < size)
-		{
-			malloc_free(big_tab[i]);
-			i++;
-		}
-		free(big_tab);
-	}
-}
-	// char	*s1;
-	//ft_strjoin chaque caractere au fur et a mesure qu'on parcours tab[i]
-	//ex char*s1 = tab[i++]. et des Que je tombe sur un '$' je strjoin s1 avec
-	//ce que me return look_for_expand->s2; et c'est ca qu'on va mettre 
-	//dans input[i].input;
-	// Appeler add_to_input(tab[i]) et le stocker dans input[i].input
-	// input[i] = malloc(sizeof(t_input));
-
+// char	*s1;
+//ft_strjoin chaque caractere au fur et a mesure qu'on parcours tab[i]
+//ex char*s1 = tab[i++]. et des Que je tombe sur un '$' je strjoin s1 avec
+//ce que me return look_for_expand->s2; et c'est ca qu'on va mettre 
+//dans input[i].input;
+// Appeler add_to_input(tab[i]) et le stocker dans input[i].input
+// input[i] = malloc(sizeof(t_input));
 
 void	fill_input(t_input *input, char *line)
 {
@@ -54,6 +38,7 @@ void	fill_input(t_input *input, char *line)
 		input[i].redir_outfile = NULL;
 		input[i].out_file = NULL;
 		input[i].tab = NULL;
+		input[i].cmd = NULL;
 		input[i].input = malloc(sizeof(char) * ft_strlen(tab[j]) + 1);
 		if (input[i].input == NULL)
 			perror("fill input = Failed to allocate memory for input[i]");
@@ -150,49 +135,4 @@ int	count_cmd(char *s)
 		}
 	}
 	return (cmd);
-}
-
-int	get_len_in_quotes(char *s)
-{
-	int		i;
-	int		len;
-	char	quote;
-
-	i = 0;
-	len = 0;
-	while (s[i] && s[i] != '"' && s[i] != '\'')
-		i++;
-	if (s[i] == '"' || s[i] == '\'')
-	{
-		quote = s[i];
-		i++;
-		while (s[i] && s[i] != quote)
-		{
-			len++;
-			i++;
-		}
-	}
-	return (len);
-}
-
-int	get_len(char *s)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (s[i])
-	{
-		while (s[i] && ft_isspace(s[i]) == 1)
-			i++;
-		while (s[i] && ft_isspace(s[i]) == 0)
-		{
-			len++;
-			i++;
-		}
-		if (s[i] && ft_isspace(s[i]) == 1)
-			break ;
-	}
-	return (len);
 }

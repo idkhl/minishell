@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:03:21 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/14 14:27:12 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:42:30 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ static	void	ignore_spaces(char *line, int *i)
 
 static	int	end_of_close_operators(char *line, int *i, int *word)
 {
-	// if (*word == 0)
-	// {
-	// 	printf("CLOSE operator non precede par un mot\n");
-	// 	return (1);
-	// }
+
 	if (line[*i + 1] == '>')
 		(*i)++;
 	(*i)++;

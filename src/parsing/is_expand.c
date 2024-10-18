@@ -6,16 +6,11 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:27:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/16 17:58:54 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:32:30 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// $USER"frwwr" -> USER;
-// f(USER) -> afrikach;
-// f(USER) -> "";
-
 
 // si guillemets simple ouvert on n'interprete pas (on return direct le nom de la variable)
 // else on interprete et on appelle look_for_expand.
@@ -27,7 +22,6 @@ char	*add_to_input(char *line, t_data *data)
 	char	quote_type;
 	char	*str;
 
-	(void)data;
 	i = 0;
 	open_quote = 0;
 	quote_type = 0;
@@ -47,34 +41,32 @@ char	*add_to_input(char *line, t_data *data)
 		else
 		{
 			if (open_quote == 1 && quote_type == '\'')
-			{
-				printf("%c", line[i]);
 				str = join_char(str, line[i]);
-			}
 			else
 			{
 				if (line[i] == '$')
 				{
-					printf("[%s]", look_for_expand(&line[i], data));
 					str = (join_str(str, look_for_expand(&line[i], data)));
 					i += ft_strlen(return_var_name(&line[i]));
 				}
 				else
-				{
-					printf("%c", line[i]);
 					str = join_char(str, line[i]);
-				}
 			}
 		}
 		i++;
 	}
-	printf("\n");
-	return(str);
+	if (str == NULL && (line[0] == '"' || line[0] == '\''))
+	{
+		str = malloc(sizeof(char) * 1);
+		str[0] = '\0';
+	}
+	return (str);
 }
+
 
 // on parcours et on ajoute au fur et a mesure si ce n'est pas un guillemet
 // si c'est un guillemets on appel la fonction
-/////////FONCTION QUI VA REMPLACER LE NOM DE LA VARIABLE PAR SA VALEUR////////////
+////FONCTION QUI VA REMPLACER LE NOM DE LA VARIABLE PAR SA VALEUR////
 
 char	*look_for_expand(char *line, t_data *data)
 {
@@ -104,35 +96,41 @@ char	*look_for_expand(char *line, t_data *data)
 }
 
 // elle est appelee dans add_to_input
-//des que str[i] == $ et que la fonction pour interpreter l'expand me renvoie true
+//des que str[i] == $ et que la fonction pour interpreter
+//l'expand me renvoie true
 //elle doit me return ce par quoi je dois remplacer la variable $USER (afrikach)
-
-char	*return_var_name(char *line)
+void	find_var_position(char *line, int *start, int *len)
 {
-	int		i;
-	char	*variable;
-	int		len;
-	int		start;
- 
+	int	i;
+
 	i = 0;
-	start = -1;
-	variable = NULL;
+	*start = -1;
+	*len = 0;
 	while (line[i])
 	{
 		if (line[i] == '$')
 		{
 			i++;
-			start = i;
-			len = 0;
-			while (line[i] && (ft_isalnum(line[i])|| line[i] == '_'))
+			*start = i;
+			while (line[i] && (ft_isalnum(line[i]) || line[i] == '_'))
 			{
-				len++;
+				(*len)++;
 				i++;
 			}
 			break ;
 		}
 		i++;
 	}
+}
+
+char	*return_var_name(char *line)
+{
+	int		start;
+	int		len;
+	char	*variable;
+
+	variable = NULL;
+	find_var_position(line, &start, &len);
 	if (start != -1 && len > 0)
 		variable = ft_substr(line, start, len);
 	else
@@ -162,9 +160,3 @@ char	*find_variable_in_env(char *line, t_data *data)
 	free(var_name);
 	return (NULL);
 }
-// faire une fonction qui parcours l'env et cherche une variable pour savoir si elle existe
-// si elle existe elle return le nom de la variable sans le $ sinon elle return NULL.
-
-//input[i].input : [< in"$USER" cat]
-
-

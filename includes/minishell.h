@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/16 17:56:02 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:49:05 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,36 +108,23 @@ int		check_begin_pipes(char *line);
 int		check_end_pipes(char *line);
 int		check_nb_pipes(char *line);
 int		check_syntax(char *line);
-void	find_first_redir(t_input *tab, char **big_tab);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*quotecpy(char *dest, char *src, int n, char quote);
 void	allocate_new_struct(t_input **input, char *line);
 void	fill_input(t_input *input, char *line);
 void	init_struct(t_data *data, t_input *tab, char **envp);
 int		count_words(char *line, char c);
-int		allocate_and_copy_redir(char *s);
 
 int		find_quotes(char *s, int i);
 int		find_redirection(char *s, int i);
-int		get_redirection_length(char *s);
 char	*get_redir_type(char *s, int index);
-int		get_redirection_start(char *s);
 void	store_redir_symbols(t_input *input);
-void	store_redir_symbols2(t_input *input);
 void	store_redirection(t_input *input);
-void	store_redirection2(t_input *input);
 int		count_cmd(char *s);
-void	fill_cmd(t_input *input);
-int		get_len_in_quotes(char *s);
-int		get_len(char *s);
+void	fill_cmd(t_input *input, t_data *data);
 
 int		skip_redir(char *s, int i);
-void	fill_cmd(t_input *input);
-void	allocate_cmds(t_input *input, int i);
-void	process_input(t_input *input, int i);
-int		handle_quotes_in_cmd(t_input *input, int i, int *k, int j);
-int		handle_word(t_input *input, int i, int *k, int j);
-void	fill_struct(t_input *input, char *line);
+void	fill_struct(t_input *input, char *line, t_data *data);
 
 char	*add_to_input(char *line, t_data *data);
 char	*return_var_name(char *line);
@@ -147,9 +134,10 @@ char	*look_for_expand(char *line, t_data *data);
 int		get_tab_len(char *s);
 int		len_with_quote(char *str);
 void	fill_tab(t_input *input);
-int		get_index_redir(t_input *input, int *j);
+int		get_index_redir(t_input *input, int j);
 int		get_nb_cmd(t_input *input);
 char	*join_str(char *s1, char *s2);
 char	*join_char(char *s1, char c);
+int		get_tab_size(char **tab);
 
 #endif

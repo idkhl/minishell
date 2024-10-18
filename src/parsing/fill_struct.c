@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/15 12:33:17 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:32:48 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,48 +34,13 @@ int	find_quotes(char *s, int index)
 	return (0);
 }
 
-void	fill_struct(t_input *input, char *line)
+void	fill_struct(t_input *input, char *line, t_data *data)
 {
 	fill_input(input, line);
 	fill_tab(input);
-	fill_cmd(input);
+	fill_cmd(input, data);
 	store_redir_symbols(input);
 	store_redirection(input);
 }
-
-// int	get_redirection_length(char *s)
-// {
-// 	int	i;
-// 	int	length;
-
-// 	i = 0;
-// 	length = 0;
-// 	while (s[i])
-// 	{
-// 		if (!find_quotes(s, i) && (s[i] == '<' || s[i] == '>'))
-// 		{
-// 			if ((s[i + 1] == '<' && s[i] == '<')
-// 				|| (s[i + 1] == '>' && s[i] == '>'))
-// 				i += 2;
-// 			else
-// 				i++;
-// 			while (s[i] && ft_isspace(s[i]))
-// 				i++;
-// 			while (s[i] && !ft_isspace(s[i]) && s[i] != '<' && s[i] != '>')
-// 			{
-// 				if (s[i] && s[i] == '\"')
-// 					i++;
-// 				else
-// 				{
-// 					length++;
-// 					i++;
-// 				}
-// 			}
-// 			return (length);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 

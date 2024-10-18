@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:40:30 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/04 15:33:23 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:43:39 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,3 @@ int	ft_isspace(int c)
 		return (1);
 	return (0);
 }
-// char	**malloc_free(char	**tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!tab)
-// 		return (NULL);
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// 	tab = NULL;
-// 	return (NULL);
-// }

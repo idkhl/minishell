@@ -6,7 +6,7 @@
 #    By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/10/14 09:48:37 by afrikach         ###   ########.fr        #
+#    Updated: 2024/10/18 17:45:08 by afrikach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c\
 		src/parsing/util.c src/parsing/syntax_quotes.c src/parsing/syntax_pipes.c \
 		src/parsing/syntax_open_redir.c src/parsing/syntax_close_redir.c src/parsing/get_big_tab.c \
 		src/parsing/fill_struct.c src/parsing/ft_structcpy.c src/parsing/fill_cmd.c src/parsing/is_expand.c\
-		src/parsing/fill_redirections.c src/parsing/divide_input.c\
+		src/parsing/fill_redirections.c src/parsing/divide_input.c src/parsing/utils2.c\
 		
 OBJS = ${SRCS:.c=.o}
 CFLAGS = -Wall -Wextra -Werror -g3 
