@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/14 11:34:06 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:00:01 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	input_redir(t_data *data, t_input *input, int i)
 	{
 		infile = open(input[i].in_file, O_RDONLY, 0644);
 		if (infile < 0)
-			return (perror("Open infile"));
+			return (perror(input[i].in_file), exit(1));
 		if (dup2(infile, STDIN_FILENO) == -1)
 			return (close(infile), perror("dup2"));
 		close(infile);

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:26:34 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/03 15:46:16 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:21:44 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ void	build_cd(char **tab)
 	if (chdir(tab[1]) != 0)
 		return (perror(s));
 }
-
 
 // cd .. / ls

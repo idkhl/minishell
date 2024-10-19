@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/18 20:01:32 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:21:01 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int ac, char **av, char **envp)
 	t_input	*input;
 
 	input = NULL;
-	handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
+	handle_signals();
 	line = readline("\033[1;33mminishell $> \033[0m");
 	init_struct(&data, input, envp);
 	while (line)
@@ -111,15 +111,16 @@ int	main(int ac, char **av, char **envp)
 	malloc_free(data.path);
 }
 
-// rajouter l'export modifié
-// rajouter cd
 // ==121132==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 // ==121132==    by 0x405498: allocate_new_struct (get_big_tab.c:61)
 // ==121132==    by 0x40184E: main (prout.c:150)
 // redir_infile pas init?
 // echo si vide -> sauter
 // exit dup2 l.55-56
-
+// echo dans /dev/full -> proteger write
+// expand dans le heredoc
+// command not found 1e pipe
+// open les infile/outfile si plusieurs redir
 
 // la
 // Invalid read of size 1

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/14 11:32:46 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:20:44 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 	pid_t	pid;
 
 	cmd = access_cmd(data, tab);
-	// if (!cmd)
-	// 	return (free(cmd), perror("access_cmd 1"));
 	pid = fork();
 	if (pid == -1)
-		return (perror("fork 1"));
+		return (perror("fork"));
 	if (pid == 0)
 	{
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
@@ -38,18 +36,15 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		if (exec_builtins(data, tab) == 0)
 		{
 			if (!cmd)
-				exit(EXIT_SUCCESS);
-			// if (cmd)
-			// {
-			if (execve(cmd, tab, data->env) == -1)
 			{
-				// perror("execve 1");
-				exit(EXIT_FAILURE);
+				printf("%s: command not found\n", tab[0]);
+				exit(127);
 			}
-			// }
+			if (execve(cmd, tab, data->env) == -1)
+				exit(127);
 		}
 		else
-			exit(EXIT_SUCCESS);
+			exit(0);
 	}
 	free(cmd);
 }
@@ -60,8 +55,6 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 	pid_t	pid;
 
 	cmd = access_cmd(data, tab);
-	// if (!cmd)
-	// 	return (free(cmd), perror("access_cmd 2"));
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 2"));
@@ -79,19 +72,16 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 			redir(data, input, i);
 		if (exec_builtins(data, tab) == 0)
 		{
-			// if (cmd)
-			// {
 			if (!cmd)
-				exit(EXIT_SUCCESS);
-			if (execve(cmd, tab, data->env) == -1)
 			{
-				// perror("execve 2");
-				exit(EXIT_FAILURE);
+				printf("%s: command not found\n", tab[0]);
+				exit(127);
 			}
-			// }
+			if (execve(cmd, tab, data->env) == -1)
+				exit(127);
 		}
 		else
-			exit(EXIT_SUCCESS);
+			exit(0);
 	}
 	free(cmd);
 }
@@ -102,8 +92,6 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 	pid_t	pid;
 
 	cmd = access_cmd(data, tab);
-	// if (!cmd)
-	// 	return (free(cmd), perror("access_cmd 3")); // garfi: faut le remettre ca sinon ca casse
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 3"));
@@ -117,18 +105,15 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 		if (exec_builtins(data, tab) == 0)
 		{
 			if (!cmd)
-				exit(EXIT_SUCCESS);
-			// if (cmd)
-			// {
-			if (execve(cmd, tab, data->env) == -1)
 			{
-				// perror("execve 3");
-				exit(EXIT_FAILURE);
+				printf("%s: command not found\n", tab[0]);
+				exit(127);
 			}
-			// }
+			if (execve(cmd, tab, data->env) == -1)
+				exit(127);
 		}
 		else
-			exit(EXIT_SUCCESS);
+			exit(0);
 	}
 	free(cmd);
 }
@@ -138,7 +123,6 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	int	i;
 
 	i = 0;
-
 	data->copy_stdin = dup(STDIN_FILENO);
 	while (i <= nb_blocks - 1)
 	{
