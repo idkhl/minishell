@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:46 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/18 20:28:33 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/19 14:57:59 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	unset_var(t_data *data, int i)
 	}
 	data->env[i] = NULL;
 }
+
 void	build_unset(t_data *data, char **tab)
 {
 	int	i;
