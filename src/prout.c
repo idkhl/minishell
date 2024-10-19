@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/19 17:21:01 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:57:55 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int	main(int ac, char **av, char **envp)
 // expand dans le heredoc
 // command not found 1e pipe
 // open les infile/outfile si plusieurs redir
+// ./minishel ./minishell
 
 // la
 // Invalid read of size 1
