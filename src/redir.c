@@ -6,11 +6,39 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/19 17:00:01 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:53:09 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	do_redir(t_data *data, t_input *input)
+{
+	data->copy_stdin = dup(STDIN_FILENO);
+	data->copy_stdout = dup(STDOUT_FILENO);
+	if (input[0].in_file != NULL || input[0].out_file != NULL)
+	{
+		redir(data, input, 0);
+	}
+	exec_builtins(data, input->cmd);
+	dup2(data->copy_stdin, STDIN_FILENO);
+	dup2(data->copy_stdout, STDOUT_FILENO);
+	close(data->copy_stdin);
+	close(data->copy_stdout);
+}
+
+void	unlink_heredoc(t_input *input, int nb)
+{
+	int		i;
+
+	i = 0;
+	while (i < nb)
+	{
+		if (input[i].in_file && ft_strcmp(input[i].redir_infile, "<<") == 0)
+			unlink(input[i].in_file);
+		i++;
+	}
+}
 
 void	here_doc(t_data *data, t_input *input, int i)
 {
@@ -20,6 +48,7 @@ void	here_doc(t_data *data, t_input *input, int i)
 	data->heredoc = open(".tmp_doc", O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (data->heredoc == -1)
 		return ;
+	handle_heredoc_signals();
 	while (line)
 	{
 		if (ft_strcmp(line, input[i].in_file) == 0)

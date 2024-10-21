@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/19 17:20:44 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:52:34 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 				printf("%s: command not found\n", tab[0]);
 				exit(127);
 			}
+			reset_signals_for_child();
 			if (execve(cmd, tab, data->env) == -1)
 				exit(127);
 		}
@@ -77,6 +78,7 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 				printf("%s: command not found\n", tab[0]);
 				exit(127);
 			}
+			reset_signals_for_child();
 			if (execve(cmd, tab, data->env) == -1)
 				exit(127);
 		}
@@ -109,6 +111,7 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 				printf("%s: command not found\n", tab[0]);
 				exit(127);
 			}
+			reset_signals_for_child();
 			if (execve(cmd, tab, data->env) == -1)
 				exit(127);
 		}

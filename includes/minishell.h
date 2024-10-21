@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/17 11:30:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:42:25 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,11 @@ typedef struct s_data
 	int		copy_stdout;
 }	t_data;
 
-// ex : > infile >> makefile cat Makefile | ls | echo hello > outfile
-// ci bas l'exemple pour le premier bloc
-
-typedef	struct s_input
+typedef struct s_input
 {
-	char	*input; //< infile cat Makefile
-	// char	**tab; // [<][infile] [cat] [Makefile]
-	char	**cmd; // [cat] [Makefile]
-	char	*in_file; // [infile]
+	char	*input;
+	char	**cmd;
+	char	*in_file;
 	char	*out_file;
 	char	*redir_infile;
 	char	*redir_outfile;
@@ -51,6 +47,9 @@ typedef	struct s_input
 
 void	handle_signals(void);
 void	heredoc_signals(void);
+void	handle_heredoc_signals(void);
+void	reset_signals_for_child(void);
+void	handle_sigint(int sig);
 void	expand(t_data *data, char **tab);
 
 /*	EXEC & REDIRECTIONS	*/
@@ -61,6 +60,8 @@ void	pipex(t_data *data, t_input *input, int nb_blocks);
 void	redir(t_data *data, t_input *input, int i);
 void	heredoc(t_input *input, int i);
 void	pipe_heredoc(t_data *data, t_input *input, int nb);
+void	unlink_heredoc(t_input *input, int nb);
+void	do_redir(t_data *data, t_input *input);
 
 /*	BUILT-INS	*/
 
