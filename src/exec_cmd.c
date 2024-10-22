@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/22 16:28:44 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:36:10 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	execute_cmd(t_data *data, t_input *input, char **tab)
 		return (free(cmd), perror("fork"));
 	if (pid == 0)
 	{
-		// handle_signals();
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (input[0].in_file != NULL || input[0].out_file != NULL)
 			redir(data, input, 0);
 		if (!cmd)
@@ -37,7 +38,9 @@ void	execute_cmd(t_data *data, t_input *input, char **tab)
 	}
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, NULL, 0);
+		signal(SIGINT, handle_signals);
 		free(cmd);
 	}
 }

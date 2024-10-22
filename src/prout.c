@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/21 15:40:28 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:25:12 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	main(int ac, char **av, char **envp)
 	t_input	*input;
 
 	input = NULL;
-	handle_signals();
+	signal(SIGINT, handle_signals);
+	signal(SIGQUIT, handle_signals);
 	line = readline("\033[1;33mminishell $> \033[0m");
 	init_struct(&data, input, envp);
 	while (line)

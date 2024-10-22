@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/17 11:46:53 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:34:33 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,13 @@ void	heredoc(t_input *input, int i)
 	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (input[i].heredoc == -1)
 		return (free(file));
+	signal(SIGINT, heredoc_sigint);
+	signal(SIGQUIT, SIG_IGN);
 	line = readline("> ");
 	while (line)
 	{
+		signal(SIGINT, heredoc_sigint);
+		signal(SIGQUIT, heredoc_sigquit);
 		if (ft_strcmp(line, input[i].in_file) == 0)
 		{
 			free(line);

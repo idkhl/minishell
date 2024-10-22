@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/22 16:30:01 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:29:33 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ typedef struct s_input
 	int		heredoc;
 }	t_input;
 
-void	handle_signals(void);
+void	handle_signals(int sig);
+void	heredoc_sigint(int sig);
+void	heredoc_sigquit(int sig);
 
 /*	EXEC & REDIRECTIONS	*/
 
