@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/21 17:53:09 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:29:37 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,6 @@ void	unlink_heredoc(t_input *input, int nb)
 			unlink(input[i].in_file);
 		i++;
 	}
-}
-
-void	here_doc(t_data *data, t_input *input, int i)
-{
-	char	*line;
-
-	line = readline("> ");
-	data->heredoc = open(".tmp_doc", O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (data->heredoc == -1)
-		return ;
-	handle_heredoc_signals();
-	while (line)
-	{
-		if (ft_strcmp(line, input[i].in_file) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(data->heredoc, line, ft_strlen(line));
-		write(data->heredoc, "\n", 1);
-		free(line);
-		line = readline("> ");
-	}
-	close(data->heredoc);
 }
 
 void	input_redir(t_data *data, t_input *input, int i)
