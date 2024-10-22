@@ -6,63 +6,11 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:27:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/18 17:32:30 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:42:39 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// si guillemets simple ouvert on n'interprete pas (on return direct le nom de la variable)
-// else on interprete et on appelle look_for_expand.
-
-char	*add_to_input(char *line, t_data *data)
-{
-	int		i;
-	int		open_quote;
-	char	quote_type;
-	char	*str;
-
-	i = 0;
-	open_quote = 0;
-	quote_type = 0;
-	str = NULL;
-	while (line[i])
-	{
-		if ((line[i] == '\'' || line[i] == '"') && open_quote == 0)
-		{
-			quote_type = line[i];
-			open_quote = !open_quote;
-		}
-		else if (line[i] == quote_type && open_quote == 1)
-		{
-			quote_type = 0;
-			open_quote = !open_quote;
-		}
-		else
-		{
-			if (open_quote == 1 && quote_type == '\'')
-				str = join_char(str, line[i]);
-			else
-			{
-				if (line[i] == '$')
-				{
-					str = (join_str(str, look_for_expand(&line[i], data)));
-					i += ft_strlen(return_var_name(&line[i]));
-				}
-				else
-					str = join_char(str, line[i]);
-			}
-		}
-		i++;
-	}
-	if (str == NULL && (line[0] == '"' || line[0] == '\''))
-	{
-		str = malloc(sizeof(char) * 1);
-		str[0] = '\0';
-	}
-	return (str);
-}
-
 
 // on parcours et on ajoute au fur et a mesure si ce n'est pas un guillemet
 // si c'est un guillemets on appel la fonction

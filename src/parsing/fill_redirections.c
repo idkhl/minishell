@@ -6,11 +6,32 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:34:50 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/18 17:39:52 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:47:46 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	get_index_redir(t_input *input, int j)
+{
+	int	i;
+
+	i = 0;
+	while (input[i].tab)
+	{
+		while (j < get_tab_len(input[i].input) && input[i].tab[j])
+		{
+			if (ft_strcmp(input[i].tab[j], "<") == 0
+				|| ft_strcmp(input[i].tab[j], ">") == 0
+				|| ft_strcmp(input[i].tab[j], "<<") == 0
+				|| ft_strcmp(input[i].tab[j], ">>") == 0)
+				return (j);
+			j++;
+		}
+		i++;
+	}
+	return (-1);
+}
 
 void	store_redirection(t_input *input)
 {
