@@ -6,22 +6,29 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/22 20:33:44 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:54:39 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	heredoc_sigquit(int sig)
+void	heredoc_signals(int sig)
 {
-	(void)sig;
+	if (sig == SIGINT)
+	{
+		
+	}
 }
 
-void	heredoc_sigint(int sig)
+void	exec_signals(int sig)
 {
-	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);
-	close(STDIN_FILENO);
+	if (sig == SIGINT)
+	{
+	}
+	if (sig == SIGQUIT)
+	{
+		ft_putstr_fd("Quit: 3\n", 1);
+	}
 }
 
 void	handle_signals(int sig)
@@ -33,13 +40,17 @@ void	handle_signals(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	else
-	{
-		printf("\n");
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	// else
+	// {
+	// 	printf("\n");
+	// 	rl_replace_line("", 1);
+	// 	rl_on_new_line();
+	// 	rl_redisplay();
+	// }
+	// if (sig == SIGQUIT)
+	// {
+	// 	signal(SIGQUIT, SIG_IGN);
+	// }
 }
 
 //parent:	^C -> ^C + newline
