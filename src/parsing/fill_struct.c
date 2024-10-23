@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/22 16:38:02 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:02:16 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,24 @@ int	find_quotes(char *s, int index)
 	return (0);
 }
 
+int	get_index_redir(t_input *input, int j, int i)
+{
+	while (j < get_tab_len(input[i].input) && input[i].tab[j])
+	{
+		if (ft_strcmp(input[i].tab[j], "<") == 0
+			|| ft_strcmp(input[i].tab[j], ">") == 0
+			|| ft_strcmp(input[i].tab[j], "<<") == 0
+			|| ft_strcmp(input[i].tab[j], ">>") == 0)
+			return (j);
+		j++;
+	}
+	return (-1);
+}
+
 void	fill_struct(t_input *input, char *line, t_data *data)
 {
 	t_quote	quote;
-	
-	
+
 	fill_input(input, line);
 	fill_tab(input);
 	fill_cmd(input, data, &quote);

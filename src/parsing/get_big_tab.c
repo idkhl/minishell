@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:13:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/18 17:48:28 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:03:00 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ void	fill_input(t_input *input, char *line)
 {
 	char	**tab;
 	int		i;
-	int		j;
 	int		nb_blocks;
 
 	i = 0;
 	nb_blocks = count_blocks(line);
 	tab = split_pipes(line);
-	j = 0;
 	while (i < nb_blocks)
 	{
 		input[i].redir_infile = NULL;
@@ -39,7 +37,7 @@ void	fill_input(t_input *input, char *line)
 		input[i].out_file = NULL;
 		input[i].tab = NULL;
 		input[i].cmd = NULL;
-		input[i].input = malloc(sizeof(char) * ft_strlen(tab[j]) + 1);
+		input[i].input = malloc(sizeof(char) * ft_strlen(tab[i]) + 1);
 		if (input[i].input == NULL)
 			perror("fill input = Failed to allocate memory for input[i]");
 		ft_strcpy(input[i].input, tab[i]);

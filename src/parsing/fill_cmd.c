@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/22 17:49:40 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:38:06 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	get_nb_cmd(t_input *input)
 		j = 0;
 		while (input[i].tab[j])
 		{
-			index_redir = get_index_redir(input, j);
+			index_redir = get_index_redir(input, j, i);
 			if (index_redir == j)
 				j += 2;
 			else
@@ -44,30 +44,33 @@ int	get_nb_cmd(t_input *input)
 
 void	fill_cmd_next(t_input *input, t_data *data, t_quote *quote, int i)
 {
-	int j;
-	int k;
+	int		j;
+	int		k;
+	char	*input_add;
 
 	j = 0;
 	k = 0;
 	while (input[i].tab[j])
 	{
-		if (get_index_redir(input, j) == j)
+		input_add = add_to_input(input[i].tab[j], data, quote);
+		if (get_index_redir(input, j, i) == j)
 			j += 2;
 		else
 		{
-			if (add_to_input(input[i].tab[j], data, quote) == NULL)
+			if (input_add == NULL)
 			{
 				j++;
 				continue ;
 			}
 			else
 			{
-				input[i].cmd[k] = add_to_input(input[i].tab[j], data, quote);
+				input[i].cmd[k] = input_add;
 				j++;
 				k++;
 			}
 		}
 	}
+	free(input_add);
 	input[i].cmd[k] = NULL;
 }
 
@@ -84,6 +87,15 @@ void	fill_cmd(t_input *input, t_data *data, t_quote *quote)
 	}
 }
 
+int	get_tab_size(char **tab)
+{
+	int	size;
+
+	size = 0;
+	while (tab[size] != NULL)
+		size++;
+	return (size);
+}
 
 
 // void	fill_cmd(t_input *input, t_data *data, t_quote *quote)
@@ -124,12 +136,3 @@ void	fill_cmd(t_input *input, t_data *data, t_quote *quote)
 // 	}
 // }
 
-int	get_tab_size(char **tab)
-{
-	int	size;
-
-	size = 0;
-	while (tab[size] != NULL)
-		size++;
-	return (size);
-}

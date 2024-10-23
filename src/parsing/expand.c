@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:41:55 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/22 16:44:34 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:22:41 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 
 void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 {
+	char	*var_name;
+
+	var_name = NULL;
 	if (quote->open_quote == 1 && quote->quote_type == '\'')
 		quote->str = join_char(quote->str, line[quote->i]);
 	else
@@ -26,11 +29,13 @@ void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 		{
 			quote->str = (join_str(quote->str,
 						look_for_expand(&line[quote->i], data)));
-			quote->i += ft_strlen(return_var_name(&line[quote->i]));
+			var_name = return_var_name(&line[quote->i]);	
+			quote->i += ft_strlen(var_name);
 		}
 		else
 			quote->str = join_char(quote->str, line[quote->i]);
 	}
+	free(var_name);
 }
 
 char	*add_to_input(char *line, t_data *data, t_quote	*quote)

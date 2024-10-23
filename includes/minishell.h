@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/22 16:32:13 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:06:42 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,11 @@ char	*look_for_expand(char *line, t_data *data);
 int		get_tab_len(char *s);
 int		len_with_quote(char *str);
 void	fill_tab(t_input *input);
-int		get_index_redir(t_input *input, int j);
+int		get_index_redir(t_input *input, int j, int i);
 int		get_nb_cmd(t_input *input);
 char	*join_str(char *s1, char *s2);
 char	*join_char(char *s1, char c);
 int		get_tab_size(char **tab);
 
+void	free_all(t_input *input);
 #endif
