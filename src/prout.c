@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/23 12:58:14 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:37:46 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 		return ;
 	data->exp = NULL;
 	data->path = get_path(data);
+	data->heredoc_sig = 0;
 	if (input == NULL)
 		return ;
 	input->input = NULL;

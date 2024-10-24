@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/23 14:53:11 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:55:34 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data
 	int		fd[2];
 	int		copy_stdin;
 	int		copy_stdout;
+	int		heredoc_sig;
 }	t_data;
 
 typedef struct s_input
@@ -45,9 +46,12 @@ typedef struct s_input
 	int		heredoc;
 }	t_input;
 
+extern int	g_signal;
+
 void	handle_signals(int sig);
 void	heredoc_signals(int sig);
 void	exec_signals(int sig);
+int		set_heredoc_signals(void);
 
 /*	EXEC & REDIRECTIONS	*/
 
