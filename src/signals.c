@@ -6,51 +6,60 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/07/09 15:41:08 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:08:15 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	heredoc_sigquit(int sig)
-{
-	(void)sig;
-}
-
-void	heredoc_sigint(int sig)
-{
-	(void)sig;
-	signal(SIGQUIT, heredoc_sigquit);
-	kill(0, 3);
-}
-
-void	heredoc_signals(void)
-{
-	rl_catch_signals = 0;
-	signal(SIGINT, heredoc_sigint);
-	signal(SIGQUIT, heredoc_sigquit);
-}
-
-void	handle_sigint(int sig)
+void	heredoc_signals(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("^C\n");
+		
+	}
+}
+
+void	exec_signals(int sig)
+{
+	if (sig == SIGINT)
+	{
+	}
+	if (sig == SIGQUIT)
+	{
+		ft_putstr_fd("Quit: 3\n", 1);
+	}
+}
+
+void	handle_signals(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	// else
+	// {
+	// 	printf("\n");
+	// 	rl_replace_line("", 1);
+	// 	rl_on_new_line();
+	// 	rl_redisplay();
+	// }
+	// if (sig == SIGQUIT)
+	// {
+	// 	signal(SIGQUIT, SIG_IGN);
+	// }
 }
 
-void	handle_sigquit(int sig)
-{
-	if (sig == SIGQUIT)
-		return ;
-}
-
-void	handle_signals(void)
-{
-	rl_catch_signals = 0;
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
-}
+//parent:	^C -> ^C + newline
+//			^D -> exit
+//			^\ -> rien
+//enfant:	^C -> ^C + newline
+//			^D -> newline
+//			^\ -> ^\Quit (core dumped)
+//heredoc:	^C -> ^C + newline
+//			^D -> warning: ... + newline
+//			^\ -> rien
+// mettre exit pour ctr D

@@ -6,47 +6,49 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:45:48 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/09 15:59:44 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:03:05 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void ignore_spaces(char *line, int *i)
+static	void	ignore_spaces(char *line, int *i)
 {
-    while (line[*i] == ' ' || line[*i] == '\t')
-        (*i)++;
+	while (line[*i] == ' ' || line[*i] == '\t')
+		(*i)++;
 }
-int handle_quotes(char *line, int *i, int *quotes, char *quote_char)
+
+int	handle_quotes(char *line, int *i, int *quotes, char *quote_char)
 {
-    if ((line[*i] == '\'' || line[*i] == '\"') && (!(*quotes) || *quote_char == line[*i]))
-    {
-        if (*quotes && *quote_char == line[*i])
-            *quotes = 0;
-        else
-        {
-            *quote_char = line[*i];
-            *quotes = 1;
-        }
-        (*i)++;
-        return 1;
-    }
-    return 0;
+	if ((line[*i] == '\'' || line[*i] == '\"')
+		&& (!(*quotes) || *quote_char == line[*i]))
+	{
+		if (*quotes && *quote_char == line[*i])
+			*quotes = 0;
+		else
+		{
+			*quote_char = line[*i];
+			*quotes = 1;
+		}
+		(*i)++;
+		return (1);
+	}
+	return (0);
 }
 
 int	check_begin_pipes(char *line)
 {
 	int		i;
-    int		word;
+	int		word;
 	int		quotes;
 	char	quote_char;
-	
-    i = 0;
-    word = 0;
+
+	i = 0;
+	word = 0;
 	quotes = 0;
 	quote_char = 0;
-    while (line[i])
-    {
+	while ((size_t)i < ft_strlen(line) && line[i])
+	{
 		ignore_spaces(line, &i);
 		handle_quotes(line, &i, &quotes, &quote_char);
 		if (line[i] == '|' && !quotes)
@@ -67,42 +69,43 @@ int	check_begin_pipes(char *line)
 
 int	check_end_pipes(char *line)
 {
-	int i;
-    int pipe;
+	int	i;
+	int	pipe;
 
-    i = 0;
-    pipe = 0;
-    while (line[i])
-    {
+	i = 0;
+	pipe = 0;
+	while (line[i])
+	{
 		while (line[i] == ' ' || line[i] == '\t')
-        	i++;
-        if (line[i] == '|')
-        {
+			i++;
+		if (line[i] == '|')
+		{
 			pipe = 1;
 			while (line[i] == ' ' || line[i] == '\t' || line[i] == '|')
-        		i++;
-            if (line[i] == '\0')
-                return (printf("bash: syntax error\n"), 1);
+				i++;
+			if (line[i] == '\0')
+				return (printf("bash: syntax error\n"), 1);
 			pipe = 1;
 		}
 		else if (line[i] != '\0')
-            pipe = 0;
-       	i++;
+			pipe = 0;
+		i++;
 	}
 	return (0);
 }
-int check_nb_pipes(char *line)
-{
-	int i;
-	int pipe;
 
-    i = 0;
+int	check_nb_pipes(char *line)
+{
+	int	i;
+	int	pipe;
+
+	i = 0;
 	pipe = 0;
-    while (line[i])
-    {
+	while (line[i])
+	{
 		if (line[i] == '|')
 		{
-			pipe++;				
+			pipe++;
 		}
 		i++;
 	}

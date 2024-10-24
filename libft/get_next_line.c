@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 10:54:33 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/04 15:27:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:42:14 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	new_all_read(char **all_read, char *buffer, int nb_bytes_read)
 	if (!temp)
 		return ;
 	if (*all_read)
-		ft_strcpy(temp, *all_read);
+		ft_strcpy2(temp, *all_read);
 	ft_strncat(temp, buffer, nb_bytes_read);
 	free(*all_read);
 	*all_read = temp;

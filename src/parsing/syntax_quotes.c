@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/09/17 10:30:40 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:32:24 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	empty_string(char *line)
 		return (1);
 	return (0);
 }
+
 //fonction qui va checker s il y a uniquement des pipes, des redirections ou des /
 int	no_word_string(char *line)
 {
@@ -35,13 +36,13 @@ int	no_word_string(char *line)
 	slash = 0;
 	while (line[i])
 	{
-		if (line[i] != '|' && line[i] != '<' && line[i] != '>' 
+		if (line[i] != '|' && line[i] != '<' && line[i] != '>'
 			&& line[i] != '&')
 				redir = 0;
 		if (line[i] == '/')
 			slash = 1;
 		if (slash && line[i] != '/' && line[i] != '.')
-            doc = 0;
+			doc = 0;
 		i++;
 	}
 	if (redir && empty_string(line) == 0)
@@ -53,10 +54,10 @@ int	no_word_string(char *line)
 
 int	check_quotes(char *line)
 {
-	int i;
-	int simple_quote;
+	int	i;
+	int	simple_quote;
 	int	double_quote;
-	
+
 	i = 0;
 	simple_quote = 0;
 	double_quote = 0;
@@ -79,6 +80,7 @@ int	check_quotes(char *line)
 	}
 	return (0);
 }
+
 int	check_syntax(char *line)
 {
 	if (no_word_string(line) == 1)

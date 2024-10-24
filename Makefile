@@ -3,56 +3,62 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+         #
+#    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/09/20 17:14:03 by afrikach         ###   ########.fr        #
+#    Updated: 2024/10/24 14:35:13 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c \
+SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c\
 		\
 		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/exit.c\
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\
 		\
 		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c src/utils/split_quotes.c\
-		src/utils/get_big_tab.c src/utils/path_access.c src/utils/fill_struct.c src/utils/ft_structcpy.c \
+		src/utils/path_access.c src/utils/handle_len.c src/utils/free_all.c src/utils/heredoc.c\
 		\
-		src/parsing/util.c src/parsing/syntax_quotes.c src/parsing/syntax_pipes.c\
-		src/parsing/syntax_open_redir.c src/parsing/syntax_close_redir.c\
-		\
-		#src/exec_redir_out.c src/exec_redir_in.c \
-		src/expand.c
-		
-OBJS = ${SRCS:.c=.o}
+		src/parsing/util.c src/parsing/syntax_quotes.c src/parsing/syntax_pipes.c \
+		src/parsing/syntax_open_redir.c src/parsing/syntax_close_redir.c src/parsing/get_big_tab.c \
+		src/parsing/fill_struct.c src/parsing/ft_structcpy.c src/parsing/fill_cmd.c src/parsing/is_expand.c\
+		src/parsing/fill_redirections.c src/parsing/divide_input.c src/parsing/utils2.c src/parsing/expand.c\
+	
+OBJS_DIR = .objects
+OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+
 CFLAGS = -Wall -Wextra -Werror -g3 
 LIBFT = ./libft/libft.a
 CC = cc
 RM = rm -f
 
-all : $(NAME) 
+all: $(NAME)
 
-.c.o:
-	cc $(CFLAGS) -c -o $@ $< 
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJS)
 	make -C libft all
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(LIBFT)
 
-clean :
-	${RM} ${OBJS}
+clean:
+	$(RM) $(OBJS) $(LIBFT_OBJS)
 	make -C libft clean
+	find $(OBJS_DIR) -type f -name "*.o" -delete
 
-fclean : clean
-	${RM} ${NAME}
+fclean: clean
+	$(RM) $(NAME)
 	make -C libft fclean
 
-ac : all clean
+
+ac: all clean
 	make clean
 	make -C libft clean
 
-re : fclean all
+re: fclean all
 
-.PHONY = make clean fclean re
+.PHONY: all clean fclean re

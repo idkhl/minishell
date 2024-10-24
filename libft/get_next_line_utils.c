@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:21:23 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/06/04 15:22:05 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:41:51 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strncat(char *dest, char *src, int nb)
 	return (dest);
 }
 
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy2(char *dest, char *src)
 {
 	int		index;
 
