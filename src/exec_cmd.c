@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/24 14:10:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:25:04 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	execute_cmd(t_data *data, t_input *input, char **tab)
 		{
 			if (!input[0].in_file || ft_strcmp(input[0].redir_infile, "<<") != 0)
 				printf("%s: command not found\n", tab[0]);
+			free_child(data, input, cmd, 127);
 			return (exit(127));
 		}
 		if (execve(cmd, tab, data->env) == -1)

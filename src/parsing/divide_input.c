@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:35:06 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:19:11 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:47:32 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	handle_normal_string(t_input *input, int i, int *j, int k)
 	len = get_len2(input[i].input + *j);
 	input[i].tab[k] = malloc(sizeof(char) * (len + 1));
 	if (!input[i].tab[k])
+	{
+		free(input[i].tab[k]);
 		return (k);
+	}
 	ft_strlcpy(input[i].tab[k], input[i].input + *j, len + 1);
 	*j += len;
 	return (k + 1);

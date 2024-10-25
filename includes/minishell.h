@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/25 12:17:31 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:27:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	heredoc(t_input *input, int i);
 void	pipe_heredoc(t_data *data, t_input *input, int nb);
 void	unlink_heredoc(t_input *input, int nb);
 void	do_redir(t_data *data, t_input *input);
+void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
 
 /*	BUILT-INS	*/
 
