@@ -6,17 +6,18 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/24 14:10:57 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/25 19:41:27 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	heredoc(t_input *input, int i)
+int	g_signal;
+
+char	*temp_file(int i)
 {
 	char	*tmp;
 	char	*file;
-	char	*line;
 	char	*nb;
 	int		file_index;
 
@@ -33,6 +34,15 @@ void	heredoc(t_input *input, int i)
 		free(nb);
 	}
 	free(tmp);
+	return (file);
+}
+
+void	heredoc(t_input *input, int i)
+{
+	char	*line;
+	char	*file;
+
+	file = temp_file(i);
 	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (input[i].heredoc == -1)
 		return (free(file));
@@ -41,7 +51,13 @@ void	heredoc(t_input *input, int i)
 	line = readline("> ");
 	while (line)
 	{
-		if (ft_strcmp(line, input[i].in_file) == 0)
+		printf("[%d]\n", g_signal);
+		if (g_signal == 130)
+		{
+			free(line);
+			break ;
+		}
+		if (ft_strcmp(line, input[i].in_file) == 0 || line == NULL)
 		{
 			free(line);
 			break ;
