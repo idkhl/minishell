@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/23 15:38:06 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:09:45 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,28 @@ void	fill_cmd_next(t_input *input, t_data *data, t_quote *quote, int i)
 {
 	int		j;
 	int		k;
-	char	*input_add;
 
 	j = 0;
 	k = 0;
 	while (input[i].tab[j])
 	{
-		input_add = add_to_input(input[i].tab[j], data, quote);
 		if (get_index_redir(input, j, i) == j)
 			j += 2;
 		else
 		{
-			if (input_add == NULL)
+			if (add_to_input(input[i].tab[j], data, quote) == NULL)
 			{
 				j++;
 				continue ;
 			}
 			else
 			{
-				input[i].cmd[k] = input_add;
+				input[i].cmd[k] = add_to_input(input[i].tab[j], data, quote);
 				j++;
 				k++;
 			}
 		}
 	}
-	free(input_add);
 	input[i].cmd[k] = NULL;
 }
 

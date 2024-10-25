@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/23 15:06:42 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:09:51 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_data
 	char	**path;
 	int		heredoc;
 	int		fd[2];
+	int		copy_stdin;
+	int		copy_stdout;
 }	t_data;
 
 typedef struct s_input
@@ -41,6 +43,7 @@ typedef struct s_input
 	char	*redir_outfile;
 	int		fd_in;
 	int		fd_out;
+	int		heredoc;
 }	t_input;
 
 typedef struct s_vars
@@ -60,25 +63,31 @@ typedef struct s_quote
 }	t_quote;
 
 
-void	handle_signals(void);
-void	heredoc_signals(void);
-void	expand(t_data *data, char **tab);
+void	handle_signals(int sig);
+void	heredoc_sigint(int sig);
+void	heredoc_sigquit(int sig);
 
 /*	EXEC & REDIRECTIONS	*/
 
 void	execute_cmd(t_data *data, t_input *input, char **tab);
+int		exec_builtins(t_data *data, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
 void	redir(t_data *data, t_input *input, int i);
+void	heredoc(t_input *input, int i);
+void	pipe_heredoc(t_data *data, t_input *input, int nb);
+void	unlink_heredoc(t_input *input, int nb);
+void	do_redir(t_data *data, t_input *input);
 
 /*	BUILT-INS	*/
 
-int		check_builtins(t_data *data, char **tab);
+int		check_builtins(char **tab);
 void	build_echo(char **tab);
 void	build_pwd(void);
 void	build_cd(char **line);
 void	build_env(t_data *data);
 void	build_export(t_data *data, char **tab);
 void	build_unset(t_data *data, char **tab);
+void	unset_var(t_data *data, int i);
 void	build_exit(t_data *data, char **tab);
 
 /*	UTILS	*/
@@ -145,5 +154,5 @@ char	*join_str(char *s1, char *s2);
 char	*join_char(char *s1, char c);
 int		get_tab_size(char **tab);
 
-void	free_all(t_input *input);
+void	free_all(t_input *input, char *line);
 #endif

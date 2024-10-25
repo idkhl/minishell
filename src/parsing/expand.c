@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:41:55 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/23 15:22:41 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:03:13 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 		{
 			quote->str = (join_str(quote->str,
 						look_for_expand(&line[quote->i], data)));
-			var_name = return_var_name(&line[quote->i]);	
+			var_name = return_var_name(&line[quote->i]);
 			quote->i += ft_strlen(var_name);
 		}
 		else

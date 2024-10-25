@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:51:17 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/16 17:50:46 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:02:46 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ char	*join_char(char *s1, char c)
 	ft_strncat(res, s1, ft_strlen(s1));
 	res[len - 2] = c;
 	res[len - 1] = '\0';
+	free(s1);
 	return (res);
 }

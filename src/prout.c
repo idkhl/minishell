@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/23 15:03:04 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:08:05 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,32 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	input->redir_outfile = NULL;
 	input->fd_in = -1;
 	input->fd_out = -1;
+	input->heredoc = 0;
 }
 
 void	parse_line(t_data *data, t_input *input, char *line)
 {
-	int	nb_blocks;
+	int		nb_blocks;
 
 	nb_blocks = count_blocks(line);
 	if (nb_blocks == 1)
 	{
-		if (check_builtins(data, input->cmd) == 0)
+		if (input[0].in_file)
+		{
+			if (ft_strcmp(input[0].redir_infile, "<<") == 0)
+				heredoc(input, 0);
+		}
+		if (check_builtins(input->cmd) == 0)
 			execute_cmd(data, input, input->cmd);
+		else
+			do_redir(data, input);
 	}
 	else
-		pipex (data, input, nb_blocks);
-	// free_tab(big_tab, nb_blocks);
+	{
+		pipe_heredoc(data, input, nb_blocks);
+		pipex(data, input, nb_blocks);
+	}
+	unlink_heredoc(input, nb_blocks);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -57,7 +68,8 @@ int	main(int ac, char **av, char **envp)
 	t_input	*input;
 
 	input = NULL;
-	// handle_signals(); // a refaire->ne marche bien que si tout est ok et que dans le parent
+	signal(SIGINT, handle_signals);
+	signal(SIGQUIT, handle_signals);
 	line = readline("\033[1;32mminishell $> \033[0m");
 	init_struct(&data, input, envp);
 	while (line)
@@ -71,29 +83,30 @@ int	main(int ac, char **av, char **envp)
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line, &data);
-		int	i;
-		int	j;
-		int	k;
+		// int	i;
+		// int	j;
+		// int	k;
 
-		i = 0;
-		while (input[i].input)
-		{
-			k = 0;
-			j = 0;
-			while (input[i].tab[k])
-			{
-				printf("TAB [%d]: %s", k, input[i].tab[k]);
-				printf("\n");
-				k++;
-			}
-			while (input[i].cmd[j])
-			{
-				printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
-				j++;
-			}
-			i++;
-		}
+		// i = 0;
+		// while (input[i].input)
+		// {
+		// 	k = 0;
+		// 	j = 0;
+		// 	while (input[i].tab[k])
+		// 	{
+		// 		printf("TAB [%d]: %s", k, input[i].tab[k]);
+		// 		printf("\n");
+		// 		k++;
+		// 	}
+		// 	while (input[i].cmd[j])
+		// 	{
+		// 		printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
+		// 		j++;
+		// 	}
+		// 	i++;
+		// }
 		parse_line(&data, input, line);
+		free_all(input, line);
 		free(line);
 		line = readline("\033[1;32mminishell $> \033[0m");
 	}
