@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:00:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/23 15:04:35 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:18:56 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,22 @@
 
 void	free_all(t_input *input)
 {
-	free(input->redir_infile);
-	free(input->redir_outfile);
-	free(input->in_file);
-	free(input->out_file);
-	malloc_free(input->cmd);
-	malloc_free(input->tab);
-	free(input->input);
+	int	i;
+
+	i = 0;
+	if (input == NULL)
+		return ;
+	while (input[i].input)
+	{
+		// printf("input.input : %s\n", input[i].input);
+		free(input[i].input);
+		malloc_free(input[i].tab);
+		malloc_free(input[i].cmd);
+		free(input[i].in_file);
+		free(input[i].out_file);
+		free(input[i].redir_infile);
+		free(input[i].redir_outfile);
+		i++;
+	}
+	free(input);
 }

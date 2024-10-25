@@ -1,0 +1,10 @@
+total 124
+-rw-r--r-- 1 afrikach 2023_paris   523 Oct 25 12:31 exemples_a_tester.c
+drwxr-xr-x 2 afrikach 2023_paris    40 Oct 25 12:31 includes
+-rw-r--r-- 1 afrikach 2023_paris     0 Oct 25 15:18 infile
+drwxr-xr-x 2 afrikach 2023_paris  4096 Oct 25 13:13 libft
+-rw-r--r-- 1 afrikach 2023_paris  2323 Oct 25 12:31 Makefile
+-rwxr-xr-x 1 afrikach 2023_paris 96056 Oct 25 15:17 minishell
+-rw-r--r-- 1 afrikach 2023_paris  4483 Sep 11 17:02 notes
+drwxr-xr-x 5 afrikach 2023_paris   163 Oct 25 12:31 src
+-rw-r--r-- 1 afrikach 2023_paris   245 Sep 11 17:02 valgrind-readline.supp
