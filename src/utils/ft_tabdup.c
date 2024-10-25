@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tabdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:09:41 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/23 14:45:04 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:20:43 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ char	**ft_tabdup(char **tab)
 	tmp[i] = NULL;
 	return (tmp);
 }
-

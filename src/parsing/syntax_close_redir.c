@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_close_redir.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:03:21 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/18 17:42:30 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:21:08 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static	void	ignore_spaces(char *line, int *i)
 
 static	int	end_of_close_operators(char *line, int *i, int *word)
 {
-
 	if (line[*i + 1] == '>')
 		(*i)++;
 	(*i)++;
@@ -55,4 +54,3 @@ int	check_close_operators(char *line)
 	}
 	return (0);
 }
-

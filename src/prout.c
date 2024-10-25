@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/24 14:45:02 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:18:33 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	main(int ac, char **av, char **envp)
 		// int	i;
 		// int	j;
 		// int	k;
-
 		// i = 0;
 		// while (input[i].input)
 		// {

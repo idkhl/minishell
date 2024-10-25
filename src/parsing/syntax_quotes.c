@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/04 15:32:24 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:21:31 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	empty_string(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (line[i] == '\0')

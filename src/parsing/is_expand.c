@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:27:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/22 16:42:39 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:20:05 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ char	*find_variable_in_env(char *line, t_data *data)
 		return (NULL);
 	while (data->env[j])
 	{
-		if (ft_strncmp(data->env[j], var_name, ft_strlen(var_name)) == 0 &&
-			data->env[j][ft_strlen(var_name)] == '=')
+		if (ft_strncmp(data->env[j], var_name, ft_strlen(var_name)) == 0
+			&& data->env[j][ft_strlen(var_name)] == '=')
 		{
 			free(var_name);
 			return (data->env[j]);

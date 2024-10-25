@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:34:50 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/23 12:28:38 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:19:32 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	store_redir_symbols(t_input *input)
 		i++;
 	}
 }
-
 
 // void	store_redir_symbols(t_input *input)
 // {

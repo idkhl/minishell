@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/24 14:08:15 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:18:45 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	heredoc_signals(int sig)
 {
 	if (sig == SIGINT)
 	{
-		
 	}
 }
 

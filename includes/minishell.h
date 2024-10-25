@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/24 14:22:03 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:17:31 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	free_tab(char ***big_tab, int size);
 int		count_cmds(char **tab);
 char	*ft_structcpy(char *dest, char *src, int i);
 int		get_len2(char *s);
-
 
 /*  PARSING  */
 
