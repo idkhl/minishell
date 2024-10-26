@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/25 20:49:51 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/26 18:58:23 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,10 @@ char	*temp_file(int i)
 	return (file);
 }
 
-void	heredoc(t_input *input, int i)
+void	heredoc_loop(t_input *input, int i)
 {
 	char	*line;
-	char	*file;
 
-	file = temp_file(i);
-	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (input[i].heredoc == -1)
-		return (free(file));
 	signal(SIGINT, heredoc_signals);
 	signal(SIGQUIT, SIG_IGN);
 	line = readline("> ");
@@ -67,6 +62,17 @@ void	heredoc(t_input *input, int i)
 		free(line);
 		line = readline("> ");
 	}
+}
+
+void	heredoc(t_input *input, int i)
+{
+	char	*file;
+
+	file = temp_file(i);
+	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (input[i].heredoc == -1)
+		return (free(file));
+	heredoc_loop(input, i);
 	close(input[i].heredoc);
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);

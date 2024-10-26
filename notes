@@ -19,6 +19,7 @@
 // pipes
 // signaux
 // 	^C dans here_doc (cmprt de ^d)
+// 
 
 // export a b -> export X env
 //			pas de chiffres  symboles avant =
@@ -28,6 +29,16 @@
 
 // line = /n || isspace
 // sigignore dans le parent
+
+// at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==932904==    by 0x40692F: join_char (ft_structcpy.c:100)
+// ==932904==    by 0x407D38: next_add_to_input (expand.c:36)
+// ==932904==    by 0x407E6B: add_to_input (expand.c:58)
+// ==932904==    by 0x406B14: fill_cmd_next (fill_cmd.c:59)
+// ==932904==    by 0x406C06: fill_cmd (fill_cmd.c:78)
+// ==932904==    by 0x40653A: fill_struct (fill_struct.c:57)
+// ==932904==    by 0x40156D: main (prout.c:85)
+
 
 // ==121132==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 // ==121132==    by 0x405498: allocate_new_struct (get_big_tab.c:61)

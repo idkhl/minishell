@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:39:13 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:33:43 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int	get_tab_size(char **tab)
 // 				}
 // 				else
 // 				{
-// 					input[i].cmd[k] = add_to_input(input[i].tab[j], data, quote);
+// 					input[i].cmd[k] 
+// 						= add_to_input(input[i].tab[j], data, quote);
 // 					j++;
 // 					k++;
 // 				}

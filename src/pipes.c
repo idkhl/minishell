@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/25 20:25:55 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:20:07 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE)
 	free(cmd);
 	exit(EXIT_CODE);
 }
+
 void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 {
 	char	*cmd;

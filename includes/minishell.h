@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/25 20:27:58 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:23:51 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ void	build_cd(char **line);
 void	build_env(t_data *data);
 void	build_export(t_data *data, char **tab);
 void	build_unset(t_data *data, char **tab);
-void	unset_var(t_data *data, int i);
 void	build_exit(t_data *data, char **tab);
+void	unset_var(t_data *data, int i);
+char	*var_name(char	*var);
+int		check_var_is_valid(char *var);
 
 /*	UTILS	*/
 
