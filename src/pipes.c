@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/26 17:20:07 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/26 19:00:33 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		{
 			perror("dup2 1");
 			free_child(data, input, cmd, EXIT_FAILURE);
-			// exit(EXIT_FAILURE);
 		}
 		close(data->fd[0]);
 		close(data->fd[1]);
@@ -49,15 +48,12 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 			{
 				printf("%s: command not found\n", tab[0]);
 				free_child(data, input, cmd, 127);
-				// exit(127);
 			}
 			if (execve(cmd, tab, data->env) == -1)
 				free_child(data, input, cmd, 127);
-				// exit(127);
 		}
 		else
 			free_child(data, input, cmd, 0);
-			// exit(0);
 	}
 	free(cmd);
 }
@@ -89,15 +85,12 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 			{
 				printf("%s: command not found\n", tab[0]);
 				free_child(data, input, cmd, 127);
-				// exit(127);
 			}
 			if (execve(cmd, tab, data->env) == -1)
 				free_child(data, input, cmd, 127);
-				// exit(127);
 		}
 		else
 			free_child(data, input, cmd, 0);
-			// exit(0);
 	}
 	free(cmd);
 }
@@ -124,16 +117,12 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 			{
 				printf("%s: command not found\n", tab[0]);
 				free_child(data, input, cmd, 127);
-				// exit(127);
 			}
 			if (execve(cmd, tab, data->env) == -1)
 				free_child(data, input, cmd, 127);
-				// exit(127);
 		}
 		else
 			free_child(data, input, cmd, 0);
-
-			// exit(0);
 	}
 	free(cmd);
 }
@@ -148,9 +137,6 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	{
 		if (pipe(data->fd) == -1)
 			return (perror("pipe 1"));
-		// int fd = open("out", O_CREAT | O_WRONLY);
-		// dup2(fd, STDOUT_FILENO);
-		// printf("%p\n", input);
 		if (i == 0)
 			exec_first_pipe(data, input, input[i].cmd, i);
 		else if (i == nb_blocks - 1)

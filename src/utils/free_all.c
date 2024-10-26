@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:00:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 20:20:05 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/26 19:01:02 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	free_all(t_input *input)
 		return ;
 	while (input[i].input)
 	{
-		// printf("input.input : %s\n", input[i].input);
 		free(input[i].input);
 		malloc_free(input[i].tab);
 		malloc_free(input[i].cmd);
