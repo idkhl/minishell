@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/24 14:10:12 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:14:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ void	do_redir(t_data *data, t_input *input)
 	data->copy_stdin = dup(STDIN_FILENO);
 	data->copy_stdout = dup(STDOUT_FILENO);
 	if (input[0].in_file != NULL || input[0].out_file != NULL)
-	{
-		redir(data, input, 0);
-	}
-	exec_builtins(data, input->cmd);
+		redir(input, 0);
+	exec_builtins(data, input, input->cmd);
 	dup2(data->copy_stdin, STDIN_FILENO);
 	dup2(data->copy_stdout, STDOUT_FILENO);
 	close(data->copy_stdin);
@@ -40,7 +38,7 @@ void	unlink_heredoc(t_input *input, int nb)
 	}
 }
 
-void	input_redir(t_data *data, t_input *input, int i)
+void	input_redir(t_input *input, int i)
 {
 	int	infile;
 
@@ -53,15 +51,14 @@ void	input_redir(t_data *data, t_input *input, int i)
 			return (close(infile), perror("dup2"));
 		close(infile);
 	}
-	(void)data;
 }
 
-void	redir(t_data *data, t_input *input, int i)
+void	redir(t_input *input, int i)
 {
 	int	outfile;
 
 	if (input[i].in_file != NULL)
-		input_redir(data, input, i);
+		input_redir(input, i);
 	if (input[i].out_file != NULL)
 	{
 		if (ft_strcmp(input[i].redir_outfile, ">") == 0)

@@ -6,19 +6,29 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/26 19:00:33 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:16:36 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE)
+void	exec_pipe(t_data *data, t_input *input, char **tab)
 {
-	malloc_free(data->env);
-	malloc_free(data->path);
-	free_all(input);
-	free(cmd);
-	exit(EXIT_CODE);
+	char	*cmd;
+
+	cmd = access_cmd(data, tab);
+	if (exec_builtins(data, input, tab) == 0)
+	{
+		if (!cmd)
+		{
+			printf("%s: command not found\n", tab[0]);
+			free_child(data, input, cmd, 127);
+		}
+		if (execve(cmd, tab, data->env) == -1)
+			free_child(data, input, cmd, 127);
+	}
+	else
+		free_child(data, input, cmd, 0);
 }
 
 void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
@@ -33,7 +43,7 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 	if (pid == 0)
 	{
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
-			redir(data, input, i);
+			redir(input, i);
 		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
 		{
 			perror("dup2 1");
@@ -42,18 +52,7 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[0]);
 		close(data->fd[1]);
 		close(data->copy_stdin);
-		if (exec_builtins(data, tab) == 0)
-		{
-			if (!cmd)
-			{
-				printf("%s: command not found\n", tab[0]);
-				free_child(data, input, cmd, 127);
-			}
-			if (execve(cmd, tab, data->env) == -1)
-				free_child(data, input, cmd, 127);
-		}
-		else
-			free_child(data, input, cmd, 0);
+		exec_pipe(data, input, tab);
 	}
 	free(cmd);
 }
@@ -78,19 +77,8 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[0]);
 		close(data->fd[1]);
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
-			redir(data, input, i);
-		if (exec_builtins(data, tab) == 0)
-		{
-			if (!cmd)
-			{
-				printf("%s: command not found\n", tab[0]);
-				free_child(data, input, cmd, 127);
-			}
-			if (execve(cmd, tab, data->env) == -1)
-				free_child(data, input, cmd, 127);
-		}
-		else
-			free_child(data, input, cmd, 0);
+			redir(input, i);
+		exec_pipe(data, input, tab);
 	}
 	free(cmd);
 }
@@ -110,19 +98,8 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[1]);
 		close(data->fd[0]);
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
-			redir(data, input, i);
-		if (exec_builtins(data, tab) == 0)
-		{
-			if (!cmd)
-			{
-				printf("%s: command not found\n", tab[0]);
-				free_child(data, input, cmd, 127);
-			}
-			if (execve(cmd, tab, data->env) == -1)
-				free_child(data, input, cmd, 127);
-		}
-		else
-			free_child(data, input, cmd, 0);
+			redir(input, i);
+		exec_pipe(data, input, tab);
 	}
 	free(cmd);
 }

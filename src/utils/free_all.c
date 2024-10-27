@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:00:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/26 19:01:02 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:16:11 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ void	free_all(t_input *input)
 		i++;
 	}
 	free(input);
+}
+void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE)
+{
+	malloc_free(data->env);
+	malloc_free(data->path);
+	free_all(input);
+	free(cmd);
+	exit(EXIT_CODE);
 }

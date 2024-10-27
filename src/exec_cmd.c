@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/26 17:11:56 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:14:19 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exec_pid(t_input *input, t_data *data, char **tab, char *cmd)
 {
 	if (input[0].in_file != NULL || input[0].out_file != NULL)
-		redir(data, input, 0);
+		redir(input, 0);
 	if (!cmd)
 	{
 		if (!input[0].in_file

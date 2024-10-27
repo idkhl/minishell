@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/26 17:23:51 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:16:25 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	exec_signals(int sig);
 /*	EXEC & REDIRECTIONS	*/
 
 void	execute_cmd(t_data *data, t_input *input, char **tab);
-int		exec_builtins(t_data *data, char **tab);
+int		exec_builtins(t_data *data, t_input *input, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
-void	redir(t_data *data, t_input *input, int i);
+void	redir(t_input *input, int i);
 void	heredoc(t_input *input, int i);
 void	pipe_heredoc(t_data *data, t_input *input, int nb);
 void	unlink_heredoc(t_input *input, int nb);
@@ -86,7 +86,7 @@ void	build_cd(char **line);
 void	build_env(t_data *data);
 void	build_export(t_data *data, char **tab);
 void	build_unset(t_data *data, char **tab);
-void	build_exit(t_data *data, char **tab);
+void	build_exit(t_data *data, t_input *input, char **tab);
 void	unset_var(t_data *data, int i);
 char	*var_name(char	*var);
 int		check_var_is_valid(char *var);
@@ -155,5 +155,6 @@ char	*join_char(char *s1, char c);
 int		get_tab_size(char **tab);
 
 void	free_all(t_input *input);
+void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
 
 #endif

@@ -31,6 +31,58 @@
 // line = /n || isspace
 // sigignore dans le parent
 
+// ==153210== 14 bytes in 1 blocks are still reachable in loss record 6 of 68
+// ==153210==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==153210==    by 0x4084C6: ft_strjoin (in /home/idakhlao/42cursus/minishell/minishell)
+// ==153210==    by 0x403FAE: access_cmd (path_access.c:58)
+// ==153210==    by 0x4017C3: exec_first_pipe (pipes.c:48)
+// ==153210==    by 0x401B51: pipex (pipes.c:127)
+// ==153210==    by 0x40147A: parse_line (prout.c:56)
+// ==153210==    by 0x40156E: main (prout.c:104)
+
+// ==153208== 5 bytes in 1 blocks are still reachable in loss record 1 of 73
+// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==153208==    by 0x405C06: fill_input (get_big_tab.c:40)
+// ==153208==    by 0x406490: fill_struct (fill_struct.c:55)
+// ==153208==    by 0x40155D: main (prout.c:82)
+// ==153208== 
+// ==153208== 5 bytes in 1 blocks are still reachable in loss record 2 of 73
+// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==153208==    by 0x4075BB: handle_normal_string (divide_input.c:23)
+// ==153208==    by 0x407A2F: fill_tab_entries (divide_input.c:73)
+// ==153208==    by 0x407B08: fill_tab (divide_input.c:90)
+// ==153208==    by 0x406499: fill_struct (fill_struct.c:56)
+// ==153208==    by 0x40155D: main (prout.c:82)
+// ==153208== 
+// ==153208== 16 bytes in 1 blocks are still reachable in loss record 11 of 73
+// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==153208==    by 0x407AC7: fill_tab (divide_input.c:87)
+// ==153208==    by 0x406499: fill_struct (fill_struct.c:56)
+// ==153208==    by 0x40155D: main (prout.c:82)
+// ==153208== 
+// ==153208== 96 bytes in 1 blocks are still reachable in loss record 27 of 73
+// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==153208==    by 0x40874B: ft_split (in /home/idakhlao/42cursus/minishell/minishell)
+// ==153208==    by 0x403E9A: get_path (path_access.c:38)
+// ==153208==    by 0x40130E: init_struct (prout.c:21)
+// ==153208==    by 0x4014F8: main (prout.c:71)
+// ==153208== 
+// ==153208== 144 bytes in 1 blocks are still reachable in loss record 28 of 73
+// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==153208==    by 0x405CCC: allocate_new_struct (get_big_tab.c:55)
+// ==153208==    by 0x40154C: main (prout.c:81)
+// ==153208== 
+// ==153208== 154 bytes in 11 blocks are still reachable in loss record 29 of 73
+// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==153208==    by 0x408AA1: malloc_word (in /home/idakhlao/42cursus/minishell/minishell)
+// ==153208==    by 0x408966: insert_words (in /home/idakhlao/42cursus/minishell/minishell)
+// ==153208==    by 0x408778: ft_split (in /home/idakhlao/42cursus/minishell/minishell)
+// ==153208==    by 0x403E9A: get_path (path_access.c:38)
+// ==153208==    by 0x40130E: init_struct (prout.c:21)
+// ==153208==    by 0x4014F8: main (prout.c:71)
+// ==153208== 
+
+
 // at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 // ==932904==    by 0x40692F: join_char (ft_structcpy.c:100)
 // ==932904==    by 0x407D38: next_add_to_input (expand.c:36)
