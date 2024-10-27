@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 17:23:01 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/26 17:23:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:11:20 by inesdakhlao      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_var_is_valid(char *var)
 	i = 0;
 	while (var[i] && var[i] != '=')
 	{
-		if (!isalnum(var[i]) && var[i] != '_')
+		if (!ft_isalnum(var[i]) && var[i] != '_')
 			return (-1);
 		i++;
 	}
@@ -33,7 +33,7 @@ int	check_var_is_valid(char *var)
 		i++;
 	while (var[i] != '\0')
 	{
-		if (!isalnum(var[i]) && var[i] != '_' && var[i] != '"')
+		if (!ft_isalnum(var[i]) && var[i] != '_' && var[i] != '"')
 			return (-1);
 		i++;
 	}

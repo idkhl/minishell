@@ -1,3 +1,4 @@
+// check_end_pipes int pipe not used
 // cd
 // 	1 arg
 // 	revenir au dir de depart avec cd -> segfault
