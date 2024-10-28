@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/25 17:31:59 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:49:58 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_quote
 	char	quote_type;
 	char	*str;
 }	t_quote;
+
+typedef struct s_pipe
+{
+	int		i;
+	int		word;
+	int		quotes;
+	char	quote_char;
+}	t_pipe;
 
 void	handle_signals(int sig);
 void	heredoc_signals(int sig);

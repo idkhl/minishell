@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:45:48 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 17:44:28 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:33:24 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,26 @@ int	handle_quotes(char *line, int *i, int *quotes, char *quote_char)
 
 int	check_begin_pipes(char *line)
 {
-	int		i;
-	int		word;
-	int		quotes;
-	char	quote_char;
+	t_pipe	pipe;
 
-	i = 0;
-	word = 0;
-	quotes = 0;
-	quote_char = 0;
-	while ((size_t)i < ft_strlen(line) && line[i])
+	ft_bzero(&pipe, sizeof(t_pipe));
+	while ((size_t)pipe.i < ft_strlen(line) && line[pipe.i])
 	{
-		ignore_spaces(line, &i);
-		handle_quotes(line, &i, &quotes, &quote_char);
-		if (line[i] == '|' && !quotes)
+		ignore_spaces(line, &pipe.i);
+		handle_quotes(line, &pipe.i, &pipe.quotes, &pipe.quote_char);
+		if (line[pipe.i] == '|' && !pipe.quotes)
 		{
-			if (word == 0)
+			if (pipe.word == 0)
 			{
 				printf("bash: syntax error near unexpected token '|'\n");
 				return (1);
 			}
-			word = 0;
+			pipe.word = 0;
 		}
-		else if (line[i] != ' ' && line[i] != '\t' && line[i] != '|')
-			word = 1;
-		i++;
+		else if (line[pipe.i] != ' '
+			&& line[pipe.i] != '\t' && line[pipe.i] != '|')
+			pipe.word = 1;
+		pipe.i++;
 	}
 	return (0);
 }
@@ -74,7 +69,7 @@ int	check_end_pipes(char *line)
 
 	i = 0;
 	pipe = 0;
-	while (line[i])
+	while ((size_t)i < ft_strlen(line) && line[i])
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
