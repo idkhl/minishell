@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/28 13:03:39 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:36:55 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	exec_pid(t_input *input, t_data *data, char **tab, char *cmd)
 		redir(input, 0);
 	if (!cmd)
 	{
-		if ((tab != NULL && *tab != NULL) && (!input[0].in_file
-			|| ft_strcmp(input[0].redir_infile, "<<") != 0))
+		if ((tab != NULL && *tab != NULL)
+			&& (!input[0].in_file
+				|| ft_strcmp(input[0].redir_infile, "<<") != 0))
 			printf("%s: command not found\n", tab[0]);
 		free_child(data, input, cmd, 127);
 		return (exit(127));

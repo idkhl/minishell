@@ -1,151 +1,19 @@
-// check_end_pipes int pipe not used
 // cd
 // 	1 arg
 // 	revenir au dir de depart avec cd -> segfault
-// pwd
-// echo
-// 	echo $var qui n existe pas -> \n
-// env
 // exit
 // 	++++ --- en arg
 // 	long long min/max
 // export
 // 	symboles
-// 	remplacer une var qui existe deja
 // unset
-// 	unset var pas $var
-// commandes
-// redirections
-// 	here_doc X
-// pipes
-// signaux
-// 	^C dans here_doc (cmprt de ^d)
-// 
 
 // export a b -> export X env
 //			pas de chiffres  symboles avant =
-//			export les autres var si la 1ere existe deja
-// echo var qui n'existe pas -> \n 
-// var sans commandes
-
-// line = /n || isspace
-// sigignore dans le parent
-
-// ==153210== 14 bytes in 1 blocks are still reachable in loss record 6 of 68
-// ==153210==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==153210==    by 0x4084C6: ft_strjoin (in /home/idakhlao/42cursus/minishell/minishell)
-// ==153210==    by 0x403FAE: access_cmd (path_access.c:58)
-// ==153210==    by 0x4017C3: exec_first_pipe (pipes.c:48)
-// ==153210==    by 0x401B51: pipex (pipes.c:127)
-// ==153210==    by 0x40147A: parse_line (prout.c:56)
-// ==153210==    by 0x40156E: main (prout.c:104)
-
-// ==153208== 5 bytes in 1 blocks are still reachable in loss record 1 of 73
-// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==153208==    by 0x405C06: fill_input (get_big_tab.c:40)
-// ==153208==    by 0x406490: fill_struct (fill_struct.c:55)
-// ==153208==    by 0x40155D: main (prout.c:82)
-// ==153208== 
-// ==153208== 5 bytes in 1 blocks are still reachable in loss record 2 of 73
-// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==153208==    by 0x4075BB: handle_normal_string (divide_input.c:23)
-// ==153208==    by 0x407A2F: fill_tab_entries (divide_input.c:73)
-// ==153208==    by 0x407B08: fill_tab (divide_input.c:90)
-// ==153208==    by 0x406499: fill_struct (fill_struct.c:56)
-// ==153208==    by 0x40155D: main (prout.c:82)
-// ==153208== 
-// ==153208== 16 bytes in 1 blocks are still reachable in loss record 11 of 73
-// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==153208==    by 0x407AC7: fill_tab (divide_input.c:87)
-// ==153208==    by 0x406499: fill_struct (fill_struct.c:56)
-// ==153208==    by 0x40155D: main (prout.c:82)
-// ==153208== 
-// ==153208== 96 bytes in 1 blocks are still reachable in loss record 27 of 73
-// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==153208==    by 0x40874B: ft_split (in /home/idakhlao/42cursus/minishell/minishell)
-// ==153208==    by 0x403E9A: get_path (path_access.c:38)
-// ==153208==    by 0x40130E: init_struct (prout.c:21)
-// ==153208==    by 0x4014F8: main (prout.c:71)
-// ==153208== 
-// ==153208== 144 bytes in 1 blocks are still reachable in loss record 28 of 73
-// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==153208==    by 0x405CCC: allocate_new_struct (get_big_tab.c:55)
-// ==153208==    by 0x40154C: main (prout.c:81)
-// ==153208== 
-// ==153208== 154 bytes in 11 blocks are still reachable in loss record 29 of 73
-// ==153208==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==153208==    by 0x408AA1: malloc_word (in /home/idakhlao/42cursus/minishell/minishell)
-// ==153208==    by 0x408966: insert_words (in /home/idakhlao/42cursus/minishell/minishell)
-// ==153208==    by 0x408778: ft_split (in /home/idakhlao/42cursus/minishell/minishell)
-// ==153208==    by 0x403E9A: get_path (path_access.c:38)
-// ==153208==    by 0x40130E: init_struct (prout.c:21)
-// ==153208==    by 0x4014F8: main (prout.c:71)
-// ==153208== 
 
 
-// at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==932904==    by 0x40692F: join_char (ft_structcpy.c:100)
-// ==932904==    by 0x407D38: next_add_to_input (expand.c:36)
-// ==932904==    by 0x407E6B: add_to_input (expand.c:58)
-// ==932904==    by 0x406B14: fill_cmd_next (fill_cmd.c:59)
-// ==932904==    by 0x406C06: fill_cmd (fill_cmd.c:78)
-// ==932904==    by 0x40653A: fill_struct (fill_struct.c:57)
-// ==932904==    by 0x40156D: main (prout.c:85)
-
-
-// ==121132==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==121132==    by 0x405498: allocate_new_struct (get_big_tab.c:61)
-// ==121132==    by 0x40184E: main (prout.c:150)
-// redir_infile pas init?
-// echo si $ vide -> sauter
-// exit dup2 l.55-56
 // echo dans /dev/full -> proteger write
 // expand dans le heredoc
 // command not found 1e pipe
 // open les infile/outfile si plusieurs redir
 // ./minishel ./minishell
-
-// la
-// Invalid read of size 1
-// ==168601==    at 0x405152: check_open_operators (syntax_open_redir.c:43)
-// ==168601==    by 0x404C50: check_syntax (syntax_quotes.c:88)
-// ==168601==    by 0x401607: main (prout.c:95)
-// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
-// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4015D5: main (prout.c:90)
-// ==168601== 
-// ==168601== Invalid read of size 1
-// ==168601==    at 0x405372: check_close_operators (syntax_close_redir.c:47)
-// ==168601==    by 0x404C6E: check_syntax (syntax_quotes.c:90)
-// ==168601==    by 0x401607: main (prout.c:95)
-// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
-// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4015D5: main (prout.c:90)
-// ==168601== 
-// ==168601== Invalid read of size 1
-// ==168601==    at 0x404DED: check_begin_pipes (syntax_pipes.c:48)
-// ==168601==    by 0x404C8C: check_syntax (syntax_quotes.c:92)
-// ==168601==    by 0x401607: main (prout.c:95)
-// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
-// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4015D5: main (prout.c:90)
-// ==168601== 
-// ==168601== Invalid read of size 1
-// ==168601==    at 0x404F72: check_end_pipes (syntax_pipes.c:75)
-// ==168601==    by 0x404CAA: check_syntax (syntax_quotes.c:94)
-// ==168601==    by 0x401607: main (prout.c:95)
-// ==168601==  Address 0x4b63df4 is 0 bytes after a block of size 4 alloc'd
-// ==168601==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==168601==    by 0x48AEBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x488C694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4896D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-// ==168601==    by 0x4015D5: main (prout.c:90)

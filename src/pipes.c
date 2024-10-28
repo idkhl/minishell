@@ -6,13 +6,13 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/27 18:16:36 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:54:01 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	exec_pipe(t_data *data, t_input *input, char **tab)
+void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 {
 	char	*cmd;
 
@@ -21,7 +21,10 @@ void	exec_pipe(t_data *data, t_input *input, char **tab)
 	{
 		if (!cmd)
 		{
-			printf("%s: command not found\n", tab[0]);
+			if ((tab != NULL && *tab != NULL)
+				&& (!input[i].in_file
+					|| ft_strcmp(input[i].redir_infile, "<<") != 0))
+				printf("%s: command not found\n", tab[0]);
 			free_child(data, input, cmd, 127);
 		}
 		if (execve(cmd, tab, data->env) == -1)
@@ -33,10 +36,8 @@ void	exec_pipe(t_data *data, t_input *input, char **tab)
 
 void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 {
-	char	*cmd;
 	pid_t	pid;
 
-	cmd = access_cmd(data, tab);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"));
@@ -47,22 +48,21 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
 		{
 			perror("dup2 1");
-			free_child(data, input, cmd, EXIT_FAILURE);
+			malloc_free(data->path);
+			free_all(input);
+			exit(EXIT_FAILURE);
 		}
 		close(data->fd[0]);
 		close(data->fd[1]);
 		close(data->copy_stdin);
-		exec_pipe(data, input, tab);
+		exec_pipe(data, input, tab, i);
 	}
-	free(cmd);
 }
 
 void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 {
-	char	*cmd;
 	pid_t	pid;
 
-	cmd = access_cmd(data, tab);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 2"));
@@ -78,17 +78,14 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[1]);
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
 			redir(input, i);
-		exec_pipe(data, input, tab);
+		exec_pipe(data, input, tab, i);
 	}
-	free(cmd);
 }
 
 void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 {
-	char	*cmd;
 	pid_t	pid;
 
-	cmd = access_cmd(data, tab);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 3"));
@@ -99,9 +96,8 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[0]);
 		if (input[i].in_file != NULL || input[i].out_file != NULL)
 			redir(input, i);
-		exec_pipe(data, input, tab);
+		exec_pipe(data, input, tab, i);
 	}
-	free(cmd);
 }
 
 void	pipex(t_data *data, t_input	*input, int nb_blocks)

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:21:31 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:06:22 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static int	empty_string(char *line)
 	return (0);
 }
 
-//fonction qui va checker s il y a uniquement des pipes, des redirections ou des /
 int	no_word_string(char *line)
 {
 	int	i;
