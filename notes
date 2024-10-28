@@ -14,6 +14,6 @@
 
 // echo dans /dev/full -> proteger write
 // expand dans le heredoc
-// command not found 1e pipe
 // open les infile/outfile si plusieurs redir
 // ./minishel ./minishell
+// echo -n-nnn -nnnn
