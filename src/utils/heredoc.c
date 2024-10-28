@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/26 18:58:23 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:40:24 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	heredoc_loop(t_input *input, int i)
 	line = readline("> ");
 	while (line)
 	{
-		printf("[%d]\n", g_signal);
 		if (g_signal == 130)
 		{
 			free(line);
@@ -73,6 +72,7 @@ void	heredoc(t_input *input, int i)
 	if (input[i].heredoc == -1)
 		return (free(file));
 	heredoc_loop(input, i);
+	g_signal = 0;
 	close(input[i].heredoc);
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);

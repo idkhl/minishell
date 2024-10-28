@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/27 17:30:10 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:50:48 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	heredoc_signals(int sig)
 {
 	if (sig == SIGINT)
 	{
+		if (ioctl(STDIN_FILENO, TIOCSTI, "\n") == -1)
+			return ;
 		g_signal = 130;
+		rl_replace_line("", 0);
+		rl_on_new_line();
 	}
 }
 

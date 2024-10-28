@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:45:48 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/27 15:55:07 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/10/28 13:07:36 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,21 @@ int	check_begin_pipes(char *line)
 int	check_end_pipes(char *line)
 {
 	int	i;
-	// int	pipe;
 
 	i = 0;
-	// pipe = 0;
 	while (line[i])
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		if (line[i] == '|')
 		{
-			// pipe = 1;
 			while (line[i]
 				&& (line[i] == ' ' || line[i] == '\t' || line[i] == '|'))
 				i++;
 			if (line[i] == '\0')
 				return (printf("bash: syntax error\n"), 1);
-			// pipe = 1;
 		}
 		else if (line[i] != '\0')
-			// pipe = 0;
 		i++;
 	}
 	return (0);
