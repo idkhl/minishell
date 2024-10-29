@@ -16,4 +16,4 @@
 // expand dans le heredoc
 // open les infile/outfile si plusieurs redir
 // ./minishel ./minishell
-// echo -n-nnn -nnnn
+// echo -n-n -nnnnn
