@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/29 11:27:26 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:20:22 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 {
 	pid_t	pid;
 
+	signal(SIGINT, exec_signals);
+	signal(SIGQUIT, exec_signals);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"));
@@ -63,6 +65,8 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 {
 	pid_t	pid;
 
+	signal(SIGINT, exec_signals);
+	signal(SIGQUIT, exec_signals);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 2"));
@@ -86,6 +90,8 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 {
 	pid_t	pid;
 
+	signal(SIGINT, exec_signals);
+	signal(SIGQUIT, exec_signals);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork 3"));
@@ -102,17 +108,12 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 
 void	pipex(t_data *data, t_input	*input, int nb_blocks)
 {
-	int	i;
-
-	i = 0;
+	int (i) = 0;
 	data->copy_stdin = dup(STDIN_FILENO);
 	while (i <= nb_blocks - 1)
 	{
 		if (pipe(data->fd) == -1)
 			return (perror("pipe 1"));
-		// int fd = open("out", O_CREAT | O_WRONLY);
-		// dup2(fd, STDOUT_FILENO);
-		// printf("%p\n", input);
 		if (i == 0)
 			exec_first_pipe(data, input, input[i].cmd, i);
 		else if (i == nb_blocks - 1)
@@ -129,4 +130,6 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	close(data->copy_stdin);
 	while (wait(NULL) != -1)
 		continue ;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_signals);
 }

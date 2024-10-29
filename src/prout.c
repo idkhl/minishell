@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/29 11:27:50 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:44:44 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	main(int ac, char **av, char **envp)
 	t_data	data;
 	t_input	*input;
 
+	if (isatty(0) != 1)
+		return (1);
 	input = NULL;
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);
