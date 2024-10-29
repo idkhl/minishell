@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_close_redir.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:03:21 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:21:08 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:40:25 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	int	end_of_close_operators(char *line, int *i, int *word)
 	ignore_spaces(line, i);
 	if (line[*i] == '\0' || line[*i] == '>')
 	{
-		printf("CLOSE bash: syntax error near unexpected token 'newline'\n");
+		printf("bash: syntax error near unexpected token 'newline'\n");
 		return (1);
 	}
 	*word = 0;

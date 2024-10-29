@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:41:55 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:15:24 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:21:10 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 		quote->str = join_char(quote->str, line[quote->i]);
 	else
 	{
-		if (line[quote->i] == '$')
+		if (line[quote->i] == '$' && !ft_isalpha(line[quote->i + 1]))
+			quote->str = join_char(quote->str, line[quote->i]);
+		else if (line[quote->i] == '$')
 		{
 			quote->str = (join_str(quote->str,
 						look_for_expand(&line[quote->i], data)));

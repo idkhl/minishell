@@ -12,3 +12,7 @@
 // la commande qui s'execute ici c'est la [cat] [-e]
 
 // ls <  \    "in'f/'ile"
+
+// echo -n-nnn -nnnn => -n-nnn -nnnn
+// echo $ => $
+// echo " $ " | cat -e

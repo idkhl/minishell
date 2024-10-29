@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/28 16:54:01 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:27:26 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	{
 		if (pipe(data->fd) == -1)
 			return (perror("pipe 1"));
+		// int fd = open("out", O_CREAT | O_WRONLY);
+		// dup2(fd, STDOUT_FILENO);
+		// printf("%p\n", input);
 		if (i == 0)
 			exec_first_pipe(data, input, input[i].cmd, i);
 		else if (i == nb_blocks - 1)

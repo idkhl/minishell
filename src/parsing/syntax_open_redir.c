@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:00:37 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/11 17:39:16 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:40:35 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	int	end_of_open_operators(char *line, int *i, int *word)
 	skip_spaces(line, i);
 	if (line[*i] == '\0' || line[*i] == '<')
 	{
-		printf("OPEN bash: syntax error near unexpected token 'newline'\n");
+		printf("bash: syntax error near unexpected token 'newline'\n");
 		return (1);
 	}
 	*word = 0;

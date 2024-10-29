@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/28 16:06:22 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:30:17 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ static int	empty_string(char *line)
 	i = 0;
 	if (line[i] == '\0')
 		return (1);
+	while (ft_isspace(line[i]))
+		i++;
+	if ((line[i] == '!' || line[i] == ':')
+		&& (ft_isspace(line[i + 1]) || line[i + 1] == '\0'))
+		return (1);
+
 	return (0);
 }
 
@@ -45,7 +51,7 @@ int	no_word_string(char *line)
 		i++;
 	}
 	if (redir && empty_string(line) == 0)
-		return (printf("no word bash: syntax error near unexpected token\n"), 1);
+		return (printf("bash: syntax error near unexpected token\n"), 1);
 	else if (doc && slash && empty_string(line) == 0)
 		return (printf("bash: /: Is a directory\n"), 1);
 	return (0);
@@ -82,6 +88,8 @@ int	check_quotes(char *line)
 
 int	check_syntax(char *line)
 {
+	if (empty_string(line) == 1)
+		return (1);
 	if (no_word_string(line) == 1)
 		return (1);
 	if (check_quotes(line) == 1)
