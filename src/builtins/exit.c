@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/29 18:11:17 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:18:48 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 		printf("exit: too many arguments\n");
 		return ;
 	}
-	if (tab[1] > __LONG_LONG_MAX__ || tab[1] < __LONG_LONG_MIN__)
+	printf("%lld\n", ft_atoll(tab[1]));
+	if (ft_atoll(tab[1]) > LLONG_MAX || ft_atoll(tab[1]) < LLONG_MIN)
+		printf("exit: %s numeric argument required\n", tab[1]);
 	if (data->env)
 		malloc_free(data->env);
 	malloc_free(data->path);
