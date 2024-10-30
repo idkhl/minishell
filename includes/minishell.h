@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/29 18:30:30 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:14:18 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_pipe
 	int		quotes;
 	char	quote_char;
 }	t_pipe;
+
+extern int	g_signal;
 
 void	handle_signals(int sig);
 void	heredoc_signals(int sig);
