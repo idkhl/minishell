@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_structcpy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:51:17 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:16:01 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:23:40 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*join_str(char *s1, char *s2)
 	*res = '\0';
 	ft_strncat(res, s1, ft_strlen(s1));
 	ft_strncat(res, s2, ft_strlen(s2));
+	free(s1);
 	return (res);
 }
 
