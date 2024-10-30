@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/29 11:30:17 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:39:36 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	empty_string(char *line)
 	if ((line[i] == '!' || line[i] == ':')
 		&& (ft_isspace(line[i + 1]) || line[i + 1] == '\0'))
 		return (1);
-
 	return (0);
 }
 
