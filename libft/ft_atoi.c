@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:48:52 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 12:30:59 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:01:39 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,6 @@ unsigned long long	ft_atoll(char *str)
 		nb = (nb * 10) + (str[i] - 48);
 		i++;
 	}
-	printf("max = %lld\nmin = %lld\n", LLONG_MAX, LLONG_MIN);
-	return (nb);
-	if (neg)
-	{
-		// printf("nbbb = %llu\nullmax = %llu\n", nb, ULLONG_MAX);
-		printf("nb = %llu\n", nb);
-		printf("LLM: %llu\n", (unsigned long long)(-LLONG_MIN));
-
-		if (nb >= (unsigned long long)(-LLONG_MIN))
-		{
-			return (ULLONG_MAX);
-		}
-		printf("nb = %llu\n", nb);
-		return (-nb);
-	}
-	if (nb > LLONG_MAX)
-		return (ULLONG_MAX);
 	return (nb);
 }
 

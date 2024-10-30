@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 12:38:03 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:09:30 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,13 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 		printf("exit: too many arguments\n");
 		return ;
 	}
-	// if (tab[1])
-	// 	nb = ft_atoll(tab[1]);
-	// if (tab[1])
-	// 	printf("[%llu]\n", nb);
-	// if (tab[1] && (nb > LLONG_MAX))
-	// 	printf("exit: %s numeric argument requiredddd\n", tab[1]);
 	if (tab[1])
 	{
 		nb = ft_atoll(tab[1]);
-		printf("[%llu]\n", nb);
-		printf("TEST[%llu]\n", (unsigned long long)(-LLONG_MIN));
-		if (tab[1][0] == '-' && nb > (unsigned long long)(-LLONG_MIN))
-		{
-			printf("En dessous erreur\n");
-		}
-		else if (tab[1][0] != '-' && nb > LLONG_MAX)
-		{
-			printf("Au dessus erreur\n");
-		}
-		else
-		{
-			printf("RAS\n");
-		}
-		return ;
+		if ((tab[1][0] == '-' && nb > (unsigned long long)(-LLONG_MIN))
+			|| (tab[1][0] != '-' && nb > LLONG_MAX)
+				|| ft_strlen(tab[1]) > 20)
+			printf("exit: %s: numeric argument required\n", tab[1]);
 	}
 	if (data->env)
 		malloc_free(data->env);
