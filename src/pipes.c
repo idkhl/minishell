@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 16:18:43 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:29:19 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 	char	*cmd;
 
 	cmd = access_cmd(data, tab);
+	if (ft_strcmp(tab[0], "/") == 0)
+	{
+		printf("%s: is a directory\n", tab[0]);
+		free_child(data, input, cmd, 126);
+	}
 	if (exec_builtins(data, input, tab) == 0)
 	{
 		if (!cmd)
@@ -50,7 +55,6 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
 		{
 			perror("dup2 1");
-			malloc_free(data->path);
 			free_all(input);
 			exit(EXIT_FAILURE);
 		}

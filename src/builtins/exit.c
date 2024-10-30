@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 14:09:30 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:36:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 	}
 	if (data->env)
 		malloc_free(data->env);
-	malloc_free(data->path);
 	dup2(data->copy_stdin, STDIN_FILENO);
 	dup2(data->copy_stdout, STDOUT_FILENO);
 	close(data->copy_stdin);

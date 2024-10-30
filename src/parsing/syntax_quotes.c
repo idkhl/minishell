@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/29 11:30:17 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:40:07 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	no_word_string(char *line)
 	}
 	if (redir && empty_string(line) == 0)
 		return (printf("bash: syntax error near unexpected token\n"), 1);
-	else if (doc && slash && empty_string(line) == 0)
-		return (printf("bash: /: Is a directory\n"), 1);
+	// else if (doc && slash && empty_string(line) == 0)
+	// 	return (printf("bash: /: Is a directory\n"), 1);
 	return (0);
 }
 

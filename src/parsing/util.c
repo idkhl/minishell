@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:40:30 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:21:54 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:38:14 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	free_strings(char **strs)
 	free(strs);
 }
 
-void	ft_path(void)
-{
-	char	*path;
+// void	ft_path(void)
+// {
+// 	char	*path;
 
-	path = getenv("PATH");
-	if (path != NULL)
-		printf("PATH=%s\n", path);
-}
+// 	path = getenv("PATH");
+// 	if (path != NULL)
+// 		printf("PATH=%s\n", path);
+// }
 
 int	ft_isspace(int c)
 {

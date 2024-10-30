@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:00:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/29 11:30:34 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:36:52 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	free_all(t_input *input)
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE)
 {
 	malloc_free(data->env);
-	malloc_free(data->path);
 	free_all(input);
 	free(cmd);
 	exit(EXIT_CODE);

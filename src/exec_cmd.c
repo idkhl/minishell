@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 14:28:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:52:11 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	exec_pid(t_input *input, t_data *data, char **tab, char *cmd)
 {
 	if (input[0].in_file != NULL || input[0].out_file != NULL)
 		redir(input, 0);
+	if (ft_strcmp(tab[0], "/") == 0)
+	{
+		printf("%s: is a directory\n", tab[0]);
+		free_child(data, input, cmd, 126);
+	}
 	if (!cmd)
 	{
 		if ((tab != NULL && *tab != NULL)

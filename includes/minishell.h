@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 10:14:18 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:36:40 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_data
 {
 	char	**env;
 	char	**exp;
-	char	**path;
 	int		fd[2];
 	int		copy_stdin;
 	int		copy_stdout;

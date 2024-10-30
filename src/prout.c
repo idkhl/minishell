@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 14:14:09 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:37:10 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	if (!data->env)
 		return ;
 	data->exp = NULL;
-	data->path = get_path(data);
 	if (input == NULL)
 		return ;
 	input->input = NULL;
@@ -91,6 +90,5 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	if (data.env)
 		malloc_free(data.env);
-	malloc_free(data.path);
 	exit(g_signal);
 }
