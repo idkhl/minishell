@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:23:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/08/30 20:17:36 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:18:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,29 @@ char	*access_cmd(t_data *data, char **tab)
 {
 	char	*bin;
 	char	*tmp;
+	char	**path;
 	int		i;
 
 	i = 0;
+	path = get_path(data);
+	if (!path)
+		return (NULL);
 	if (tab[0] && access(tab[0], F_OK | X_OK) == 0)
 		return (ft_strdup(tab[0]));
-	while (data->path && data->path[i])
+	while (path && path[i])
 	{
-		tmp = ft_strjoin(data->path[i], "/");
+		tmp = ft_strjoin(path[i], "/");
 		if (!tmp)
-			return (NULL);
+			return (malloc_free(path), NULL);
 		bin = ft_strjoin(tmp, tab[0]);
 		if (!bin)
-			return (free(tmp), NULL);
+			return (free(tmp), malloc_free(path), NULL);
 		free(tmp);
 		if (access(bin, F_OK | X_OK) == 0)
-			return (bin);
+			return (malloc_free(path), bin);
 		free(bin);
 		i++;
 	}
+	malloc_free(path);
 	return (NULL);
 }

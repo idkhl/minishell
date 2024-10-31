@@ -1,9 +1,7 @@
 // cd
-// 	1 arg
-// 	revenir au dir de depart avec cd -> segfault
+// PWD OLDPWD
 // exit
-// 	++++ --- en arg
-// 	long long min/max
+//	ls | exit
 // export
 // 	symboles
 // unset
@@ -17,3 +15,9 @@
 // open les infile/outfile si plusieurs redir
 // ./minishel ./minishell
 // echo -n-n -nnnnn
+// signaux dans les pipes
+// echo dans un fichier chmod000 ca echo quand meme
+//		enlever le exit dans indfile dans execcmd exit que si pipe
+// free tous les exits
+// < infile tout seul
+// / | ls -> leak

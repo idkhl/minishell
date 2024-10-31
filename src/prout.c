@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/29 11:27:50 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:37:10 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	if (!data->env)
 		return ;
 	data->exp = NULL;
-	data->path = get_path(data);
 	if (input == NULL)
 		return ;
 	input->input = NULL;
@@ -64,6 +63,8 @@ int	main(int ac, char **av, char **envp)
 	t_data	data;
 	t_input	*input;
 
+	if (isatty(0) != 1)
+		return (1);
 	input = NULL;
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);
@@ -80,27 +81,6 @@ int	main(int ac, char **av, char **envp)
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line, &data);
-		// int	i;
-		// int	j;
-		// int	k;
-		// i = 0;
-		// while (input[i].input)
-		// {
-		// 	k = 0;
-		// 	j = 0;
-		// 	while (input[i].tab[k])
-		// 	{
-		// 		printf("TAB [%d]: %s", k, input[i].tab[k]);
-		// 		printf("\n");
-		// 		k++;
-		// 	}
-		// 	while (input[i].cmd[j])
-		// 	{
-		// 		printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
 		parse_line(&data, input, line);
 		free_all(input);
 		free(line);
@@ -110,5 +90,5 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	if (data.env)
 		malloc_free(data.env);
-	malloc_free(data.path);
+	exit(g_signal);
 }

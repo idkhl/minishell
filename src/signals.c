@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/28 13:50:48 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:21:48 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	exec_signals(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
+		g_signal = 131;
 		printf("Quit (core dump)");
 	}
 }
