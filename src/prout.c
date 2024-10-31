@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 16:37:10 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:49:28 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 
 void	init_struct(t_data *data, t_input *input, char **envp)
 {

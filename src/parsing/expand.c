@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:41:55 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/29 17:10:27 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/31 12:50:18 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,21 @@
 void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 {
 	char	*var_name;
+	char	*sig;
 
 	var_name = NULL;
+	sig = NULL;
 	if (quote->open_quote == 1 && quote->quote_type == '\'')
 		quote->str = join_char(quote->str, line[quote->i]);
 	else
 	{
-		// char *sig = ft_itoa(g_signal);
-		// if (line[quote->i] == '$' && line[quote->i+1] == '?')
-		// 	quote->str = join_str(quote->str, sig);
+		sig = ft_itoa(g_signal);
+		if (line[quote->i] && line[quote->i] == '$'
+			&& line[quote->i + 1] == '?')
+		{
+			quote->str = join_str(quote->str, sig);
+			quote->i += 2;
+		}
 		if (line[quote->i] == '$' && !ft_isalpha(line[quote->i + 1]))
 			quote->str = join_char(quote->str, line[quote->i]);
 		else if (line[quote->i] == '$')
@@ -40,13 +46,14 @@ void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 		else
 			quote->str = join_char(quote->str, line[quote->i]);
 	}
+	free(sig);
 	free(var_name);
 }
 
 char	*add_to_input(char *line, t_data *data, t_quote	*quote)
 {
 	ft_bzero(quote, sizeof(t_quote));
-	while (line[quote->i])
+	while ((size_t)quote->i < ft_strlen(line) && line[quote->i])
 	{
 		if ((line[quote->i] == '\'' || line[quote->i] == '"')
 			&& quote->open_quote == 0)
