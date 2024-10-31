@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 17:29:19 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:37:41 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 	cmd = access_cmd(data, tab);
 	if (ft_strcmp(tab[0], "/") == 0)
 	{
-		printf("%s: is a directory\n", tab[0]);
+		ft_putstr_fd(tab[0], 2);
+		ft_putendl_fd(": is a directory", 2);
 		free_child(data, input, cmd, 126);
 	}
 	if (exec_builtins(data, input, tab) == 0)

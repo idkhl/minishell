@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/27 18:14:58 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:54:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	redir(t_input *input, int i)
 {
 	int	outfile;
 
+	//check_files
 	if (input[i].in_file != NULL)
 		input_redir(input, i);
 	if (input[i].out_file != NULL)
