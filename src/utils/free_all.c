@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:00:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/30 16:36:52 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:45:07 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE)
 	malloc_free(data->env);
 	free_all(input);
 	free(cmd);
+	g_signal = EXIT_CODE;
 	exit(EXIT_CODE);
 }

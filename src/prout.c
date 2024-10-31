@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 15:57:52 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:54:38 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	if (!data->env)
 		return ;
 	data->exp = NULL;
+	data->copy_stdin = -1;
+	data->copy_stdout = -1;
 	if (input == NULL)
 		return ;
 	input->input = NULL;
@@ -75,6 +77,7 @@ int	main(int ac, char **av, char **envp)
 	while (line)
 	{
 		add_history(line);
+		printf("[%d]\n", g_signal);
 		if (check_syntax(line) == 1)
 		{
 			free(line);
@@ -86,6 +89,7 @@ int	main(int ac, char **av, char **envp)
 		parse_line(&data, input, line);
 		free_all(input);
 		free(line);
+		// g_signal = 0;
 		line = readline("\033[1;32mminishell $> \033[0m");
 	}
 	(void)av;

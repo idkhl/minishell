@@ -1,20 +1,16 @@
 // cd
 // PWD OLDPWD
-// exit
-//	ls | exit
 // export
 // 	symboles
-// unset
 
 // export a b -> export X env
 //			pas de chiffres  symboles avant =
 
-
-// echo dans /dev/full -> proteger write
-// expand dans le heredoc
 // open les infile/outfile si plusieurs redir
 // echo dans un fichier chmod000 ca echo quand meme
 //		enlever le exit dans indfile dans execcmd exit que si pipe
 // free tous les exits
-// < infile tout seul
-// / | ls -> leak
+
+
+
+// expand dans le heredoc
