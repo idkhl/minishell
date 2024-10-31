@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:27:28 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:20:05 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:15:02 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*look_for_expand(char *line, t_data *data)
 				if (var_value)
 					return (var_value + 1);
 			}
+			if (env_var == NULL)
+				return (NULL);
 			j++;
 		}
 		i++;

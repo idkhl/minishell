@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/30 16:40:07 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:34:44 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	empty_string(char *line)
 	if ((line[i] == '!' || line[i] == ':')
 		&& (ft_isspace(line[i + 1]) || line[i + 1] == '\0'))
 		return (1);
-
 	return (0);
 }
 
