@@ -6,11 +6,13 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 16:37:10 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:45:21 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	g_signal = 5;
 
 void	init_struct(t_data *data, t_input *input, char **envp)
 {
@@ -73,6 +75,7 @@ int	main(int ac, char **av, char **envp)
 	while (line)
 	{
 		add_history(line);
+		printf("%d\n", g_signal);
 		if (check_syntax(line) == 1)
 		{
 			free(line);

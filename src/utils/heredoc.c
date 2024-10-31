@@ -6,13 +6,11 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/28 13:40:24 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:42:48 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	g_signal;
 
 char	*temp_file(int i)
 {

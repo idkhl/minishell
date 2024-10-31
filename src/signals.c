@@ -6,13 +6,11 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 14:21:48 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:43:03 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern int	g_signal;
 
 void	heredoc_signals(int sig)
 {
