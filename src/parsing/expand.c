@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:41:55 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/31 12:50:18 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:39:53 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 // si guillemets simple ouvert on n'interprete pas
 // (on return direct le nom de la variable)
 // else on interprete et on appelle look_for_expand.
+
+void	add_input2(char *line, t_quote *quote, t_data *data,
+				char *var_name)
+{
+	quote->str = (join_str(quote->str,
+				look_for_expand(&line[quote->i], data)));
+	var_name = return_var_name(&line[quote->i]);
+	quote->i += ft_strlen(var_name);
+	free(var_name);
+}
 
 void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 {
@@ -37,12 +47,7 @@ void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 		if (line[quote->i] == '$' && !ft_isalpha(line[quote->i + 1]))
 			quote->str = join_char(quote->str, line[quote->i]);
 		else if (line[quote->i] == '$')
-		{
-			quote->str = (join_str(quote->str,
-						look_for_expand(&line[quote->i], data)));
-			var_name = return_var_name(&line[quote->i]);
-			quote->i += ft_strlen(var_name);
-		}
+			add_input2(line, quote, data, var_name);
 		else
 			quote->str = join_char(quote->str, line[quote->i]);
 	}
