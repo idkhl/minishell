@@ -5,10 +5,9 @@
 // echo dans un fichier chmod000 ca echo quand meme
 //		enlever le exit dans indfile dans execcmd exit que si pipe
 // free tous les exits
-
+// ctrl-\ signal+exit status
 
 
 // expand dans le heredoc
 //export u="s -l"
 //minishell $> l$ua
-//cat | cat | cat | ls

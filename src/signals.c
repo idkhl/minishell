@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 16:21:16 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 19:49:19 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exec_signals(int sig)
 	if (sig == SIGQUIT)
 	{
 		g_signal = 131;
-		printf("Quit (core dump)");
+		ft_putendl_fd("Quit (core dump)", 2);
 	}
 }
 

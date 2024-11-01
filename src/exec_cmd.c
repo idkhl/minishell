@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 17:19:07 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 19:48:34 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	execute_cmd(t_data *data, t_input *input, char **tab)
 		status = exec_pid(input, data, tab, cmd);
 	else
 	{
-		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			g_signal = WEXITSTATUS(status);
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, handle_signals);
 		free(cmd);
 	}
