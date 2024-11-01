@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 16:25:14 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 19:09:03 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,6 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
 	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			g_signal = WEXITSTATUS(status);
-	}
 }
 
 void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
@@ -113,12 +107,6 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[1]);
 		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			g_signal = WEXITSTATUS(status);
 	}
 }
 
@@ -163,16 +151,20 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 			exec_last_pipe(data, input, input[i].cmd, i);
 		else
 			exec_middle_pipes(data, input, input[i].cmd, i);
-		if (dup2(data->fd[0], STDIN_FILENO) == -1)
-			perror("FAIL - IN");
+		if (i < nb_blocks - 1)
+		{
+			if (dup2(data->fd[0], STDIN_FILENO) == -1)
+				return (perror("FAIL - IN"));
+		}
 		close(data->fd[0]);
 		close(data->fd[1]);
 		i++;
 	}
 	dup2(data->copy_stdin, STDIN_FILENO);
 	close(data->copy_stdin);
-	// while (wait(NULL) != -1)
-	// 	continue ;
+	// while (wait(NULL) > 0);
+	while (wait(NULL) != -1)
+		continue ;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_signals);
 }
