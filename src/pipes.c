@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 12:08:27 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 16:25:14 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 			if ((tab != NULL && *tab != NULL)
 				&& (!input[i].in_file
 					|| ft_strcmp(input[i].redir_infile, "<<") != 0))
-				printf("%s: command not found\n", tab[0]);
+			{
+				ft_putstr_fd(tab[0], 2);
+				ft_putendl_fd(": command not found", 2);
+			}
 			free_child(data, input, cmd, 127);
 		}
 		if (execve(cmd, tab, data->env) == -1)
@@ -57,7 +60,9 @@ void	pipe_redir(t_data *data, t_input *input, int i)
 void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 {
 	pid_t	pid;
+	int		status;
 
+	status = 0;
 	signal(SIGINT, exec_signals);
 	signal(SIGQUIT, exec_signals);
 	pid = fork();
@@ -77,12 +82,20 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
 	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			g_signal = WEXITSTATUS(status);
+	}
 }
 
 void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 {
 	pid_t	pid;
+	int		status;
 
+	status = 0;
 	signal(SIGINT, exec_signals);
 	signal(SIGQUIT, exec_signals);
 	pid = fork();
@@ -101,12 +114,20 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
 	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			g_signal = WEXITSTATUS(status);
+	}
 }
 
 void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 {
 	pid_t	pid;
+	int		status;
 
+	status = 0;
 	signal(SIGINT, exec_signals);
 	signal(SIGQUIT, exec_signals);
 	pid = fork();
@@ -119,6 +140,12 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[0]);
 		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			g_signal = WEXITSTATUS(status);
 	}
 }
 
@@ -144,8 +171,8 @@ void	pipex(t_data *data, t_input	*input, int nb_blocks)
 	}
 	dup2(data->copy_stdin, STDIN_FILENO);
 	close(data->copy_stdin);
-	while (wait(NULL) != -1)
-		continue ;
+	// while (wait(NULL) != -1)
+	// 	continue ;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_signals);
 }

@@ -9,3 +9,6 @@
 
 
 // expand dans le heredoc
+//export u="s -l"
+//minishell $> l$ua
+//cat | cat | cat | ls

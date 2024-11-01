@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:26:34 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 15:15:17 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 16:51:06 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	update_oldpwd(t_data *data)
 			if (data->env[i])
 			{
 				ft_strcpy(data->env[i], "OLDPWD=");
-				ft_strlcat(data->env[i], oldpwd, ft_strlen("OLDPWD=") + ft_strlen(oldpwd) + 1);
+				ft_strlcat(data->env[i], oldpwd, ft_strlen("OLDPWD=") \
+				+ ft_strlen(oldpwd) + 1);
 			}
 			free(oldpwd);
 			return ;
@@ -97,8 +98,10 @@ void	build_cd(t_data *data, char **tab)
 		return ;
 	}
 	if (chdir(tab[1]) != 0)
+	{
+		g_signal = 1;
 		return (perror(tab[1]));
+	}
 	update_pwd(data);
+	g_signal = 0;
 }
-
-// cd .. / ls
