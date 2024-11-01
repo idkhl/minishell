@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 12:09:50 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:51:43 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	exec_signals(int sig);
 void	execute_cmd(t_data *data, t_input *input, char **tab);
 int		exec_builtins(t_data *data, t_input *input, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
-void	redir(t_input *input, int i);
+int		redir(t_input *input, int i);
 void	heredoc(t_input *input, int i);
 void	pipe_heredoc(t_data *data, t_input *input, int nb);
 void	unlink_heredoc(t_input *input, int nb);
@@ -92,7 +92,7 @@ void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
 int		check_builtins(char **tab);
 void	build_echo(char **tab);
 void	build_pwd(void);
-void	build_cd(char **line);
+void	build_cd(t_data *data, char **line);
 void	build_env(t_data *data);
 void	build_export(t_data *data, char **tab);
 void	build_unset(t_data *data, char **tab);

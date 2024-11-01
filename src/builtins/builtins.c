@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 19:57:35 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 16:22:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:51:50 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	exec_builtins(t_data *data, t_input *input, char **tab)
 	else if (ft_strcmp(*tab, "pwd") == 0)
 		return (build_pwd(), 1);
 	else if (ft_strcmp(*tab, "cd") == 0)
-		return (build_cd(tab), 1);
+		return (build_cd(data, tab), 1);
 	else if (ft_strcmp(*tab, "env") == 0)
 		return (build_env(data), 1);
 	else if (ft_strcmp(*tab, "export") == 0)

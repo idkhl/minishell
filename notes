@@ -1,12 +1,7 @@
-// cd
-// PWD OLDPWD
-// export
-// 	symboles
-
-// export a b -> export X env
+// export 
 //			pas de chiffres  symboles avant =
-
 // open les infile/outfile si plusieurs redir
+
 // echo dans un fichier chmod000 ca echo quand meme
 //		enlever le exit dans indfile dans execcmd exit que si pipe
 // free tous les exits

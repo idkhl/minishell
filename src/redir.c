@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/31 18:07:02 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:55:45 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,16 @@ void	do_redir(t_data *data, t_input *input)
 	data->copy_stdin = dup(STDIN_FILENO);
 	data->copy_stdout = dup(STDOUT_FILENO);
 	if (input[0].in_file != NULL || input[0].out_file != NULL)
-		redir(input, 0);
+	{
+		if (redir(input, 0) == 1)
+		{
+			dup2(data->copy_stdin, STDIN_FILENO);
+			dup2(data->copy_stdout, STDOUT_FILENO);
+			close(data->copy_stdin);
+			close(data->copy_stdout);
+			return ;
+		}
+	}
 	exec_builtins(data, input, input->cmd);
 	dup2(data->copy_stdin, STDIN_FILENO);
 	dup2(data->copy_stdout, STDOUT_FILENO);
@@ -38,7 +47,7 @@ void	unlink_heredoc(t_input *input, int nb)
 	}
 }
 
-void	input_redir(t_input *input, int i)
+int	input_redir(t_input *input, int i)
 {
 	int	infile;
 
@@ -46,20 +55,24 @@ void	input_redir(t_input *input, int i)
 	{
 		infile = open(input[i].in_file, O_RDONLY, 0644);
 		if (infile < 0)
-			return (perror(input[i].in_file), exit(1));
+			return (perror(input[i].in_file), 1);
 		if (dup2(infile, STDIN_FILENO) == -1)
-			return (close(infile), perror("dup2"));
+			return (close(infile), perror("dup2"), 1);
 		close(infile);
 	}
+	return (0);
 }
 
-void	redir(t_input *input, int i)
+int	redir(t_input *input, int i)
 {
 	int	outfile;
 
 	//check_files
 	if (input[i].in_file != NULL)
-		input_redir(input, i);
+	{
+		if (input_redir(input, i) == 1)
+			return (1);
+	}
 	if (input[i].out_file != NULL)
 	{
 		if (ft_strcmp(input[i].redir_outfile, ">") == 0)
@@ -68,9 +81,10 @@ void	redir(t_input *input, int i)
 			outfile = open(input[i].out_file, \
 				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (outfile < 0)
-			return (free_perror("Open"), exit(1));
+			return (perror(input[i].out_file), 1);
 		if (dup2(outfile, STDOUT_FILENO) == -1)
-			return (close(outfile), perror("dup2"));
+			return (close(outfile), perror("dup2"), 1);
 		close(outfile);
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 15:37:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:08:27 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,20 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 		free_child(data, input, cmd, 0);
 }
 
+void	pipe_redir(t_data *data, t_input *input, int i)
+{
+	if (input[i].in_file != NULL || input[i].out_file != NULL)
+	{
+		if (redir(input, i) == 1)
+		{
+			malloc_free(data->env);
+			free_all(input);
+			g_signal = 1;
+			exit(1);
+		}
+	}
+}
+
 void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 {
 	pid_t	pid;
@@ -51,8 +65,6 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		return (perror("fork"));
 	if (pid == 0)
 	{
-		if (input[i].in_file != NULL || input[i].out_file != NULL)
-			redir(input, i);
 		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
 		{
 			perror("dup2 1");
@@ -62,6 +74,7 @@ void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->fd[0]);
 		close(data->fd[1]);
 		close(data->copy_stdin);
+		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
 	}
 }
@@ -85,8 +98,7 @@ void	exec_middle_pipes(t_data *data, t_input *input, char **tab, int i)
 		}
 		close(data->fd[0]);
 		close(data->fd[1]);
-		if (input[i].in_file != NULL || input[i].out_file != NULL)
-			redir(input, i);
+		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
 	}
 }
@@ -105,8 +117,7 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 		close(data->copy_stdin);
 		close(data->fd[1]);
 		close(data->fd[0]);
-		if (input[i].in_file != NULL || input[i].out_file != NULL)
-			redir(input, i);
+		pipe_redir(data, input, i);
 		exec_pipe(data, input, tab, i);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 17:54:38 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:54:45 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(int ac, char **av, char **envp)
 	while (line)
 	{
 		add_history(line);
-		printf("[%d]\n", g_signal);
 		if (check_syntax(line) == 1)
 		{
 			free(line);
@@ -87,6 +86,7 @@ int	main(int ac, char **av, char **envp)
 		allocate_new_struct(&input, line);
 		fill_struct(input, line, &data);
 		parse_line(&data, input, line);
+		printf("[%d]\n", g_signal);
 		free_all(input);
 		free(line);
 		// g_signal = 0;
