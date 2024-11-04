@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 19:40:57 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:54:55 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	build_export(t_data *data, char	**tab)
 	int	i;
 
 	i = 1;
+	printf("[%s]\n", tab[1]);
 	if (ft_tablen(tab) == 1)
 	{
 		data->exp = ft_tabdup(data->env);
@@ -130,7 +131,7 @@ void	build_export(t_data *data, char	**tab)
 			else
 			{
 				ft_putstr_fd(tab[0], 2);
-				ft_putendl_fd(": not a val", 2);
+				ft_putendl_fd(": not a valid identifier", 2);
 			}
 			i++;
 		}

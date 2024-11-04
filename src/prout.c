@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 16:50:25 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:59:29 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,27 @@ int	main(int ac, char **av, char **envp)
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line, &data);
+		int	i;
+		int	j;
+		int	k;
+		i = 0;
+		while (input[i].input)
+		{
+			k = 0;
+			j = 0;
+			while (input[i].tab[k])
+			{
+				printf("TAB [%d]: %s", k, input[i].tab[k]);
+				printf("\n");
+				k++;
+			}
+			while (input[i].cmd[j])
+			{
+				printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
+				j++;
+			}
+			i++;
+		}
 		parse_line(&data, input, line);
 		free_all(input);
 		free(line);
