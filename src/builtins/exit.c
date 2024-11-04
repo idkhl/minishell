@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 17:57:23 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:50:48 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 	else if (ft_tablen(tab) > 2)
 	{
 		printf("exit: too many arguments\n");
+		g_signal = 1;
 		return ;
 	}
 	if (tab[1])

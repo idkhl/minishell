@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inesdakhlaoui <inesdakhlaoui@student.42    +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 17:23:01 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/27 14:11:20 by inesdakhlao      ###   ########.fr       */
+/*   Updated: 2024/11/04 18:43:08 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	check_var_is_valid(char *var)
 {
 	int	i;
 
-	if (ft_strchr(var, '=') == 0)
-		return (-1);
+	// if (ft_strchr(var, '=') == 0)
+	// 	return (-1);
 	if (ft_isdigit(var[0]))
 		return (-1);
 	if (var[0] == '=')
@@ -25,18 +25,18 @@ int	check_var_is_valid(char *var)
 	i = 0;
 	while (var[i] && var[i] != '=')
 	{
-		if (!ft_isalnum(var[i]) && var[i] != '_')
-			return (-1);
-		i++;
-	}
-	if (var[i] == '=')
-		i++;
-	while (var[i] != '\0')
-	{
 		if (!ft_isalnum(var[i]) && var[i] != '_' && var[i] != '"')
 			return (-1);
 		i++;
 	}
+	// if (var[i] == '=')
+	// 	i++;
+	// while (var[i] != '\0')
+	// {
+	// 	if (!ft_isalnum(var[i]) && var[i] != '_' && var[i] != '"')
+	// 		return (-1);
+	// 	i++;
+	// }
 	return (0);
 }
 

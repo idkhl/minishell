@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/04 11:54:55 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:15:47 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	build_export(t_data *data, char	**tab)
 			{
 				ft_putstr_fd(tab[0], 2);
 				ft_putendl_fd(": not a valid identifier", 2);
+				g_signal = 1;
 			}
 			i++;
 		}
