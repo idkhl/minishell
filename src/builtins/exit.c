@@ -6,37 +6,52 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/04 19:50:48 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:45:56 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	build_exit(t_data *data, t_input *input, char **tab)
+int	check_exit_args(char *arg)
 {
-	unsigned long long	nb;
+	int	i;
 
-	nb = 0;
-	(void)input;
-	printf("exit\n");
-	if (tab[1] && ft_isalpha(tab[1][0]) == 1)
-		printf("exit: %s: numeric argument required\n", tab[1]);
-	else if (tab[1] && tab[1][1] && ft_isdigit(tab[1][1]) != 1)
-		printf("exit: %s: numeric argument required\n", tab[1]);
-	else if (ft_tablen(tab) > 2)
+	i = 0;
+	while (arg[i])
 	{
-		printf("exit: too many arguments\n");
-		g_signal = 1;
-		return ;
+		if (arg[i] == '-' || arg[i] == '+')
+			i++;
+		if (ft_isdigit(arg[i]) == 0)
+			return (1);
+		i++;
 	}
-	if (tab[1])
+	return (0);
+}
+
+int	exit_code(int nb, int neg)
+{
+	if (neg == 0)
 	{
-		nb = ft_atoll(tab[1]);
-		if ((tab[1][0] == '-' && nb > (unsigned long long)(-LLONG_MIN))
-			|| (tab[1][0] != '-' && nb > LLONG_MAX)
-				|| ft_strlen(tab[1]) > 20)
-			printf("exit: %s: numeric argument required\n", tab[1]);
+		if (nb >= 0 && nb <= 255)
+			return (nb);
+		if (nb > 255)
+			return (nb % 256);
 	}
+	else
+	{
+		if (nb > 0 && nb <= 256)
+			return (256 - nb);
+		if (nb > 256)
+		{
+			// nb -= 256;
+			return ((256 - nb) % 256);
+		}
+	}
+	return (0);
+}
+
+void	clean_exit(t_data *data, t_input *input, int nb)
+{
 	if (data->env)
 		malloc_free(data->env);
 	dup2(data->copy_stdin, STDIN_FILENO);
@@ -45,4 +60,38 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 	close(data->copy_stdout);
 	free_all(input);
 	exit(nb);
+}
+
+void	build_exit(t_data *data, t_input *input, char **tab)
+{
+	unsigned long long	nb;
+	int					neg;
+
+	nb = 0;
+	printf("exit\n");
+	if (tab[1])
+	{
+		nb = ft_atoll(tab[1]);
+		if ((check_exit_args(tab[1]) == 1)
+			|| ((tab[1][0] == '-' && nb > (unsigned long long)(-LLONG_MIN))
+				|| (tab[1][0] != '-' && nb > LLONG_MAX)
+					|| ft_strlen(tab[1]) > 20))
+		{
+			printf("exit: %s: numeric argument required\n", tab[1]);
+			clean_exit(data, input, 2);
+		}
+	}
+	else if (ft_tablen(tab) > 2)
+	{
+		printf("exit: too many arguments\n");
+		g_signal = 1;
+		return ;
+	}
+	if (tab[1][0] == '-')
+		neg = 1;
+	else
+		neg = 0;
+	nb = exit_code(nb, neg);
+	printf("%llu\n", nb);
+	clean_exit(data, input, nb);
 }
