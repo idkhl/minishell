@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 11:49:28 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:01:55 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,30 @@ int	main(int ac, char **av, char **envp)
 		}
 		allocate_new_struct(&input, line);
 		fill_struct(input, line, &data);
+		int	i;
+		int	j;
+		int	k;
+
+		i = 0;
+		while (input[i].input)
+		{
+			k = 0;
+			j = 0;
+			printf("TAB LEN = %d\n", get_tab_len(input[i].input));
+			printf("infile ====== %s\n", input[i].in_file);
+			while (input[i].tab[k])
+			{
+				printf("TAB [%d]: %s", k, input[i].tab[k]);
+				printf("\n");
+				k++;
+			}
+			while (input[i].cmd[j])
+			{
+				printf("CMD [%d]: %s\n", j, input[i].cmd[j]);
+				j++;
+			}
+			i++;
+		}
 		parse_line(&data, input, line);
 		free_all(input);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/10/31 17:05:06 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:56:46 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	input_redir(t_input *input, int i)
 // 				|| ft_strcmp(input[i].tab[j], ">>") == 0))
 // 		{
 // 			infile = open(input[i].tab[j + 1], O_RDONLY, 0644);
+// 			printf("HEEEERE\n");
 // 			if (infile < 0)
 // 			{
 // 				return (perror(input[i].tab[j + 1]));

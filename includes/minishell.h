@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 11:33:56 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:32:26 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	free_tab(char ***big_tab, int size);
 int		count_cmds(char **tab);
 char	*ft_structcpy(char *dest, char *src, int i);
 int		get_len2(char *s);
+char	*quoted_strdup(char *s);
 
 /*  PARSING  */
 
@@ -142,7 +143,7 @@ int		find_quotes(char *s, int i);
 int		find_redirection(char *s, int i);
 char	*get_redir_type(char *s, int index);
 void	store_redir_symbols(t_input *input);
-void	store_redirection(t_input *input);
+void	store_redirection(t_input *input, t_data *data, t_quote *quote);
 int		count_cmd(char *s);
 void	fill_cmd(t_input *input, t_data *data, t_quote *quote);
 
