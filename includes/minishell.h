@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 15:39:43 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:26:26 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	restore_std_input(t_data *data);
 void	handle_pipe_block(t_data *data, t_input *input, int i, int nb_blocks);
 void	pipe_redir(t_data *data, t_input *input, int i);
 void	ft_error_msg(char *s1, char *s2);
+void	print_export(t_data *data);
 
 /*  PARSING  */
 

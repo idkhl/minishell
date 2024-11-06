@@ -6,38 +6,11 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/04 19:15:47 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:26:39 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	print_export(t_data *data)
-{
-	int		i;
-	int		j;
-	char	*temp;
-
-	i = 0;
-	while (data->exp[i] != 0)
-	{
-		j = i;
-		while (data->exp[j] != 0)
-		{
-			if (ft_strcmp(data->exp[i], data->exp[j]) > 0)
-			{
-				temp = data->exp[i];
-				data->exp[i] = data->exp[j];
-				data->exp[j] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
-	i = -1;
-	while (data->exp[++i])
-		printf("export %s\n", data->exp[i]);
-}
 
 char	**new_env(t_data *data, char *var, char **newenv)
 {
@@ -105,36 +78,38 @@ void	check_existing_variable(t_data *data, char *var)
 	free(var_to_add);
 }
 
-void	build_export(t_data *data, char	**tab)
+void	handle_print_export(t_data *data)
+{
+	data->exp = ft_tabdup(data->env);
+	if (data->exp)
+	{
+		print_export(data);
+		malloc_free(data->exp);
+	}
+}
+
+void	build_export(t_data *data, char **tab)
 {
 	int	i;
 
 	i = 1;
-	printf("[%s]\n", tab[1]);
 	if (ft_tablen(tab) == 1)
+		return (handle_print_export(data));
+	while (tab[i])
 	{
-		data->exp = ft_tabdup(data->env);
-		if (!data->exp)
-			return ;
-		print_export(data);
-		malloc_free(data->exp);
-	}
-	else
-	{
-		while (tab[i])
+		if (check_var_is_valid(tab[i]) == 0)
 		{
-			if (check_var_is_valid(tab[i]) == 0)
+			check_existing_variable(data, tab[i]);
+			add_export(data, tab[i]);
+		}
+		else
+		{
+			if (check_var_is_valid(tab[i]) == -1)
 			{
-				check_existing_variable(data, tab[i]);
-				add_export(data, tab[i]);
-			}
-			else
-			{
-				ft_putstr_fd(tab[0], 2);
-				ft_putendl_fd(": not a valid identifier", 2);
+				ft_error_msg(tab[i], ": not a valid identifier");
 				g_signal = 1;
 			}
-			i++;
 		}
+		i++;
 	}
 }

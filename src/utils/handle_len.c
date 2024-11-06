@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_len.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:47:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/06 12:19:44 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:28:17 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	get_tab_len(char *s)
 		// 	printf("handle_redir ==== [%d], %d\n", i, handle_redirections(s, &i));
 		// 	i += len_with_quote(s + i);
 		// }
-
 
 //return 3 //echo "hello yy"gg
 //return 2 //echo hh"hello yy"gg

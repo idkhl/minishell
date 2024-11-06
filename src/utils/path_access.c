@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:23:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 15:27:23 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:05:35 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,22 @@ char	**get_path(t_data *data)
 	return (path);
 }
 
+char	*join_path_cmd(char *dir, char *cmd)
+{
+	char	*tmp;
+	char	*full_cmd;
+
+	tmp = ft_strjoin(dir, "/");
+	full_cmd = NULL;
+	if (tmp)
+	full_cmd = ft_strjoin(tmp, cmd);
+	free(tmp);
+	return (full_cmd);
+}
+
 char	*access_cmd(t_data *data, char **tab)
 {
 	char	*bin;
-	char	*tmp;
 	char	**path;
 	int		i;
 
@@ -53,14 +65,13 @@ char	*access_cmd(t_data *data, char **tab)
 	if (!path)
 		return (NULL);
 	if (tab[0] && access(tab[0], F_OK | X_OK) == 0)
-		return (malloc_free(path), ft_strdup(tab[0]));
+	{
+		malloc_free(path);
+		return (ft_strdup(tab[0]));
+	}
 	while (path && path[i])
 	{
-		tmp = ft_strjoin(path[i], "/");
-		if (!tmp)
-			return (malloc_free(path), NULL);
-		bin = ft_strjoin(tmp, tab[0]);
-		free(tmp);
+		bin = join_path_cmd(path[i], tab[0]);
 		if (!bin)
 			return (malloc_free(path), NULL);
 		if (access(bin, F_OK | X_OK) == 0)
@@ -68,6 +79,5 @@ char	*access_cmd(t_data *data, char **tab)
 		free(bin);
 		i++;
 	}
-	malloc_free(path);
-	return (NULL);
+	return (malloc_free(path), NULL);
 }
