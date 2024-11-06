@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 12:51:43 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:23:20 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	pipe_heredoc(t_data *data, t_input *input, int nb);
 void	unlink_heredoc(t_input *input, int nb);
 void	do_redir(t_data *data, t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
+void	check_redir(t_input *input, int i);
 
 /*	BUILT-INS	*/
 
@@ -116,6 +117,7 @@ void	free_tab(char ***big_tab, int size);
 int		count_cmds(char **tab);
 char	*ft_structcpy(char *dest, char *src, int i);
 int		get_len2(char *s);
+char	*quoted_strdup(char *s);
 
 /*  PARSING  */
 
@@ -142,7 +144,7 @@ int		find_quotes(char *s, int i);
 int		find_redirection(char *s, int i);
 char	*get_redir_type(char *s, int index);
 void	store_redir_symbols(t_input *input);
-void	store_redirection(t_input *input);
+void	store_redirection(t_input *input, t_data *data, t_quote *quote);
 int		count_cmd(char *s);
 void	fill_cmd(t_input *input, t_data *data, t_quote *quote);
 
@@ -165,5 +167,4 @@ int		get_tab_size(char **tab);
 
 void	free_all(t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
-
 #endif

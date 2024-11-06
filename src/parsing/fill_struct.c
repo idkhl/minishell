@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:19:09 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/25 12:19:40 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:33:00 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void	fill_struct(t_input *input, char *line, t_data *data)
 	fill_tab(input);
 	fill_cmd(input, data, &quote);
 	store_redir_symbols(input);
-	store_redirection(input);
+	store_redirection(input, data, &quote);
 }

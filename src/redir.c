@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/01 11:55:45 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:28:23 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	input_redir(t_input *input, int i)
 {
 	int	infile;
 
-	if (ft_strncmp(input[i].redir_infile, "<", 1) == 0)
+	if (input[i].redir_infile && ft_strncmp(input[i].redir_infile, "<", 1) == 0)
 	{
 		infile = open(input[i].in_file, O_RDONLY, 0644);
 		if (infile < 0)
@@ -63,11 +63,37 @@ int	input_redir(t_input *input, int i)
 	return (0);
 }
 
+void	check_redir(t_input *input, int i)
+{
+	int	j;
+	int	infile;
+
+	j = 0;
+	while (input[i].tab[j] && j < get_tab_len(input[i].input))
+	{
+		if (input[i].tab[j]
+			&& (ft_strcmp(input[i].tab[j], "<") == 0
+				|| ft_strcmp(input[i].tab[j], ">") == 0
+				|| ft_strcmp(input[i].tab[j], ">>") == 0))
+		{
+			infile = open(input[i].tab[j + 1], O_RDONLY, 0644);
+			if (infile < 0)
+			{
+				printf("HEEEERE\n");
+				return (perror(input[i].tab[j + 1]));
+			}
+			else
+				close(infile);
+		}
+		j++;
+	}
+}
+
 int	redir(t_input *input, int i)
 {
 	int	outfile;
 
-	//check_files
+	check_redir(input, i);
 	if (input[i].in_file != NULL)
 	{
 		if (input_redir(input, i) == 1)
