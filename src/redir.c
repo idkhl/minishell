@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/06 12:28:23 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:05:17 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	input_redir(t_input *input, int i)
 	return (0);
 }
 
-void	check_redir(t_input *input, int i)
+int	check_redir(t_input *input, int i)
 {
 	int	j;
 	int	infile;
@@ -79,21 +79,22 @@ void	check_redir(t_input *input, int i)
 			infile = open(input[i].tab[j + 1], O_RDONLY, 0644);
 			if (infile < 0)
 			{
-				printf("HEEEERE\n");
-				return (perror(input[i].tab[j + 1]));
+				return (perror(input[i].tab[j + 1]), 1);
 			}
 			else
 				close(infile);
 		}
 		j++;
 	}
+	return (0);
 }
 
 int	redir(t_input *input, int i)
 {
 	int	outfile;
 
-	check_redir(input, i);
+	if (check_redir(input, i) == 1)
+		return (1);
 	if (input[i].in_file != NULL)
 	{
 		if (input_redir(input, i) == 1)

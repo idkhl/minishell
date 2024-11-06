@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/05 15:45:55 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:32:44 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	fill_cmd(t_input *input, t_data *data, t_quote *quote)
 	while (input[i].tab)
 	{
 		input[i].cmd = malloc(sizeof(char *) * (get_nb_cmd(input) + 1));
-		printf("NB_CMD = %d\n", get_nb_cmd(input));
 		fill_cmd_next(input, data, quote, i);
 		i++;
 	}
