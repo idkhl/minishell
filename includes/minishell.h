@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/05 17:32:26 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:32:04 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	pipe_heredoc(t_data *data, t_input *input, int nb);
 void	unlink_heredoc(t_input *input, int nb);
 void	do_redir(t_data *data, t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
+void	check_redir(t_input *input, int i);
 
 /*	BUILT-INS	*/
 
@@ -166,5 +167,4 @@ int		get_tab_size(char **tab);
 
 void	free_all(t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
-
 #endif

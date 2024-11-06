@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:47:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/05 15:47:34 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:19:44 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,20 @@ int	get_tab_len(char *s)
 			else
 				i++;
 		}
+		len++;
 		if (s[i] && (s[i] == '<' || s[i] == '>'))
 		{
-			len += handle_redirections(s, &i);
+			// len++;
+			i++;
 		}
+	}
+	return (len);
+}
 		// else if (s[i] && (s[i] == '\'' || s[i] == '"'))
 		// {
 		// 	printf("handle_redir ==== [%d], %d\n", i, handle_redirections(s, &i));
 		// 	i += len_with_quote(s + i);
 		// }
-		
-		len++;
-	}
-	return (len);
-}
 
 
 //return 3 //echo "hello yy"gg

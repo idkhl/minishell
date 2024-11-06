@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/05 15:56:46 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:57:28 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,38 +53,37 @@ void	input_redir(t_input *input, int i)
 	}
 }
 
-// void	check_redir(t_input *input, int i)
-// {
-// 	int	j;
-// 	int	infile;
+void	check_redir(t_input *input, int i)
+{
+	int	j;
+	int	infile;
 
-// 	j = 0;
-// 	while (j < get_tab_len(input[i].input) && input[i].tab[j])
-// 	{
-// 		if (input[i].tab[j]
-// 			&& (ft_strcmp(input[i].tab[j], "<") == 0
-// 				|| ft_strcmp(input[i].tab[j], ">") == 0
-// 				|| ft_strcmp(input[i].tab[j], ">>") == 0))
-// 		{
-// 			infile = open(input[i].tab[j + 1], O_RDONLY, 0644);
-// 			printf("HEEEERE\n");
-// 			if (infile < 0)
-// 			{
-// 				return (perror(input[i].tab[j + 1]));
-// 			}
-// 			else
-// 				close(infile);
-// 		}
-// 		else
-// 			j++;
-// 	}
-// }
+	j = 0;
+	while (input[i].tab[j] && j < get_tab_len(input[i].input))
+	{
+		if (input[i].tab[j]
+			&& (ft_strcmp(input[i].tab[j], "<") == 0
+				|| ft_strcmp(input[i].tab[j], ">") == 0
+				|| ft_strcmp(input[i].tab[j], ">>") == 0))
+		{
+			infile = open(input[i].tab[j + 1], O_RDONLY, 0644);
+			if (infile < 0)
+			{
+				printf("HEEEERE\n");
+				return (perror(input[i].tab[j + 1]));
+			}
+			else
+				close(infile);
+		}
+		j++;
+	}
+}
 
 void	redir(t_input *input, int i)
 {
 	int	outfile;
 
-	// check_redir(input, i);
+	check_redir(input, i);
 	if (input[i].in_file != NULL)
 		input_redir(input, i);
 	if (input[i].out_file != NULL)
