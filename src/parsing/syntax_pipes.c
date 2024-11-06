@@ -6,17 +6,17 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:45:48 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/29 11:29:43 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:23:23 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static	void	ignore_spaces(char *line, int *i)
-{
-	while (line[*i] == ' ' || line[*i] == '\t')
-		(*i)++;
-}
+// static	void	ignore_spaces(char *line, int *i)
+// {
+// 	while (line[*i] == ' ' || line[*i] == '\t')
+// 		(*i)++;
+// }
 
 int	handle_quotes(char *line, int *i, int *quotes, char *quote_char)
 {
@@ -43,7 +43,9 @@ int	check_begin_pipes(char *line)
 	ft_bzero(&pipe, sizeof(t_pipe));
 	while ((size_t)pipe.i < ft_strlen(line) && line[pipe.i])
 	{
-		ignore_spaces(line, &pipe.i);
+		// ignore_spaces(line, &pipe.i);
+		while (line[pipe.i] == ' ' || line[pipe.i] == '\t')
+			pipe.i++;
 		handle_quotes(line, &pipe.i, &pipe.quotes, &pipe.quote_char);
 		if (line[pipe.i] == '|' && !pipe.quotes)
 		{
@@ -54,8 +56,7 @@ int	check_begin_pipes(char *line)
 			}
 			pipe.word = 0;
 		}
-		else if (line[pipe.i] != ' '
-			&& line[pipe.i] != '\t' && line[pipe.i] != '|')
+		else if (line[pipe.i] != '\t' && line[pipe.i] != '|')
 			pipe.word = 1;
 		pipe.i++;
 	}

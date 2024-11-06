@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/31 11:34:44 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:56:07 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int	no_word_string(char *line)
 	}
 	if (redir && empty_string(line) == 0)
 		return (printf("bash: syntax error near unexpected token\n"), 1);
-	// else if (doc && slash && empty_string(line) == 0)
-	// 	return (printf("bash: /: Is a directory\n"), 1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:35:06 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/05 14:45:16 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:32:26 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	handle_normal_string(t_input *input, int i, int *j, int k)
 	int	len;
 
 	len = get_len2(input[i].input + *j);
-	printf("GET_LEN == %d\n", len);
 	input[i].tab[k] = malloc(sizeof(char) * (len + 1));
 	if (!input[i].tab[k])
 	{

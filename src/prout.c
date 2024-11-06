@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 12:25:09 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:35:52 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(int ac, char **av, char **envp)
 	while (line)
 	{
 		add_history(line);
-		// g_signal = 0;
 		if (check_syntax(line) == 1)
 		{
 			free(line);
@@ -100,6 +99,8 @@ int	main(int ac, char **av, char **envp)
 		// 		printf("\n");
 		// 		k++;
 		// 	}
+		// 	printf(" ||Infile|| : %s \n", input[i].in_file);
+		// 	printf(" ||Outfile|| : %s \n", input[i].out_file);
 		// 	while (input[i].cmd[j])
 		// 	{
 		// 		printf("CMD [%d]: %s\n", j, input[i].cmd[j]);

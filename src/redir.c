@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/06 12:28:23 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:49:27 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ void	check_redir(t_input *input, int i)
 				|| ft_strcmp(input[i].tab[j], ">") == 0
 				|| ft_strcmp(input[i].tab[j], ">>") == 0))
 		{
-			infile = open(input[i].tab[j + 1], O_RDONLY, 0644);
+			j++;
+			infile = open(input[i].in_file, O_RDONLY, 0644);
 			if (infile < 0)
 			{
-				printf("HEEEERE\n");
 				return (perror(input[i].tab[j + 1]));
+				printf("ICI");
 			}
 			else
 				close(infile);

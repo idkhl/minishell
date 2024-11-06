@@ -2,10 +2,10 @@ exemples_a_tester.c
 includes
 infile
 libft
-ls
 Makefile
 minishell
 notes
 outfile
 src
+test
 valgrind-readline.supp

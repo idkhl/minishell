@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:56:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/30 12:17:40 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:50:39 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,27 @@ char				*ft_strjoin_gnl(char *s1, char *s2);
 char				**malloc_free(char	**tab);
 
 t_list				*ft_lstnew(void *content);
-void		ft_lstadd_front(t_list **lst, t_list *new);
-t_list		*ft_lstlast(t_list *lst);
-int			ft_lstsize(t_list *lst);
-void		ft_lstdelone(t_list *lst, void (*del)(void *));
-void		ft_lstadd_back(t_list **lst, t_list *new);
-void		ft_lstclear(t_list **lst, void (*del)(void*));
-t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-void		ft_lstiter(t_list *lst, void (*f)(void *));
+void				ft_lstadd_front(t_list **lst, t_list *new);
+t_list				*ft_lstlast(t_list *lst);
+int					ft_lstsize(t_list *lst);
+void				ft_lstdelone(t_list *lst, void (*del)(void *));
+void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstclear(t_list **lst, void (*del)(void*));
+t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
+						void (*del)(void *));
+void				ft_lstiter(t_list *lst, void (*f)(void *));
 
-int			found_newlines(char *all_read);
-char		*ft_strcpy2(char *dest, char *src);
-char		*ft_strncat(char *dest, char *src, int nb);
+int					found_newlines(char *all_read);
+char				*ft_strcpy2(char *dest, char *src);
+char				*ft_strncat(char *dest, char *src, int nb);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
 
-char		*get_next_line(int fd);
-char		*ft_get_line(char *stash);
-char		*ft_stash(char *stash);
-char		*ft_read_and_stash(int fd, char *stash);
+char				*get_next_line(int fd);
+char				*ft_get_line(char *stash);
+char				*ft_stash(char *stash);
+char				*ft_read_and_stash(int fd, char *stash);
 
 #endif

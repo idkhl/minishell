@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:07:38 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/05 17:10:33 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:33:17 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,34 @@ char	*ft_strdup(char *s)
 	return (dest);
 }
 
-char	*quoted_strdup(char *s)
-{
-	char	*dest;
-	int		len;
-	int		i;
-	int		j;
-	char	quote_char;
+// char	*quoted_strdup(char *s)
+// {
+// 	char	*dest;
+// 	int		len;
+// 	int		i;
+// 	int		j;
+// 	char	quote_char;
 
-	len = 0;
-	i = 0;
-	j = 0;
-	quote_char = 0;
-	if (s[0] == '\'' || s[0] == '"')
-		quote_char = s[i++];
-	while (s[i++] && !(s[i] == quote_char && s[i + 1] == '\0'))
-		len++;
-	dest = (char *)malloc(sizeof(char) * (len + 1));
-	if (dest == NULL)
-		return (NULL);
-	if (quote_char != 0)
-		i = 1;
-	else
-		i = 0;
-	while (s[i] && !(s[i] == quote_char && s[i + 1] == '\0'))
-		dest[j++] = s[i++];
-	dest[j] = '\0';
-	return (dest);
-}
+// 	len = 0;
+// 	i = 0;
+// 	j = 0;
+// 	quote_char = 0;
+// 	if (s[0] == '\'' || s[0] == '"')
+// 		quote_char = s[i++];
+// 	while (s[i++] && !(s[i] == quote_char && s[i + 1] == '\0'))
+// 		len++;
+// 	dest = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (dest == NULL)
+// 		return (NULL);
+// 	if (quote_char != 0)
+// 		i = 1;
+// 	else
+// 		i = 0;
+// 	while (s[i] && !(s[i] == quote_char && s[i + 1] == '\0'))
+// 		dest[j++] = s[i++];
+// 	dest[j] = '\0';
+// 	return (dest);
+// }
 
 // char	*quoted_strdup(char *s)
 // {

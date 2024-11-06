@@ -98,12 +98,7 @@ char	**add_blocks(char **bloc, char *line)
 	{
 		bloc[j] = malloc_block(line, &i);
 		if (!bloc[j])
-		{
-			// for (int k = 0; k < j; k++)
-			// 	free(bloc[k]);
-			// free(bloc);
 			return (NULL);
-		}
 		j++;
 	}
 	bloc[j] = NULL;
@@ -118,7 +113,6 @@ char	**split_pipes(char *line)
 	if (!line)
 		return (NULL);
 	size = count_blocks(line);
-	// printf("%d\n", size);
 	split = (char **)malloc((size + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
@@ -128,7 +122,5 @@ char	**split_pipes(char *line)
 		malloc_free(split);
 		return (NULL);
 	}
-	// for (int i = 0; split[i]; i++)
-	// 	printf("[%s]\n", split[i]);
 	return (split);
 }
