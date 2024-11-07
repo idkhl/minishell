@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/07 15:29:58 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:30:51 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,22 @@ int	input_redir(t_input *input, int i)
 
 int	check_redir(t_input *input, int i, t_data *data)
 {
-	int		j;
-	int		infile;
-	t_quote	quote;
-	char	*file;
+	t_redir	redir;
 
-	j = 0;
-	while (input[i].tab[j] && j < get_tab_len(input[i].input))
+	redir.j = 0;
+	ft_bzero(&redir, sizeof(t_redir));
+	while (input[i].tab[redir.j] && redir.j < get_tab_len(input[i].input))
 	{
-		if (input[i].tab[j]
-			&& (ft_strcmp(input[i].tab[j], "<") == 0
-				|| ft_strcmp(input[i].tab[j], ">") == 0
-				|| ft_strcmp(input[i].tab[j], ">>") == 0))
-		{
-			j++;
-			file = add_to_input(input[i].tab[j], data, &quote);
-			// printf("FILE = %s\n", file);
-			infile = open(file, O_RDONLY, 0644);
-			if (infile < 0)
-				return (perror(file), free(file), 1);
-			else
-			{
-				free(file);
-				close(infile);
-			}
-		}
-		j++;
+		if (input[i].tab[redir.j]
+			&& (ft_strcmp(input[i].tab[redir.j], ">") == 0))
+			next_check_redir(input, i, data, redir);
+		else if (input[i].tab[redir.j]
+			&& (ft_strcmp(input[i].tab[redir.j], ">>") == 0))
+			next_check_redir2(input, i, data, redir);
+		else if (input[i].tab[redir.j]
+			&& (ft_strcmp(input[i].tab[redir.j], "<") == 0))
+			next_check_redir3(input, i, data, redir);
+		redir.j++;
 	}
 	return (0);
 }
@@ -121,3 +111,45 @@ int	redir(t_input *input, int i, t_data *data)
 	}
 	return (0);
 }
+
+
+		// {
+		// 	redir.j++;
+		// 	redir.file = add_to_input(input[i].tab[redir.j], data, &quote);
+		// 	redir.outfile = open(redir.file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		// 	if (redir.outfile < 0)
+		// 		return (perror(redir.file), free(redir.file), 1);
+		// 	else
+		// 	{
+		// 		free(redir.file);
+		// 		close(redir.outfile);
+		// 	}
+		// }
+
+		
+		// {
+		// 	redir.j++;
+		// 	redir.file = add_to_input(input[i].tab[redir.j], data, &quote);
+		// 	redir.outfile = open(redir.file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		// 	if (redir.outfile < 0)
+		// 		return (perror(redir.file), free(redir.file), 1);
+		// 	else
+		// 	{
+		// 		free(redir.file);
+		// 		close(redir.outfile);
+		// 	}
+		// }
+		
+		
+		// {
+		// 	redir.j++;
+		// 	redir.file = add_to_input(input[i].tab[redir.j], data, &quote);
+		// 	redir.infile = open(redir.file, O_RDONLY, 0644);
+		// 	if (redir.infile < 0)
+		// 		return (perror(redir.file), free(redir.file), 1);
+		// 	else
+		// 	{
+		// 		free(redir.file);
+		// 		close(redir.infile);
+		// 	}
+		// }

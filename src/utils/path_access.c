@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_access.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:23:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 16:05:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:38:40 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ char	*access_cmd(t_data *data, char **tab)
 
 	i = 0;
 	path = get_path(data);
-	if (!path)
-		return (NULL);
 	if (tab[0] && access(tab[0], F_OK | X_OK) == 0)
 	{
 		malloc_free(path);
 		return (ft_strdup(tab[0]));
 	}
+	if (!path)
+		return (NULL);
 	while (path && path[i])
 	{
 		bin = join_path_cmd(path[i], tab[0]);
