@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 exemples_a_tester.c
 includes
 infile
@@ -9,3 +10,16 @@ outfile
 src
 test
 valgrind-readline.supp
+=======
+total 132
+-rw-r--r-- 1 idakhlao 2023_paris    599 Oct 31 12:08 exemples_a_tester.c
+drwxr-xr-x 2 idakhlao 2023_paris     40 Nov  6 12:31 includes
+-rw-r--r-- 1 idakhlao 2023_paris      0 Nov  6 17:24 infile
+drwxr-xr-x 2 idakhlao 2023_paris   4096 Nov  6 17:23 libft
+-rw-r--r-- 1 idakhlao 2023_paris   2352 Nov  6 15:40 Makefile
+-rwxr-xr-x 1 idakhlao 2023_paris 104240 Nov  6 17:23 minishell
+-rw-r--r-- 1 idakhlao 2023_paris    262 Nov  6 14:40 notes
+-rwxrwxrwx 1 idakhlao 2023_paris    102 Nov  6 17:21 outfile
+drwxr-xr-x 5 idakhlao 2023_paris    147 Nov  6 12:31 src
+-rw-r--r-- 1 idakhlao 2023_paris    245 Oct 25 19:33 valgrind-readline.supp
+>>>>>>> 6044e6d1e25ff9f504209959713c9931aa422ff2

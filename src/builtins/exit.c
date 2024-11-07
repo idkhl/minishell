@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/05 19:45:56 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:20:02 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	exit_code(int nb, int neg)
 			return (256 - nb);
 		if (nb > 256)
 		{
-			// nb -= 256;
-			return ((256 - nb) % 256);
+			printf ("[%d]\n", nb);
+			nb = 256 - nb;
+			return (nb % 256);
 		}
 	}
 	return (0);
@@ -62,6 +63,20 @@ void	clean_exit(t_data *data, t_input *input, int nb)
 	exit(nb);
 }
 
+void	check_num_arg(t_data *data, t_input *input, char **tab, \
+			unsigned long long nb)
+{
+	nb = ft_atoll(tab[1]);
+	if ((check_exit_args(tab[1]) == 1)
+		|| ((tab[1][0] == '-' && nb > (unsigned long long)(-LLONG_MIN))
+			|| (tab[1][0] != '-' && nb > LLONG_MAX)
+				|| ft_strlen(tab[1]) > 20))
+	{
+		printf("exit: %s: numeric argument required\n", tab[1]);
+		clean_exit(data, input, 2);
+	}
+}
+
 void	build_exit(t_data *data, t_input *input, char **tab)
 {
 	unsigned long long	nb;
@@ -70,28 +85,17 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 	nb = 0;
 	printf("exit\n");
 	if (tab[1])
-	{
-		nb = ft_atoll(tab[1]);
-		if ((check_exit_args(tab[1]) == 1)
-			|| ((tab[1][0] == '-' && nb > (unsigned long long)(-LLONG_MIN))
-				|| (tab[1][0] != '-' && nb > LLONG_MAX)
-					|| ft_strlen(tab[1]) > 20))
-		{
-			printf("exit: %s: numeric argument required\n", tab[1]);
-			clean_exit(data, input, 2);
-		}
-	}
-	else if (ft_tablen(tab) > 2)
+		check_num_arg(data, input, tab, nb);
+	if (ft_tablen(tab) > 2)
 	{
 		printf("exit: too many arguments\n");
 		g_signal = 1;
 		return ;
 	}
-	if (tab[1][0] == '-')
+	if (tab[1] && tab[1][0] == '-')
 		neg = 1;
 	else
 		neg = 0;
 	nb = exit_code(nb, neg);
-	printf("%llu\n", nb);
 	clean_exit(data, input, nb);
 }

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:47:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/06 15:55:15 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:49:35 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	get_tab_len(char *s)
 	{
 		while (s[i] && ft_isspace(s[i]) == 1)
 			i++;
-		len++;
 		while (s[i] && ft_isspace(s[i]) == 0 && (s[i] != '<' && s[i] != '>'))
 		{
 			if (s[i] && (s[i] == '\'' || s[i] == '"'))
@@ -88,6 +87,7 @@ int	get_tab_len(char *s)
 			i++;
 			len++;
 		}
+		len++;
 	}
 	return (len);
 }

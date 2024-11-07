@@ -1,9 +1,7 @@
-// export 
-//			pas de chiffres  symboles avant =
-// open les infile/outfile si plusieurs redir
-// pb de quotes
 // exit les bons code
 
+// export 
+//			pas de chiffres  symboles avant =
 // echo dans un fichier chmod000 ca echo quand meme
 //		enlever le exit dans indfile dans execcmd exit que si pipe
 // ctrl-\ signal+exit status
@@ -11,5 +9,5 @@
 
 // expand dans le heredoc
 //export u="s -l"
-//minishell $> l$ua
-//export $VIDE -> export PATH="..."
+<!-- echo -nnnnnnnnnnnnnnnnnnnnnnnnnnnn -n test -->
+ chemin absolu

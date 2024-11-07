@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:26:34 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/01 16:51:06 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:59:17 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,31 @@ void	build_pwd(void)
 	if (getcwd(buf, 1000) == NULL)
 		return (perror("error"));
 	printf("%s\n", buf);
+}
+
+void	update_env_var(char **env, char *var_name, char *new_value)
+{
+	int		i;
+	size_t	name_len;
+
+	i = 0;
+	name_len = ft_strlen(var_name);
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], var_name, name_len) == 0)
+		{
+			free(env[i]);
+			env[i] = malloc(name_len + ft_strlen(new_value) + 1);
+			if (env[i])
+			{
+				ft_strcpy(env[i], var_name);
+				ft_strlcat(env[i], new_value, name_len + \
+				ft_strlen(new_value) + 1);
+			}
+			return ;
+		}
+		i++;
+	}
 }
 
 void	update_oldpwd(t_data *data)
@@ -39,24 +64,7 @@ void	update_oldpwd(t_data *data)
 	}
 	if (!oldpwd)
 		return ;
-	i = 0;
-	while (data->env[i])
-	{
-		if (ft_strncmp(data->env[i], "OLDPWD=", 7) == 0)
-		{
-			free(data->env[i]);
-			data->env[i] = malloc(strlen("OLDPWD=") + strlen(oldpwd) + 1);
-			if (data->env[i])
-			{
-				ft_strcpy(data->env[i], "OLDPWD=");
-				ft_strlcat(data->env[i], oldpwd, ft_strlen("OLDPWD=") \
-				+ ft_strlen(oldpwd) + 1);
-			}
-			free(oldpwd);
-			return ;
-		}
-		i++;
-	}
+	update_env_var(data->env, "OLDPWD=", oldpwd);
 	free(oldpwd);
 }
 

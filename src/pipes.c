@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 13:23:03 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:26:50 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 	cmd = access_cmd(data, tab);
 	if (ft_strcmp(tab[0], "/") == 0)
 	{
-		ft_putstr_fd(tab[0], 2);
-		ft_putendl_fd(": is a directory", 2);
+		ft_error_msg(tab[0], ": is a directory");
 		free_child(data, input, cmd, 126);
 	}
 	if (exec_builtins(data, input, tab) == 0)
@@ -30,10 +29,7 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 			if ((tab != NULL && *tab != NULL)
 				&& (!input[i].in_file
 					|| ft_strcmp(input[i].redir_infile, "<<") != 0))
-			{
-				ft_putstr_fd(tab[0], 2);
-				ft_putendl_fd(": command not found", 2);
-			}
+				ft_error_msg(tab[0], ": command not found");
 			free_child(data, input, cmd, 127);
 		}
 		if (execve(cmd, tab, data->env) == -1)
@@ -41,20 +37,6 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 	}
 	else
 		free_child(data, input, cmd, 0);
-}
-
-void	pipe_redir(t_data *data, t_input *input, int i)
-{
-	if (input[i].in_file != NULL || input[i].out_file != NULL)
-	{
-		if (redir(input, i, data) == 1)
-		{
-			malloc_free(data->env);
-			free_all(input);
-			g_signal = 1;
-			exit(1);
-		}
-	}
 }
 
 void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
@@ -137,34 +119,49 @@ void	exec_last_pipe(t_data *data, t_input *input, char **tab, int i)
 	}
 }
 
-void	pipex(t_data *data, t_input	*input, int nb_blocks)
+void	handle_pipe_block(t_data *data, t_input *input, int i, int nb_blocks)
 {
-	int (i) = 0;
-	data->copy_stdin = dup(STDIN_FILENO);
-	while (i <= nb_blocks - 1)
-	{
-		if (pipe(data->fd) == -1)
-			return (perror("pipe 1"));
-		if (i == 0)
-			exec_first_pipe(data, input, input[i].cmd, i);
-		else if (i == nb_blocks - 1)
-			exec_last_pipe(data, input, input[i].cmd, i);
-		else
-			exec_middle_pipes(data, input, input[i].cmd, i);
-		if (i < nb_blocks - 1)
-		{
-			if (dup2(data->fd[0], STDIN_FILENO) == -1)
-				return (perror("FAIL - IN"));
-		}
-		close(data->fd[0]);
-		close(data->fd[1]);
-		i++;
-	}
-	dup2(data->copy_stdin, STDIN_FILENO);
-	close(data->copy_stdin);
-	// while (wait(NULL) > 0);
-	while (wait(NULL) != -1)
-		continue ;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_signals);
+	if (pipe(data->fd) == -1)
+		return (perror("pipe 1"));
+	if (i == 0)
+		exec_first_pipe(data, input, input[i].cmd, i);
+	else if (i == nb_blocks - 1)
+		exec_last_pipe(data, input, input[i].cmd, i);
+	else
+		exec_middle_pipes(data, input, input[i].cmd, i);
+	if (i < nb_blocks - 1 && dup2(data->fd[0], STDIN_FILENO) == -1)
+		return (perror("FAIL - IN"));
+	close(data->fd[0]);
+	close(data->fd[1]);
 }
+
+// void	pipex(t_data *data, t_input	*input, int nb_blocks)
+// {
+// 	int (i) = 0;
+// 	data->copy_stdin = dup(STDIN_FILENO);
+// 	while (i <= nb_blocks - 1)
+// 	{
+// 		if (pipe(data->fd) == -1)
+// 			return (perror("pipe 1"));
+// 		if (i == 0)
+// 			exec_first_pipe(data, input, input[i].cmd, i);
+// 		else if (i == nb_blocks - 1)
+// 			exec_last_pipe(data, input, input[i].cmd, i);
+// 		else
+// 			exec_middle_pipes(data, input, input[i].cmd, i);
+// 		if (i < nb_blocks - 1)
+// 		{
+// 			if (dup2(data->fd[0], STDIN_FILENO) == -1)
+// 				return (perror("FAIL - IN"));
+// 		}
+// 		close(data->fd[0]);
+// 		close(data->fd[1]);
+// 		i++;
+// 	}
+// 	dup2(data->copy_stdin, STDIN_FILENO);
+// 	close(data->copy_stdin);
+// 	while (wait(NULL) != -1)
+// 		continue ;
+// 	signal(SIGQUIT, SIG_IGN);
+// 	signal(SIGINT, handle_signals);
+// }

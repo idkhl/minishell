@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 17:23:01 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 15:54:15 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:32:42 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	check_var_is_valid(char *var)
 {
 	int	i;
 
+	if (ft_strchr(var, '=') == 0)
+		return (1);
 	if (ft_isdigit(var[0]))
 		return (-1);
 	if (var[0] == '=')
@@ -50,4 +52,31 @@ char	*var_name(char	*var)
 	}
 	tmp[j] = '\0';
 	return (tmp);
+}
+
+void	print_export(t_data *data)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	while (data->exp[i] != 0)
+	{
+		j = i;
+		while (data->exp[j] != 0)
+		{
+			if (ft_strcmp(data->exp[i], data->exp[j]) > 0)
+			{
+				temp = data->exp[i];
+				data->exp[i] = data->exp[j];
+				data->exp[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = -1;
+	while (data->exp[++i])
+		printf("export %s\n", data->exp[i]);
 }

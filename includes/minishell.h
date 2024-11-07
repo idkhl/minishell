@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 13:20:53 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:35:44 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	pipe_heredoc(t_data *data, t_input *input, int nb);
 void	unlink_heredoc(t_input *input, int nb);
 void	do_redir(t_data *data, t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
-void	check_redir(t_input *input, int i, t_data *data);
+int		check_redir(t_input *input, int i, t_data *data);
 
 /*	BUILT-INS	*/
 
@@ -118,6 +118,12 @@ int		count_cmds(char **tab);
 char	*ft_structcpy(char *dest, char *src, int i);
 int		get_len2(char *s);
 char	*quoted_strdup(char *s);
+
+void	restore_std_input(t_data *data);
+void	handle_pipe_block(t_data *data, t_input *input, int i, int nb_blocks);
+void	pipe_redir(t_data *data, t_input *input, int i);
+void	ft_error_msg(char *s1, char *s2);
+void	print_export(t_data *data);
 
 /*  PARSING  */
 
