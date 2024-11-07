@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:23:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 16:05:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:40:10 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,11 @@ char	*access_cmd(t_data *data, char **tab)
 	int		i;
 
 	i = 0;
+	if (tab[0] && access(tab[0], F_OK | X_OK) == 0)
+		return (ft_strdup(tab[0]));
 	path = get_path(data);
 	if (!path)
 		return (NULL);
-	if (tab[0] && access(tab[0], F_OK | X_OK) == 0)
-	{
-		malloc_free(path);
-		return (ft_strdup(tab[0]));
-	}
 	while (path && path[i])
 	{
 		bin = join_path_cmd(path[i], tab[0]);
