@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 12:24:31 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:23:31 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exec_pid(t_input *input, t_data *data, char **tab, char *cmd)
 {
 	if (input[0].in_file != NULL || input[0].out_file != NULL)
 	{
-		if (redir(input, 0) == 1)
+		if (redir(input, 0, data) == 1)
 			return (free_child(data, input, cmd, 1), 1);
 	}
 	if (tab[0] && ft_strcmp(tab[0], "/") == 0)

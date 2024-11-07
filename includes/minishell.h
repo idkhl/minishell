@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 12:23:20 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:20:53 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ void	exec_signals(int sig);
 void	execute_cmd(t_data *data, t_input *input, char **tab);
 int		exec_builtins(t_data *data, t_input *input, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
-int		redir(t_input *input, int i);
+int		redir(t_input *input, int i, t_data *data);
 void	heredoc(t_input *input, int i);
 void	pipe_heredoc(t_data *data, t_input *input, int nb);
 void	unlink_heredoc(t_input *input, int nb);
 void	do_redir(t_data *data, t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
-void	check_redir(t_input *input, int i);
+void	check_redir(t_input *input, int i, t_data *data);
 
 /*	BUILT-INS	*/
 

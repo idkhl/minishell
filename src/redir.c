@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/06 15:49:27 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:18:52 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	do_redir(t_data *data, t_input *input)
 	data->copy_stdout = dup(STDOUT_FILENO);
 	if (input[0].in_file != NULL || input[0].out_file != NULL)
 	{
-		if (redir(input, 0) == 1)
+		if (redir(input, 0, data) == 1)
 		{
 			dup2(data->copy_stdin, STDIN_FILENO);
 			dup2(data->copy_stdout, STDOUT_FILENO);
@@ -63,10 +63,12 @@ int	input_redir(t_input *input, int i)
 	return (0);
 }
 
-void	check_redir(t_input *input, int i)
+void	check_redir(t_input *input, int i, t_data *data)
 {
-	int	j;
-	int	infile;
+	int		j;
+	int		infile;
+	t_quote	quote;
+	char	*file;
 
 	j = 0;
 	while (input[i].tab[j] && j < get_tab_len(input[i].input))
@@ -77,24 +79,26 @@ void	check_redir(t_input *input, int i)
 				|| ft_strcmp(input[i].tab[j], ">>") == 0))
 		{
 			j++;
-			infile = open(input[i].in_file, O_RDONLY, 0644);
+			file = add_to_input(input[i].tab[j], data, &quote);
+			// printf("FILE = %s\n", file);
+			infile = open(file, O_RDONLY, 0644);
 			if (infile < 0)
-			{
-				return (perror(input[i].tab[j + 1]));
-				printf("ICI");
-			}
+				return (perror(file), free(file));
 			else
+			{
+				free(file);
 				close(infile);
+			}
 		}
 		j++;
 	}
 }
 
-int	redir(t_input *input, int i)
+int	redir(t_input *input, int i, t_data *data)
 {
-	int	outfile;
+	int		outfile;
 
-	check_redir(input, i);
+	check_redir(input, i, data);
 	if (input[i].in_file != NULL)
 	{
 		if (input_redir(input, i) == 1)
