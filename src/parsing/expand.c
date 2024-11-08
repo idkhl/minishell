@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:41:55 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/31 15:39:53 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:18:06 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	next_add_to_input(char *line, t_quote *quote, t_data *data)
 		quote->str = join_char(quote->str, line[quote->i]);
 	else
 	{
-		sig = ft_itoa(g_signal);
+		sig = ft_itoa(data->exit_status);
 		if (line[quote->i] && line[quote->i] == '$'
 			&& line[quote->i + 1] == '?')
 		{

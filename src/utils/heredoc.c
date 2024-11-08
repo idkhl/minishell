@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/10/31 11:42:48 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:59:54 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	heredoc_loop(t_input *input, int i)
 		if (g_signal == 130)
 		{
 			free(line);
-			break ;
+			return ;
 		}
 		if (ft_strcmp(line, input[i].in_file) == 0 || line == NULL)
 		{
@@ -70,7 +70,7 @@ void	heredoc(t_input *input, int i)
 	if (input[i].heredoc == -1)
 		return (free(file));
 	heredoc_loop(input, i);
-	g_signal = 0;
+	// g_signal = 0;
 	close(input[i].heredoc);
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);

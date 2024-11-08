@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/08 13:30:58 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:21:19 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	input->fd_in = -1;
 	input->fd_out = -1;
 	input->heredoc = 0;
+	data->exit_status = 0;
 }
 
 void	parse_line(t_data *data, t_input *input, char *line)
@@ -47,6 +48,11 @@ void	parse_line(t_data *data, t_input *input, char *line)
 		{
 			if (ft_strcmp(input[0].redir_infile, "<<") == 0)
 				heredoc(input, 0);
+			if (g_signal == 130)
+			{
+				unlink_heredoc(input, nb_blocks);
+				return ;
+			}
 		}
 		if (check_builtins(input->cmd) == 0)
 			execute_cmd(data, input, input->cmd);
@@ -56,6 +62,11 @@ void	parse_line(t_data *data, t_input *input, char *line)
 	else
 	{
 		pipe_heredoc(data, input, nb_blocks);
+		if (g_signal == 130)
+		{
+			unlink_heredoc(input, nb_blocks);
+			return ;
+		}
 		pipex(data, input, nb_blocks);
 	}
 	unlink_heredoc(input, nb_blocks);
@@ -65,6 +76,8 @@ void	loop(t_data *data, t_input *input, char *line)
 {
 	while (line)
 	{
+		data->exit_status = g_signal;
+		g_signal = 0;
 		add_history(line);
 		if (check_syntax(line) == 1)
 		{
