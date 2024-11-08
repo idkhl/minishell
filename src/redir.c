@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/07 15:29:58 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:18:02 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	check_redir(t_input *input, int i, t_data *data)
 		{
 			j++;
 			file = add_to_input(input[i].tab[j], data, &quote);
-			// printf("FILE = %s\n", file);
 			infile = open(file, O_RDONLY, 0644);
 			if (infile < 0)
 				return (perror(file), free(file), 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 15:52:42 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:15:16 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,26 @@ void	parse_line(t_data *data, t_input *input, char *line)
 	unlink_heredoc(input, nb_blocks);
 }
 
+void	loop(t_data *data, t_input *input, char *line)
+{
+	while (line)
+	{
+		add_history(line);
+		if (check_syntax(line) == 1)
+		{
+			free(line);
+			line = readline("\033[1;32mminishell $> \033[0m");
+			continue ;
+		}
+		allocate_new_struct(&input, line);
+		fill_struct(input, line, data);
+		parse_line(data, input, line);
+		free_all(input);
+		free(line);
+		line = readline("\033[1;32mminishell $> \033[0m");
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
@@ -74,23 +94,7 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	line = readline("\033[1;32mminishell $> \033[0m");
 	init_struct(&data, input, envp);
-	while (line)
-	{
-		add_history(line);
-		if (check_syntax(line) == 1)
-		{
-			free(line);
-			line = readline("\033[1;32mminishell $> \033[0m");
-			continue ;
-		}
-		allocate_new_struct(&input, line);
-		fill_struct(input, line, &data);
-		//printf("tab_len = %d\n", get_tab_len(input[0].input));
-		parse_line(&data, input, line);
-		free_all(input);
-		free(line);
-		line = readline("\033[1;32mminishell $> \033[0m");
-	}
+	loop(&data, input, line);
 	(void)av;
 	(void)ac;
 	if (data.env)

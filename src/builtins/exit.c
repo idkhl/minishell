@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 15:20:02 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:38:10 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 	int					neg;
 
 	nb = 0;
-	printf("exit\n");
 	if (tab[1])
 		check_num_arg(data, input, tab, nb);
 	if (ft_tablen(tab) > 2)
