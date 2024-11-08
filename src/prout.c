@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/08 16:21:19 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:07:57 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	loop(t_data *data, t_input *input, char *line)
 		if (check_syntax(line) == 1)
 		{
 			free(line);
-			line = readline("\033[1;32mminishell $> \033[0m");
+			line = readline("\001\e[1;32m\002minishell $> \001\e[0m\002 ");
 			continue ;
 		}
 		allocate_new_struct(&input, line);
@@ -90,7 +90,7 @@ void	loop(t_data *data, t_input *input, char *line)
 		parse_line(data, input, line);
 		free_all(input);
 		free(line);
-		line = readline("\033[1;32mminishell $> \033[0m");
+		line = readline("\001\e[1;32m\002minishell $> \001\e[0m\002 ");
 	}
 }
 
@@ -105,7 +105,8 @@ int	main(int ac, char **av, char **envp)
 	input = NULL;
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);
-	line = readline("\033[1;32mminishell $> \033[0m");
+	line = readline("\001\e[1;32m\002minishell $> \001\e[0m\002 ");
+	// line = readline("mminishell $> ");
 	init_struct(&data, input, envp);
 	loop(&data, input, line);
 	(void)av;
