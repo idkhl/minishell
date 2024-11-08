@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 17:32:57 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:01:39 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		check_redir(t_input *input, int i, t_data *data);
 int		next_check_redir(t_input *input, int i, t_data *data, t_redir redir);
 int		next_check_redir2(t_input *input, int i, t_data *data, t_redir redir);
 int		next_check_redir3(t_input *input, int i, t_data *data, t_redir redir);
+int		next_check_redir4(t_input *input, int i, t_data *data, t_redir redir);
 
 /*	BUILT-INS	*/
 

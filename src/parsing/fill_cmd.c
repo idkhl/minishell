@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/07 15:32:05 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:34:26 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	fill_cmd(t_input *input, t_data *data, t_quote *quote)
 	while (input[i].tab)
 	{
 		input[i].cmd = malloc(sizeof(char *) * (get_nb_cmd(input) + 1));
+		if (!input[i].cmd)
+			return ;
 		fill_cmd_next(input, data, quote, i);
 		i++;
 	}

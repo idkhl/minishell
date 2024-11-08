@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/08 13:32:26 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:57:40 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ int	check_redir(t_input *input, int i, t_data *data)
 		else if (input[i].tab[redir.j]
 			&& (ft_strcmp(input[i].tab[redir.j], "<") == 0))
 			next_check_redir3(input, i, data, redir);
+		else if (input[i].tab[redir.j]
+			&& (ft_strcmp(input[i].tab[redir.j], "<<") == 0))
+			
 		redir.j++;
 	}
 	return (0);

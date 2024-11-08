@@ -9,3 +9,5 @@
 
 // expand dans le heredoc
 //export u="s -l"
+
+// 2 messages d'erreur infile n'existe pas
