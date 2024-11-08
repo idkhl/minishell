@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 15:35:44 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:32:57 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ typedef struct s_pipe
 	char	quote_char;
 }	t_pipe;
 
+typedef struct s_redir
+{
+	int		j;
+	int		infile;
+	int		outfile;
+	char	*file;
+}	t_redir;
+
 extern int	g_signal;
 
 void	handle_signals(int sig);
@@ -87,6 +95,9 @@ void	unlink_heredoc(t_input *input, int nb);
 void	do_redir(t_data *data, t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
 int		check_redir(t_input *input, int i, t_data *data);
+int		next_check_redir(t_input *input, int i, t_data *data, t_redir redir);
+int		next_check_redir2(t_input *input, int i, t_data *data, t_redir redir);
+int		next_check_redir3(t_input *input, int i, t_data *data, t_redir redir);
 
 /*	BUILT-INS	*/
 

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:15:27 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 17:46:14 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:33:14 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	build_echo(char **tab)
 
 	i = 1;
 	nl = 0;
+	while (tab [i] && ft_strncmp(tab[i], "-n", 2) == 0)
 	while (tab [i] && ft_strncmp(tab[i], "-n", 2) == 0)
 	{
 		nl = check_echo(tab[i]);
