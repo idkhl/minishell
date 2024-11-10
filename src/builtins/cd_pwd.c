@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:26:34 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/06 15:59:17 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/10 22:30:41 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,49 @@ void	update_pwd(t_data *data)
 	}
 }
 
+char	*get_home(t_data *data)
+{
+	int		i;
+	char	*home;
+
+	i = 0;
+	while (data->env[i])
+	{
+		if (ft_strncmp(data->env[i], "HOME=", 5) == 0)
+		{
+			home = ft_strdup(data->env[i] + 5);
+			return (home);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 void	build_cd(t_data *data, char **tab)
 {
+	char	*home;
+
 	update_oldpwd(data);
 	if (ft_tablen(tab) == 1)
 	{
-		chdir("/home/idakhlao");
+		home = get_home(data);
+		if (!home)
+		{
+			g_signal = 1;
+			ft_error_msg(tab[0], ": HOME not set");
+			return ;
+		}
+		chdir(home);
 		update_pwd(data);
+		free(home);
+		data->exit_status = 0;
 		return ;
 	}
 	if (chdir(tab[1]) != 0)
 	{
-		g_signal = 1;
+		data->exit_status = 1;
 		return (perror(tab[1]));
 	}
 	update_pwd(data);
-	g_signal = 0;
+	data->exit_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/10 21:31:35 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/10 22:33:11 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	loop(t_data *data, t_input *input, char *line)
 	while (line)
 	{
 		data->exit_status = g_signal;
-		g_signal = 0;
+		// g_signal = 0;
 		add_history(line);
 		if (check_syntax(line) == 1)
 		{
@@ -109,12 +109,11 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);
 	line = readline("\001\e[1;32m\002minishell $> \001\e[0m\002");
-	// line = readline("mminishell $> ");
 	init_struct(&data, input, envp);
 	loop(&data, input, line);
 	(void)av;
 	(void)ac;
 	if (data.env)
 		malloc_free(data.env);
-	exit(g_signal);
+	rl_clear_history();
 }
