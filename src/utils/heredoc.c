@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/08 15:59:54 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:01:54 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,36 @@ char	*temp_file(int i)
 void	heredoc_loop(t_input *input, int i)
 {
 	char	*line;
+	int j = 0;
 
 	signal(SIGINT, heredoc_signals);
 	signal(SIGQUIT, SIG_IGN);
 	line = readline("> ");
-	while (line)
+	while (input[i].tab[j])
 	{
-		if (g_signal == 130)
+		if (input[i].tab[j] && ft_strcmp(input[i].tab[j], "<<") == 0)
 		{
-			free(line);
-			return ;
+			while (line)
+			{
+				if (g_signal == 130)
+				{
+					free(line);
+					break ;
+				}
+				if (ft_strcmp(line, input[i].tab[j + 1]) == 0 || line == NULL)
+				{
+					free(line);
+					break ;
+				}
+				write(input[i].heredoc, line, ft_strlen(line));
+				write(input[i].heredoc, "\n", 1);
+				free(line);
+				line = readline("> ");
+			}
+			j = j + 2;
 		}
-		if (ft_strcmp(line, input[i].in_file) == 0 || line == NULL)
-		{
-			free(line);
-			break ;
-		}
-		write(input[i].heredoc, line, ft_strlen(line));
-		write(input[i].heredoc, "\n", 1);
-		free(line);
-		line = readline("> ");
+		else
+			j++;
 	}
 }
 
