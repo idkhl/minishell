@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/10 15:58:37 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/10 21:31:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	int		copy_stdin;
 	int		copy_stdout;
 	int		exit_status;
+	int		temp_count;
+	char	**temp_files;
 }	t_data;
 
 typedef struct s_input
@@ -90,9 +92,9 @@ void	execute_cmd(t_data *data, t_input *input, char **tab);
 int		exec_builtins(t_data *data, t_input *input, char **tab);
 void	pipex(t_data *data, t_input *input, int nb_blocks);
 int		redir(t_input *input, int i, t_data *data);
-void	heredoc(t_input *input, int i);
+void	heredoc(t_data *data, t_input *input, int i);
 void	pipe_heredoc(t_data *data, t_input *input, int nb);
-void	unlink_heredoc(t_input *input, int nb);
+void	unlink_heredoc();
 void	do_redir(t_data *data, t_input *input);
 void	free_child(t_data *data, t_input *input, char *cmd, int EXIT_CODE);
 int		check_redir(t_input *input, int i, t_data *data);

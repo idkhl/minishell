@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 15:26:50 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/10 21:13:05 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 	char	*cmd;
 
 	cmd = access_cmd(data, tab);
-	if (ft_strcmp(tab[0], "/") == 0)
+	if (tab[0] && ft_strcmp(tab[0], "/") == 0)
 	{
 		ft_error_msg(tab[0], ": is a directory");
 		free_child(data, input, cmd, 126);

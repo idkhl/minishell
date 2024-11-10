@@ -11,3 +11,7 @@
 //export u="s -l"
 
 // 2 messages d'erreur infile n'existe pas
+// << eof << eof ^C doit quitter tous les heredoc d'un coup
+
+
+//free(str) dans fill_cmd_next?

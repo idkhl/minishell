@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/08 16:57:40 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/10 21:36:28 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,46 @@ void	do_redir(t_data *data, t_input *input)
 	close(data->copy_stdout);
 }
 
-void	unlink_heredoc(t_input *input, int nb)
-{
-	int		i;
+// void	unlink_heredoc(t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < nb)
+// 	i = 0;
+// 	while (i < data->temp_count)
+// 	{
+// 		unlink(data->temp_files[i]);
+// 		free(data->temp_files[i]);
+// 		i++;
+// 	}
+// 	free(data->temp_files);
+// 	data->temp_files = NULL;
+// 	data->temp_count = 0;
+// }
+
+void	unlink_heredoc()
+{
+	char	*tmp;
+	char	*file;
+	char	*nb;
+	int		file_index;
+
+	tmp = ft_strdup(".heredoc");
+	file_index = 0;
+	nb = ft_itoa(file_index);
+	file = ft_strjoin(tmp, nb);
+	free(nb);
+	while (access(file, F_OK) == 0)
 	{
-		if (input[i].in_file && ft_strcmp(input[i].redir_infile, "<<") == 0)
-			unlink(input[i].in_file);
-		i++;
+		unlink(file);
+		free(file);
+		nb = ft_itoa(++file_index);
+		file = ft_strjoin(tmp, nb);
+		free(nb);
 	}
+	free(tmp);
+	free(file);
 }
+
 
 int	input_redir(t_input *input, int i)
 {
@@ -55,7 +83,7 @@ int	input_redir(t_input *input, int i)
 	{
 		infile = open(input[i].in_file, O_RDONLY, 0644);
 		if (infile < 0)
-			return (perror(input[i].in_file), 1);
+			return (1);
 		if (dup2(infile, STDIN_FILENO) == -1)
 			return (close(infile), perror("dup2"), 1);
 		close(infile);
@@ -71,6 +99,7 @@ int	check_redir(t_input *input, int i, t_data *data)
 	ft_bzero(&redir, sizeof(t_redir));
 	while (input[i].tab[redir.j] && redir.j < get_tab_len(input[i].input))
 	{
+		// printf("!!!!!\n");
 		if (input[i].tab[redir.j]
 			&& (ft_strcmp(input[i].tab[redir.j], ">") == 0))
 			next_check_redir(input, i, data, redir);
@@ -80,9 +109,9 @@ int	check_redir(t_input *input, int i, t_data *data)
 		else if (input[i].tab[redir.j]
 			&& (ft_strcmp(input[i].tab[redir.j], "<") == 0))
 			next_check_redir3(input, i, data, redir);
-		else if (input[i].tab[redir.j]
-			&& (ft_strcmp(input[i].tab[redir.j], "<<") == 0))
-			
+		// else if (input[i].tab[redir.j]
+		// 	&& (ft_strcmp(input[i].tab[redir.j], "<<") == 0))
+		// 	next_check_redir4(input, i, data, redir);
 		redir.j++;
 	}
 	return (0);
@@ -107,7 +136,7 @@ int	redir(t_input *input, int i, t_data *data)
 			outfile = open(input[i].out_file, \
 				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (outfile < 0)
-			return (perror(input[i].out_file), 1);
+			return (1);
 		if (dup2(outfile, STDOUT_FILENO) == -1)
 			return (close(outfile), perror("dup2"), 1);
 		close(outfile);
