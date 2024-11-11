@@ -6,20 +6,11 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:26:34 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/10 22:30:41 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:04:57 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	build_pwd(void)
-{
-	char	buf[1000];
-
-	if (getcwd(buf, 1000) == NULL)
-		return (perror("error"));
-	printf("%s\n", buf);
-}
 
 void	update_env_var(char **env, char *var_name, char *new_value)
 {

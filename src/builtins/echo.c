@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:15:27 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/10 22:29:58 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:03:07 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ void	build_echo(char **tab)
 	}
 	if (nl == 0)
 		printf("\n");
-	g_signal = 0;
 }

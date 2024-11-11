@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+         #
+#    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/11/07 17:31:45 by afrikach         ###   ########.fr        #
+#    Updated: 2024/11/11 18:42:16 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 SRCS = src/prout.c src/signals.c src/pipes.c src/exec_cmd.c src/redir.c\
 		\
-		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/exit.c\
+		src/builtins/echo.c src/builtins/cd_pwd.c src/builtins/env.c src/builtins/exit.c src/builtins/pwd.c \
 		src/builtins/export.c src/builtins/unset.c src/builtins/builtins.c\
 		\
 		src/utils/ft_tabdup.c src/utils/ft_tablen.c src/utils/split_pipes.c\

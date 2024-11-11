@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/10 22:33:11 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:11:24 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,33 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	data->temp_files = NULL;
 }
 
+void	no_pipe(t_data *data, t_input *input)
+{
+	if (input[0].in_file)
+	{
+		if (ft_strcmp(input[0].redir_infile, "<<") == 0)
+			heredoc(input, 0);
+		if (g_signal == 130)
+		{
+			unlink_heredoc();
+			return ;
+		}
+	}
+	if (check_builtins(input->cmd) == 0)
+		execute_cmd(data, input, input->cmd);
+	else
+		do_redir(data, input);
+}
+
 void	parse_line(t_data *data, t_input *input, char *line)
 {
 	int		nb_blocks;
 
 	nb_blocks = count_blocks(line);
+	if (nb_blocks)
+		g_signal = 0;
 	if (nb_blocks == 1)
-	{
-		if (input[0].in_file)
-		{
-			if (ft_strcmp(input[0].redir_infile, "<<") == 0)
-				heredoc(data, input, 0);
-			if (g_signal == 130)
-			{
-				unlink_heredoc();
-				return ;
-			}
-		}
-		if (check_builtins(input->cmd) == 0)
-			execute_cmd(data, input, input->cmd);
-		else
-			do_redir(data, input);
-	}
+		no_pipe(data, input);
 	else
 	{
 		pipe_heredoc(data, input, nb_blocks);
@@ -80,7 +85,6 @@ void	loop(t_data *data, t_input *input, char *line)
 	while (line)
 	{
 		data->exit_status = g_signal;
-		// g_signal = 0;
 		add_history(line);
 		if (check_syntax(line) == 1)
 		{
