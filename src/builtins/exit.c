@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 02:20:49 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 11:02:28 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:16:35 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	clean_exit(t_data *data, t_input *input, int nb)
 	exit(nb);
 }
 
-void	check_num_arg(t_data *data, t_input *input, char **tab, \
+int	check_num_arg(t_data *data, t_input *input, char **tab, \
 			unsigned long long nb)
 {
 	nb = ft_atoll(tab[1]);
@@ -75,6 +75,7 @@ void	check_num_arg(t_data *data, t_input *input, char **tab, \
 		printf("exit: %s: numeric argument required\n", tab[1]);
 		clean_exit(data, input, 2);
 	}
+	return (nb);
 }
 
 void	build_exit(t_data *data, t_input *input, char **tab)
@@ -84,7 +85,7 @@ void	build_exit(t_data *data, t_input *input, char **tab)
 
 	nb = 0;
 	if (tab[1])
-		check_num_arg(data, input, tab, nb);
+		nb = check_num_arg(data, input, tab, nb);
 	if (ft_tablen(tab) > 2)
 	{
 		printf("exit: too many arguments\n");
