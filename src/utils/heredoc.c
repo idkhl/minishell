@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/11 16:14:38 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:23:59 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,31 @@ void	heredoc_loop(t_input *input, int i, int j)
 	}
 }
 
-void	heredoc(t_input *input, int i)
+int	handle_heredoc(t_input *input, int i, int j)
 {
 	char	*file;
-	int		j;
+
+	file = temp_file();
+	input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (input[i].heredoc == -1)
+		return (free(file), 0);
+	heredoc_loop(input, i, j);
+	if (g_signal == 130)
+	{
+		close(input[i].heredoc);
+		free(file);
+		return (-1);
+	}
+	close(input[i].heredoc);
+	free(input[i].in_file);
+	input[i].in_file = ft_strdup(file);
+	free(file);
+	return (0);
+}
+
+void	heredoc(t_input *input, int i)
+{
+	int	j;
 
 	j = 0;
 	signal(SIGINT, heredoc_signals);
@@ -72,23 +93,8 @@ void	heredoc(t_input *input, int i)
 	{
 		if (ft_strcmp(input[i].tab[j], "<<") == 0
 			&& input[i].tab[j + 1] != NULL)
-		{
-			file = temp_file();
-			input[i].heredoc = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (input[i].heredoc == -1)
-				return (free(file));
-			heredoc_loop(input, i, j);
-			if (g_signal == 130)
-			{
-				close(input[i].heredoc);
-				free(file);
+			if (handle_heredoc(input, i, j) == -1)
 				break ;
-			}
-			close(input[i].heredoc);
-			free(input[i].in_file);
-			input[i].in_file = ft_strdup(file);
-			free(file);
-		}
 		j++;
 	}
 	signal(SIGINT, handle_signals);

@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/10 21:13:05 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:58:01 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,24 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 
 	cmd = access_cmd(data, tab);
 	if (tab[0] && ft_strcmp(tab[0], "/") == 0)
+		return (ft_error_msg(tab[0], ": is a directory"), \
+			free_child(data, input, cmd, 126));
+	if (exec_builtins(data, input, tab) != 0)
+		return (free_child(data, input, cmd, 0));
+	if (!tab[0])
+		return (free_child(data, input, cmd, 0));
+	if (!cmd)
 	{
-		ft_error_msg(tab[0], ": is a directory");
-		free_child(data, input, cmd, 126);
+		if (tab[0]
+			&& (!input[i].in_file
+				|| ft_strcmp(input[i].redir_infile, "<<") != 0))
+			ft_error_msg(tab[0], ": command not found");
+		close(data->fd[0]);
+		close(data->fd[1]);
+		return (free_child(data, input, cmd, 127));
 	}
-	if (exec_builtins(data, input, tab) == 0)
-	{
-		if (!cmd)
-		{
-			if ((tab != NULL && *tab != NULL)
-				&& (!input[i].in_file
-					|| ft_strcmp(input[i].redir_infile, "<<") != 0))
-				ft_error_msg(tab[0], ": command not found");
-			free_child(data, input, cmd, 127);
-		}
-		if (execve(cmd, tab, data->env) == -1)
-			free_child(data, input, cmd, 127);
-	}
-	else
-		free_child(data, input, cmd, 0);
+	if (execve(cmd, tab, data->env) == -1)
+		free_child(data, input, cmd, 127);
 }
 
 void	exec_first_pipe(t_data *data, t_input *input, char **tab, int i)
@@ -134,34 +133,3 @@ void	handle_pipe_block(t_data *data, t_input *input, int i, int nb_blocks)
 	close(data->fd[0]);
 	close(data->fd[1]);
 }
-
-// void	pipex(t_data *data, t_input	*input, int nb_blocks)
-// {
-// 	int (i) = 0;
-// 	data->copy_stdin = dup(STDIN_FILENO);
-// 	while (i <= nb_blocks - 1)
-// 	{
-// 		if (pipe(data->fd) == -1)
-// 			return (perror("pipe 1"));
-// 		if (i == 0)
-// 			exec_first_pipe(data, input, input[i].cmd, i);
-// 		else if (i == nb_blocks - 1)
-// 			exec_last_pipe(data, input, input[i].cmd, i);
-// 		else
-// 			exec_middle_pipes(data, input, input[i].cmd, i);
-// 		if (i < nb_blocks - 1)
-// 		{
-// 			if (dup2(data->fd[0], STDIN_FILENO) == -1)
-// 				return (perror("FAIL - IN"));
-// 		}
-// 		close(data->fd[0]);
-// 		close(data->fd[1]);
-// 		i++;
-// 	}
-// 	dup2(data->copy_stdin, STDIN_FILENO);
-// 	close(data->copy_stdin);
-// 	while (wait(NULL) != -1)
-// 		continue ;
-// 	signal(SIGQUIT, SIG_IGN);
-// 	signal(SIGINT, handle_signals);
-// }

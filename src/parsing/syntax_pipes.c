@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:45:48 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/12 12:36:35 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:28:13 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_begin_pipes(char *line, t_data *data)
 	ft_bzero(&pipe, sizeof(t_pipe));
 	while ((size_t)pipe.i < ft_strlen(line) && line[pipe.i])
 	{
-		// ignore_spaces(line, &pipe.i);
 		while (line[pipe.i] == ' ' || line[pipe.i] == '\t')
 			pipe.i++;
 		handle_quotes(line, &pipe.i, &pipe.quotes, &pipe.quote_char);

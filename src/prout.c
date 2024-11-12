@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 13:22:02 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:26:48 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ void	parse_line(t_data *data, t_input *input, char *line)
 	int		nb_blocks;
 
 	nb_blocks = count_blocks(line);
-	if (nb_blocks)
+	if (nb_blocks > 0)
+	{
+		data->exit_status = 0;
 		g_signal = 0;
+	}
 	if (nb_blocks == 1)
 		no_pipe(data, input);
 	else
@@ -82,7 +85,8 @@ void	loop(t_data *data, t_input *input, char *line)
 {
 	while (line)
 	{
-		data->exit_status = g_signal;
+		if (g_signal != 0)
+			data->exit_status = g_signal;
 		add_history(line);
 		if (check_syntax(line, data) == 1)
 		{
@@ -113,9 +117,9 @@ int	main(int ac, char **av, char **envp)
 	line = readline("\001\e[1;32m\002minishell $> \001\e[0m\002");
 	init_struct(&data, input, envp);
 	loop(&data, input, line);
-	(void)av;
-	(void)ac;
 	if (data.env)
 		malloc_free(data.env);
 	rl_clear_history();
+	(void)av;
+	(void)ac;
 }

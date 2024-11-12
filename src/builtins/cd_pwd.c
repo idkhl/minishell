@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:26:34 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/11 18:04:57 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:36:56 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	build_cd(t_data *data, char **tab)
 		home = get_home(data);
 		if (!home)
 		{
-			g_signal = 1;
+			data->exit_status = 1;
 			ft_error_msg(tab[0], ": HOME not set");
 			return ;
 		}

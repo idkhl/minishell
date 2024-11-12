@@ -6,7 +6,7 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/20 11:40:35 by idakhlao          #+#    #+#              #
-#    Updated: 2024/11/08 17:16:17 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/11/12 10:54:57 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -ftrapv
+CFLAGS = -Wall -Werror -Wextra
 
 RM = rm -f
 

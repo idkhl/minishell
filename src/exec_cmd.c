@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 15:25:51 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:42:59 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,17 @@ int	exec_pid(t_input *input, t_data *data, char **tab, char *cmd)
 	}
 	if (tab[0] && ft_strcmp(tab[0], "/") == 0)
 	{
-		ft_putstr_fd(tab[0], 2);
-		ft_putendl_fd(": is a directory", 2);
+		ft_error_msg(tab[0], ": is a directory");
 		return (free_child(data, input, cmd, 126), 126);
 	}
+	if (!tab[0])
+		return (free_child(data, input, cmd, 0), 0);
 	if (!cmd)
 	{
 		if ((tab != NULL && *tab != NULL)
 			&& (!input[0].in_file
 				|| ft_strcmp(input[0].redir_infile, "<<") != 0))
-		{
-			ft_putstr_fd(tab[0], 2);
-			ft_putendl_fd(": command not found", 2);
-		}
+			ft_error_msg(tab[0], ": command not found");
 		return (free_child(data, input, cmd, 127), 127);
 	}
 	if (execve(cmd, tab, data->env) == -1)

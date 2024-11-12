@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/11 16:52:34 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:42:08 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	unlink_heredoc(void)
 	free(file);
 }
 
-
 int	input_redir(t_input *input, int i)
 {
 	int	infile;
@@ -92,9 +91,6 @@ int	check_redir(t_input *input, int i, t_data *data)
 		else if (input[i].tab[redir.j]
 			&& (ft_strcmp(input[i].tab[redir.j], "<") == 0))
 			next_check_redir3(input, i, data, redir);
-		// else if (input[i].tab[redir.j]
-		// 	&& (ft_strcmp(input[i].tab[redir.j], "<<") == 0))
-		// 	next_check_redir4(input, i, data, redir);
 		redir.j++;
 	}
 	return (0);
@@ -119,51 +115,10 @@ int	redir(t_input *input, int i, t_data *data)
 			outfile = open(input[i].out_file, \
 				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (outfile < 0)
-			return (1);
+			return (data->exit_status = 1, 1);
 		if (dup2(outfile, STDOUT_FILENO) == -1)
 			return (close(outfile), perror("dup2"), 1);
 		close(outfile);
 	}
 	return (0);
 }
-
-
-		// {
-		// 	redir.j++;
-		// 	redir.file = add_to_input(input[i].tab[redir.j], data, &quote);
-		// 	redir.outfile = open(redir.file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		// 	if (redir.outfile < 0)
-		// 		return (perror(redir.file), free(redir.file), 1);
-		// 	else
-		// 	{
-		// 		free(redir.file);
-		// 		close(redir.outfile);
-		// 	}
-		// }
-		
-		// {
-		// 	redir.j++;
-		// 	redir.file = add_to_input(input[i].tab[redir.j], data, &quote);
-		// 	redir.outfile = open(redir.file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		// 	if (redir.outfile < 0)
-		// 		return (perror(redir.file), free(redir.file), 1);
-		// 	else
-		// 	{
-		// 		free(redir.file);
-		// 		close(redir.outfile);
-		// 	}
-		// }
-		
-		
-		// {
-		// 	redir.j++;
-		// 	redir.file = add_to_input(input[i].tab[redir.j], data, &quote);
-		// 	redir.infile = open(redir.file, O_RDONLY, 0644);
-		// 	if (redir.infile < 0)
-		// 		return (perror(redir.file), free(redir.file), 1);
-		// 	else
-		// 	{
-		// 		free(redir.file);
-		// 		close(redir.infile);
-		// 	}
-		// }
