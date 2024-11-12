@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:37:44 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 15:38:02 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:14:28 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	pipe_redir(t_data *data, t_input *input, int i)
 		{
 			malloc_free(data->env);
 			free_all(input);
-			g_signal = 1;
+			data->exit_status = 1;
+			close(data->fd[0]);
+			close(data->fd[1]);
 			exit(1);
 		}
 	}

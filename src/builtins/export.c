@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:34:28 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/07 15:30:36 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:37:09 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	build_export(t_data *data, char **tab)
 			if (check_var_is_valid(tab[i]) == -1)
 			{
 				ft_error_msg(tab[i], ": not a valid identifier");
-				g_signal = 1;
+				data->exit_status = 1;
 			}
 		}
 		i++;

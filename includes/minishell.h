@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/11 16:12:27 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:55:58 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ typedef struct s_data
 	int		copy_stdin;
 	int		copy_stdout;
 	int		exit_status;
-	int		temp_count;
-	char	**temp_files;
 }	t_data;
 
 typedef struct s_input

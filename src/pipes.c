@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:07:15 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/10 21:13:05 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:51:10 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@ void	exec_pipe(t_data *data, t_input *input, char **tab, int i)
 	}
 	if (exec_builtins(data, input, tab) == 0)
 	{
+		if (!tab[0])
+			return (free_child(data, input, cmd, 0));
 		if (!cmd)
 		{
 			if ((tab != NULL && *tab != NULL)
 				&& (!input[i].in_file
 					|| ft_strcmp(input[i].redir_infile, "<<") != 0))
 				ft_error_msg(tab[0], ": command not found");
+			close(data->fd[0]);
+			close(data->fd[1]);
 			free_child(data, input, cmd, 127);
 		}
 		if (execve(cmd, tab, data->env) == -1)
