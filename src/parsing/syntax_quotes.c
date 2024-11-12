@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/12 13:11:47 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:49:41 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ static int	empty_string(char *line, t_data *data)
 	if (line[i] == '!' && (ft_isspace(line[i + 1]) || line[i + 1] == '\0'))
 	{
 		data->exit_status = 1;
-		printf("EXIT CODE => %d\n", data->exit_status);
 		return (1);
 	}
 	if (line[i] == ':' && (ft_isspace(line[i + 1]) || line[i + 1] == '\0'))
 	{
 		data->exit_status = 2;
-		printf("EXIT CODE => %d\n", data->exit_status);
 		return (1);
 	}
 	return (0);
@@ -52,16 +50,11 @@ int	no_word_string(char *line, t_data *data)
 		if (line[i] != '|' && line[i] != '<' && line[i] != '>'
 			&& line[i] != '&')
 				redir = 0;
-		if (line[i] == '/')
-			slash = 1;
-		if (slash && line[i] != '/' && line[i] != '.')
-			doc = 0;
 		i++;
 	}
 	if (redir && empty_string(line, data) == 0)
 	{
 		data->exit_status = 2;
-		printf("EXIT STATUS =>%d\n", data->exit_status);
 		return (printf("bash: syntax error near unexpected token\n"), 1);
 	}
 	return (0);
@@ -108,7 +101,7 @@ int	check_syntax(char *line, t_data *data)
 		return (1);
 	if (check_close_operators(line, data) == 1)
 		return (1);
-	if (check_begin_pipes(line,data) == 1)
+	if (check_begin_pipes(line, data) == 1)
 		return (1);
 	if (check_end_pipes(line, data) == 1)
 		return (1);

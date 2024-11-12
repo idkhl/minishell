@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 13:26:48 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:48:25 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	parse_line(t_data *data, t_input *input, char *line)
 		pipe_heredoc(data, input, nb_blocks);
 		if (g_signal == 130)
 		{
-			printf("1\n");
 			unlink_heredoc();
 			return ;
 		}
@@ -87,7 +86,9 @@ void	loop(t_data *data, t_input *input, char *line)
 	{
 		if (g_signal != 0)
 			data->exit_status = g_signal;
-		add_history(line);
+		g_signal = 0;
+		if (ft_strlen(line) != 0)
+			add_history(line);
 		if (check_syntax(line, data) == 1)
 		{
 			free(line);

@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:03:21 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/12 12:54:07 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:49:13 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static	int	end_of_close_operators(char *line, int *i, int *word, t_data *data)
 	if (line[*i] == '\0' || line[*i] == '>')
 	{
 		data->exit_status = 2;
-		printf("EXIT STATUS =>%d\n", data->exit_status);
 		printf("bash: syntax error near unexpected token 'newline'\n");
 		return (1);
 	}
