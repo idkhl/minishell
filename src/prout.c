@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 11:29:38 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:58:57 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ int	main(int ac, char **av, char **envp)
 	line = readline("\001\e[1;32m\002minishell $> \001\e[0m\002");
 	init_struct(&data, input, envp);
 	loop(&data, input, line);
-	(void)av;
-	(void)ac;
 	if (data.env)
 		malloc_free(data.env);
 	rl_clear_history();
+	(void)av;
+	(void)ac;
 }

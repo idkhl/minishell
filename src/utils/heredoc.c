@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:21:48 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 11:28:21 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:23:59 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	heredoc(t_input *input, int i)
 	signal(SIGINT, handle_signals);
 	signal(SIGQUIT, SIG_IGN);
 }
-
 
 void	pipe_heredoc(t_data *data, t_input *input, int nb)
 {

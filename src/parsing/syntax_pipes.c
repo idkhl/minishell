@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:45:48 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/06 16:23:23 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:24:08 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_begin_pipes(char *line)
 	ft_bzero(&pipe, sizeof(t_pipe));
 	while ((size_t)pipe.i < ft_strlen(line) && line[pipe.i])
 	{
-		// ignore_spaces(line, &pipe.i);
 		while (line[pipe.i] == ' ' || line[pipe.i] == '\t')
 			pipe.i++;
 		handle_quotes(line, &pipe.i, &pipe.quotes, &pipe.quote_char);
