@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:03:21 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/28 16:40:25 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:54:07 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static	void	ignore_spaces(char *line, int *i)
 		(*i)++;
 }
 
-static	int	end_of_close_operators(char *line, int *i, int *word)
+static	int	end_of_close_operators(char *line, int *i, int *word, t_data *data)
 {
 	if (line[*i + 1] == '>')
 		(*i)++;
@@ -26,6 +26,8 @@ static	int	end_of_close_operators(char *line, int *i, int *word)
 	ignore_spaces(line, i);
 	if (line[*i] == '\0' || line[*i] == '>')
 	{
+		data->exit_status = 2;
+		printf("EXIT STATUS =>%d\n", data->exit_status);
 		printf("bash: syntax error near unexpected token 'newline'\n");
 		return (1);
 	}
@@ -33,7 +35,7 @@ static	int	end_of_close_operators(char *line, int *i, int *word)
 	return (0);
 }
 
-int	check_close_operators(char *line)
+int	check_close_operators(char *line, t_data *data)
 {
 	int	i;
 	int	word;
@@ -45,7 +47,7 @@ int	check_close_operators(char *line)
 		ignore_spaces(line, &i);
 		if (line[i] == '>')
 		{
-			if (end_of_close_operators(line, &i, &word))
+			if (end_of_close_operators(line, &i, &word, data))
 				return (1);
 		}
 		else if (line[i] != ' ' && line[i] != '\t' && line[i] != '>')

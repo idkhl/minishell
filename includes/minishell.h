@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/11 16:12:27 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:58:44 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,14 +146,14 @@ char	*ft_strcpy(char *dest, char *src);
 void	free_strings(char **strs);
 void	ft_path(void);
 int		ft_isspace(int c);
-int		no_word_string(char *line);
+int		no_word_string(char *line, t_data *data);
 int		check_quotes(char *line);
-int		check_open_operators(char *line);
-int		check_close_operators(char *line);
-int		check_begin_pipes(char *line);
-int		check_end_pipes(char *line);
+int		check_open_operators(char *line, t_data *data);
+int		check_close_operators(char *line, t_data *data);
+int		check_begin_pipes(char *line, t_data *data);
+int		check_end_pipes(char *line, t_data *data);
 int		check_nb_pipes(char *line);
-int		check_syntax(char *line);
+int		check_syntax(char *line, t_data *data);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*quotecpy(char *dest, char *src, int n, char quote);
 void	allocate_new_struct(t_input **input, char *line);

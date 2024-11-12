@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:28:21 by inesdakhlao       #+#    #+#             */
-/*   Updated: 2024/11/08 16:58:23 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:14:49 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	next_check_redir3(t_input *input, int i, t_data *data, t_redir redir)
 	}
 	return (0);
 }
+
 int	next_check_redir4(t_input *input, int i, t_data *data, t_redir redir)
 {
 	t_quote	quote;

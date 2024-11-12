@@ -29,3 +29,4 @@ bash-5.1$ ls |< knr wc
 bash: knr: No such file or directory
 bash-5.1$ echo $?
 1
+

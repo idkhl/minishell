@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/11 17:11:24 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:22:02 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	data->exp = NULL;
 	data->copy_stdin = -1;
 	data->copy_stdout = -1;
+	data->exit_status = 0;
 	if (input == NULL)
 		return ;
 	input->input = NULL;
@@ -34,9 +35,6 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	input->fd_in = -1;
 	input->fd_out = -1;
 	input->heredoc = 0;
-	data->exit_status = 0;
-	data->temp_count = 0;
-	data->temp_files = NULL;
 }
 
 void	no_pipe(t_data *data, t_input *input)
@@ -86,7 +84,7 @@ void	loop(t_data *data, t_input *input, char *line)
 	{
 		data->exit_status = g_signal;
 		add_history(line);
-		if (check_syntax(line) == 1)
+		if (check_syntax(line, data) == 1)
 		{
 			free(line);
 			line = readline("\001\e[1;32m\002minishell $> \001\e[0m\002");

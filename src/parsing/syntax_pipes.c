@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:45:48 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/06 16:23:23 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:36:35 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	handle_quotes(char *line, int *i, int *quotes, char *quote_char)
 	return (0);
 }
 
-int	check_begin_pipes(char *line)
+int	check_begin_pipes(char *line, t_data *data)
 {
 	t_pipe	pipe;
 
@@ -52,6 +52,7 @@ int	check_begin_pipes(char *line)
 			if (pipe.word == 0)
 			{
 				printf("bash: syntax error near unexpected token '|'\n");
+				data->exit_status = 2;
 				return (1);
 			}
 			pipe.word = 0;
@@ -63,7 +64,7 @@ int	check_begin_pipes(char *line)
 	return (0);
 }
 
-int	check_end_pipes(char *line)
+int	check_end_pipes(char *line, t_data *data)
 {
 	int	i;
 
@@ -78,7 +79,10 @@ int	check_end_pipes(char *line)
 				&& (line[i] == ' ' || line[i] == '\t' || line[i] == '|'))
 				i++;
 			if (line[i] == '\0')
+			{
+				data->exit_status = 1;
 				return (printf("bash: syntax error\n"), 1);
+			}
 		}
 		else if (line[i] != '\0')
 		i++;

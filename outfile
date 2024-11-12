@@ -1,14 +1,12 @@
-total 128
--rw-r--r-- 1 afrikach 2023_paris      0 Nov  8 13:36 asdlkj
--rw-r--r-- 1 afrikach 2023_paris    586 Nov  8 13:35 exemples_a_tester.c
-drwxr-xr-x 2 afrikach 2023_paris     40 Nov  8 13:35 includes
--rw-r--r-- 1 afrikach 2023_paris      0 Nov  8 13:37 infile
-drwxr-xr-x 2 afrikach 2023_paris   4096 Nov  8 13:36 libft
--rw-r--r-- 1 afrikach 2023_paris   2376 Nov  8 13:35 Makefile
--rwxr-xr-x 1 afrikach 2023_paris 106072 Nov  8 13:36 minishell
--rw-r--r-- 1 afrikach 2023_paris    262 Nov  8 13:36 notes
--rw-r--r-- 1 afrikach 2023_paris      0 Nov  8 13:37 outfile
--rw-r--r-- 1 afrikach 2023_paris      0 Nov  8 13:37 sdsads
-drwxr-xr-x 5 afrikach 2023_paris    147 Nov  8 13:36 src
--rw-r--r-- 1 afrikach 2023_paris    245 Sep 11 17:02 valgrind-readline.supp
-hello
+exemples_a_tester.c
+includes
+infile
+libft
+Makefile
+minishell
+notes
+outfile
+src
+suppgarfi.supp
+test
+valgrind-readline.supp
