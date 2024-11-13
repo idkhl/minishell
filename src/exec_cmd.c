@@ -6,7 +6,7 @@
 /*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:36:50 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 11:42:59 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:38:02 by idakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	exec_pid(t_input *input, t_data *data, char **tab, char *cmd)
 		return (free_child(data, input, cmd, 0), 0);
 	if (!cmd)
 	{
-		if ((tab != NULL && *tab != NULL)
-			&& (!input[0].in_file
-				|| ft_strcmp(input[0].redir_infile, "<<") != 0))
-			ft_error_msg(tab[0], ": command not found");
+		ft_error_msg(tab[0], ": command not found");
 		return (free_child(data, input, cmd, 127), 127);
 	}
 	if (execve(cmd, tab, data->env) == -1)
