@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:40:30 by afrikach          #+#    #+#             */
-/*   Updated: 2024/10/30 16:38:14 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:30:03 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,6 @@ void	free_strings(char **strs)
 	}
 	free(strs);
 }
-
-// void	ft_path(void)
-// {
-// 	char	*path;
-
-// 	path = getenv("PATH");
-// 	if (path != NULL)
-// 		printf("PATH=%s\n", path);
-// }
 
 int	ft_isspace(int c)
 {

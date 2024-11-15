@@ -6,7 +6,7 @@
 #    By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 15:38:17 by afrikach          #+#    #+#              #
-#    Updated: 2024/11/11 18:42:16 by idakhlao         ###   ########.fr        #
+#    Updated: 2024/11/14 10:58:48 by idakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,10 @@ LIBFT = ./libft/libft.a
 CC = cc
 RM = rm -f
 
-all: $(NAME)
-
 $(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+	mkdir -p $(OBJS_DIR) $(OBJS_DIR)/src $(OBJS_DIR)/src/utils $(OBJS_DIR)/src/builtins $(OBJS_DIR)/src/parsing
+
+all: $(NAME)
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<

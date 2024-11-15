@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:50:34 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/12 15:49:41 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:28:00 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	no_word_string(char *line, t_data *data)
 	return (0);
 }
 
-int	check_quotes(char *line)
+int	check_quotes(char *line, t_data *data)
 {
 	int	i;
 	int	simple_quote;
@@ -72,17 +72,14 @@ int	check_quotes(char *line)
 	while (line[i])
 	{
 		if (line[i] == '\'' && double_quote == 0)
-		{
 			simple_quote = !simple_quote;
-		}
 		else if (line[i] == '"' && simple_quote == 0)
-		{
 			double_quote = !double_quote;
-		}
 		i++;
 	}
 	if (simple_quote || double_quote)
 	{
+		data->exit_status = 2;
 		printf("bash: syntax error\n");
 		return (1);
 	}
@@ -95,7 +92,7 @@ int	check_syntax(char *line, t_data *data)
 		return (1);
 	if (no_word_string(line, data) == 1)
 		return (1);
-	if (check_quotes(line) == 1)
+	if (check_quotes(line, data) == 1)
 		return (1);
 	if (check_open_operators(line, data) == 1)
 		return (1);

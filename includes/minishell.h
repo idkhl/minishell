@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:30:22 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 13:25:43 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:31:08 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ typedef struct s_input
 	char	*out_file;
 	char	*redir_infile;
 	char	*redir_outfile;
-	int		fd_in;
-	int		fd_out;
 	int		heredoc;
 }	t_input;
 
@@ -145,7 +143,7 @@ void	free_strings(char **strs);
 void	ft_path(void);
 int		ft_isspace(int c);
 int		no_word_string(char *line, t_data *data);
-int		check_quotes(char *line);
+int		check_quotes(char *line, t_data *data);
 int		check_open_operators(char *line, t_data *data);
 int		check_close_operators(char *line, t_data *data);
 int		check_begin_pipes(char *line, t_data *data);

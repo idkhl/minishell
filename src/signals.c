@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idakhlao <idakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:43:39 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/08 15:27:40 by idakhlao         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:32:32 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,3 @@ void	handle_signals(int sig)
 		rl_redisplay();
 	}
 }
-
-//parent:	^C -> ^C + newline
-//			^D -> exit
-//			^\ -> rien
-//enfant:	^C -> ^C + newline
-//			^D -> newline
-//			^\ -> ^\Quit (core dumped)
-//heredoc:	^C -> ^C + newline
-//			^D -> warning: ... + newline
-//			^\ -> rien
-// mettre exit pour ctr D

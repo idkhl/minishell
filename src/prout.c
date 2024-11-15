@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:29:31 by idakhlao          #+#    #+#             */
-/*   Updated: 2024/11/12 15:48:25 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:31:15 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	init_struct(t_data *data, t_input *input, char **envp)
 	input->out_file = NULL;
 	input->redir_infile = NULL;
 	input->redir_outfile = NULL;
-	input->fd_in = -1;
-	input->fd_out = -1;
 	input->heredoc = 0;
 }
 

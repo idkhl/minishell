@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:47:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/07 15:49:35 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:34:29 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,46 +91,3 @@ int	get_tab_len(char *s)
 	}
 	return (len);
 }
-
-//return 3 //echo "hello yy"gg
-//return 2 //echo hh"hello yy"gg
-//return 4 //echo ff<"infile"
-//
-
-// int	get_tab_len(char *s)
-// {
-// 	int	i;
-// 	int	len;
-
-// 	i = 0;
-// 	len = 0;
-// 	while (s[i])
-// 	{
-// 		while (s[i] && ft_isspace(s[i]) == 1)
-// 			i++;
-// 		if (s[i] && (s[i] == '\'' || s[i] == '"'))
-// 		{
-// 			len++;
-// 			i += len_with_quote(s + i);
-// 		}
-// 		else if (s[i] && (s[i] == '<' || s[i] == '>'))
-// 			len += handle_redirections(s, &i);
-// 		else if (s[i] && ft_isspace(s[i]) == 0)
-// 		{
-// 			len++;
-// 			while (s[i] && ft_isspace(s[i]) == 0 && s[i] != '<' && s[i] != '>')
-// 				i++;
-// 		}
-// 	}
-// 	return (len);
-// }
-
-// int	get_len2(char *s)
-// {
-// 	int	len;
-
-// 	len = 0;
-// 	while (s[len] && !ft_isspace(s[len]) && s[len] != '<' && s[len] != '>')
-// 		len++;
-// 	return (len);
-// }

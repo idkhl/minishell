@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:22:39 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/12 13:26:55 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:33:23 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,42 +89,3 @@ int	get_tab_size(char **tab)
 		size++;
 	return (size);
 }
-
-// void	fill_cmd(t_input *input, t_data *data, t_quote *quote)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	index_redir;
-// 	int	k;
-
-// 	i = 0;
-// 	while (input[i].tab)
-// 	{
-// 		input[i].cmd = malloc(sizeof(char *) * (get_nb_cmd(input) + 1));
-// 		j = 0;
-// 		k = 0;
-// 		while (input[i].tab[j])
-// 		{
-// 			index_redir = get_index_redir(input, j);
-// 			if (index_redir == j)
-// 				j += 2;
-// 			else 
-// 			{
-// 				if (add_to_input(input[i].tab[j], data, quote) == NULL)
-// 				{
-// 					j++;
-// 					continue ;
-// 				}
-// 				else
-// 				{
-// 					input[i].cmd[k] 
-// 						= add_to_input(input[i].tab[j], data, quote);
-// 					j++;
-// 					k++;
-// 				}
-// 			}
-// 		}
-// 		input[i].cmd[k] = NULL;
-// 		i++;
-// 	}
-// }
