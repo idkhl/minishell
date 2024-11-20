@@ -19,8 +19,8 @@ Minishell est un shell minimaliste développé dans le cadre d'un projet éducat
 
 ## **Fonctionnalités**
 - Exécution des commandes simples (par exemple, `ls`, `echo`, `pwd`).
-- Gestion des redirections (`>`, `<`, `>>`).
-- Gestion des pipes (`|`).
+- Gestion des redirections(`>`, `<`, `>>`).
+- Gestion des pipes(`|`).
 - Gestion des signaux (CTRL-C, CTRL-\).
 - Implémentation des built-ins : 
   - `cd`
